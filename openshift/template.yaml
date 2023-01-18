@@ -112,7 +112,7 @@ objects:
           envFrom:
             - configMapRef:
                 name: glitchtip-configmap
-          image: "${GLITCHTIP_IMAGE}:${GLITCHTIP_VERSION}"
+          image: "${IMAGE}:${IMAGE_TAG}"
           imagePullPolicy: Always
           name: beat
           readinessProbe:
@@ -176,7 +176,7 @@ objects:
               topologyKey: "kubernetes.io/hostname"
         initContainers:
         - name: init-migration
-          image: "${GLITCHTIP_IMAGE}:${GLITCHTIP_VERSION}"
+          image: "${IMAGE}:${IMAGE_TAG}"
           command: ["python3", "./manage.py", "migrate"]
           env:
           - name: DATABASE_HOST
@@ -266,7 +266,7 @@ objects:
           envFrom:
             - configMapRef:
                 name: glitchtip-configmap
-          image: "${GLITCHTIP_IMAGE}:${GLITCHTIP_VERSION}"
+          image: "${IMAGE}:${IMAGE_TAG}"
           name: web
           ports:
           - containerPort: ${{GT_APP_PORT}}
@@ -412,7 +412,7 @@ objects:
           envFrom:
             - configMapRef:
                 name: glitchtip-configmap
-          image: "${GLITCHTIP_IMAGE}:${GLITCHTIP_VERSION}"
+          image: "${IMAGE}:${IMAGE_TAG}"
           name: worker
           readinessProbe:
             exec:
@@ -440,14 +440,14 @@ objects:
         restartPolicy: Always
 
 parameters:
-- name: GLITCHTIP_VERSION
-  description: Glitchtip version
-  value: "latest"
-  required: true
-
-- name: GLITCHTIP_IMAGE
+- name: IMAGE
   description: Image to use for glitchtip
   value: "quay.io/app-sre/glitchtip"
+  required: true
+
+- name: IMAGE_TAG
+  description: Glitchtip version
+  value: "latest"
   required: true
 
 - name: GT_APP_PORT
