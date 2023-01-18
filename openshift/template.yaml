@@ -1,0 +1,568 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+labels:
+  template: glitchtip
+metadata:
+  name: glitchtip
+  annotations:
+    description: glitchtip
+objects:
+# -------- CONFIG MAP ----------
+- apiVersion: v1
+  kind: ConfigMap
+  data:
+    GLITCHTIP_DOMAIN: ${GLITCHTIP_DOMAIN}
+    PORT: "${GT_APP_PORT}"
+    ENABLE_OBSERVABILITY_API: "${ENABLE_OBSERVABILITY_API}"
+    ENABLE_ORGANIZATION_CREATION: "${ENABLE_ORGANIZATION_CREATION}"
+    SOCIALACCOUNT_PROVIDERS_keycloak_KEYCLOAK_URL: ${KEYCLOAK_URL}
+    SOCIALACCOUNT_PROVIDERS_keycloak_KEYCLOAK_REALM: ${KEYCLOAK_REALM}
+    DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
+  metadata:
+    annotations: {}
+    labels:
+      app.kubernetes.io/instance: glitchtip
+      app.kubernetes.io/name: glitchtip
+    name: glitchtip-configmap
+
+# ---- BEAT DEPLOYMENT ------
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    name: glitchtip-beat
+
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: glitchtip-beat
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      ignore-check.kube-linter.io/minimum-three-replicas: "Beat deployment should only have 1 replica"
+    labels:
+      app.kubernetes.io/component: beat
+      app.kubernetes.io/instance: glitchtip
+      app.kubernetes.io/name: glitchtip
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app.kubernetes.io/component: beat
+        app.kubernetes.io/instance: glitchtip
+        app.kubernetes.io/name: glitchtip
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/component: beat
+          app.kubernetes.io/instance: glitchtip
+          app.kubernetes.io/name: glitchtip
+      spec:
+        serviceAccountName: glitchtip-beat
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        terminationGracePeriodSeconds: 30
+        containers:
+        - env:
+          - name: SERVER_ROLE
+            value: beat
+          - name: REDIS_URL
+            valueFrom:
+              secretKeyRef:
+                name: redis-credentials
+                key: redis.url
+          - name: SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: tokens
+                key: PASSWORD_SALT_TOKEN
+          - name: REDIS_PORT
+            valueFrom:
+              secretKeyRef:
+                name: ${REDIS_SECRET_NAME}
+                key: db.port
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ${REDIS_SECRET_NAME}
+                key: db.auth_token
+          - name: DATABASE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.host
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.password
+          - name: DATABASE_NAME
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.name
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.user
+          envFrom:
+            - configMapRef:
+                name: glitchtip-configmap
+          image: "${GLITCHTIP_IMAGE}:${GLITCHTIP_VERSION}"
+          imagePullPolicy: Always
+          name: beat
+          readinessProbe:
+            exec:
+              command: ["bash", "-c", "celery -A glitchtip inspect ping"]
+            initialDelaySeconds: 40
+            timeoutSeconds: 180
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          livenessProbe:
+            exec:
+              command: ["bash", "-c", "celery -A glitchtip inspect ping"]
+            initialDelaySeconds: 40
+            timeoutSeconds: 180
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: ${{BEAT_CPU_REQUESTS}}
+              memory: ${{BEAT_MEMORY_REQUESTS}}
+            limits:
+              # cpu: ${{BEAT_CPU_LIMITS}}
+              memory: ${{BEAT_MEMORY_LIMITS}}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+
+# ------- WEB DEPLOYMENT --------------------
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    name: glitchtip-web
+
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      glitchtip: web
+    name: glitchtip-web
+  spec:
+    replicas: ${{GT_WEB_REPLICAS}}
+    selector:
+      matchLabels:
+        glitchtip: web
+    template:
+      metadata:
+        labels:
+          glitchtip: web
+      spec:
+        serviceAccountName: glitchtip-web
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: glitchtip
+                  operator: In
+                  values:
+                  - web
+              topologyKey: "kubernetes.io/hostname"
+        initContainers:
+        - name: init-migration
+          image: "${GLITCHTIP_IMAGE}:${GLITCHTIP_VERSION}"
+          command: ["python3", "./manage.py", "migrate"]
+          env:
+          - name: DATABASE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.host
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.password
+          - name: DATABASE_NAME
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.name
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.user
+        containers:
+        - env:
+          - name: SERVER_ROLE
+            value: web
+          - name: REDIS_URL
+            valueFrom:
+              secretKeyRef:
+                name: redis-credentials
+                key: redis.url
+          - name: REDIS_PORT
+            valueFrom:
+              secretKeyRef:
+                name: ${REDIS_SECRET_NAME}
+                key: db.port
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ${REDIS_SECRET_NAME}
+                key: db.auth_token
+          - name: DATABASE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.host
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.password
+          - name: DATABASE_NAME
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.name
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.user
+          - name: EMAIL_HOST
+            valueFrom:
+              secretKeyRef:
+                name: ${SMTP_SETTINGS_SECRET}
+                key: server
+          - name: EMAIL_HOST_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ${SMTP_SETTINGS_SECRET}
+                key: password
+          - name: EMAIL_HOST_USER
+            valueFrom:
+              secretKeyRef:
+                name: ${SMTP_SETTINGS_SECRET}
+                key: username
+          - name: EMAIL_PORT
+            valueFrom:
+              secretKeyRef:
+                name: ${SMTP_SETTINGS_SECRET}
+                key: port
+          - name: EMAIL_USE_TLS
+            valueFrom:
+              secretKeyRef:
+                name: ${SMTP_SETTINGS_SECRET}
+                key: require_tls
+          envFrom:
+            - configMapRef:
+                name: glitchtip-configmap
+          image: "${GLITCHTIP_IMAGE}:${GLITCHTIP_VERSION}"
+          name: web
+          ports:
+          - containerPort: ${{GT_APP_PORT}}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: ${{GT_APP_PORT}}
+              httpHeaders:
+              - name: Test-Header
+                value: Awesome
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /
+              port: ${{GT_APP_PORT}}
+              httpHeaders:
+              - name: Test-Header
+                value: Awesome
+            initialDelaySeconds: 15
+            periodSeconds: 15
+          resources:
+            requests:
+              cpu: ${{GT_WEB_CPU_REQUESTS}}
+              memory: ${{GT_WEB_MEMORY_REQUESTS}}
+            limits:
+              # cpu: ${{GT_WEB_CPU_LIMITS}}
+              memory: ${{GT_WEB_MEMORY_LIMITS}}
+        restartPolicy: Always
+
+# ---------- WEB SERVICE -----------
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      glitchtip: web
+    name: glitchtip-web
+  spec:
+    ports:
+    - name: "8000"
+      port: ${{GT_APP_PORT}}
+      targetPort: ${{GT_APP_PORT}}
+    selector:
+      glitchtip: web
+
+# --------- WORKER DEPLOYMENT --------------
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    name: glitchtip-worker
+
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      glitchtip: worker
+    name: glitchtip-worker
+  spec:
+    replicas: ${{GT_WORKER_REPLICAS}}
+    selector:
+      matchLabels:
+        glitchtip: worker
+    template:
+      metadata:
+        labels:
+          glitchtip: worker
+      spec:
+        serviceAccountName: glitchtip-worker
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: glitchtip
+                  operator: In
+                  values:
+                  - worker
+              topologyKey: "kubernetes.io/hostname"
+        containers:
+        - env:
+          - name: SERVER_ROLE
+            value: worker
+          - name: REDIS_URL
+            valueFrom:
+              secretKeyRef:
+                name: redis-credentials
+                key: redis.url
+          - name: REDIS_PORT
+            valueFrom:
+              secretKeyRef:
+                name: ${REDIS_SECRET_NAME}
+                key: db.port
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ${REDIS_SECRET_NAME}
+                key: db.auth_token
+          - name: DATABASE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.host
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.password
+          - name: DATABASE_NAME
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.name
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.user
+          - name: EMAIL_HOST
+            valueFrom:
+              secretKeyRef:
+                name: ${SMTP_SETTINGS_SECRET}
+                key: server
+          - name: EMAIL_HOST_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ${SMTP_SETTINGS_SECRET}
+                key: password
+          - name: EMAIL_HOST_USER
+            valueFrom:
+              secretKeyRef:
+                name: ${SMTP_SETTINGS_SECRET}
+                key: username
+          - name: EMAIL_PORT
+            valueFrom:
+              secretKeyRef:
+                name: ${SMTP_SETTINGS_SECRET}
+                key: port
+          - name: EMAIL_USE_TLS
+            valueFrom:
+              secretKeyRef:
+                name: ${SMTP_SETTINGS_SECRET}
+                key: require_tls
+          envFrom:
+            - configMapRef:
+                name: glitchtip-configmap
+          image: "${GLITCHTIP_IMAGE}:${GLITCHTIP_VERSION}"
+          name: worker
+          readinessProbe:
+            exec:
+              command: ["bash", "-c", "celery -A glitchtip inspect ping"]
+            initialDelaySeconds: 40
+            timeoutSeconds: 180
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          livenessProbe:
+            exec:
+              command: ["bash", "-c", "celery -A glitchtip inspect ping"]
+            initialDelaySeconds: 40
+            timeoutSeconds: 180
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: ${{GT_WORKER_CPU_REQUESTS}}
+              memory: ${{GT_WORKER_MEMORY_REQUESTS}}
+            limits:
+              # cpu: ${{GT_WORKER_CPU_LIMITS}}
+              memory: ${{GT_WORKER_MEMORY_LIMITS}}
+        restartPolicy: Always
+
+parameters:
+- name: GLITCHTIP_VERSION
+  description: Glitchtip version
+  value: "latest"
+  required: true
+
+- name: GLITCHTIP_IMAGE
+  description: Image to use for glitchtip
+  value: "quay.io/app-sre/glitchtip"
+  required: true
+
+- name: GT_APP_PORT
+  description: Glitchtip uwsgi application port
+  value: "8000"
+  required: true
+
+- name: GLITCHTIP_DOMAIN
+  description: Glitchtip route url
+  value: "https://glitchtip.stage.devshift.net"
+  required: true
+
+- name: DEFAULT_FROM_EMAIL
+  description: Email address to use as the sender
+  value: "no-reply@devshift.net"
+  required: true
+
+- name: SMTP_SETTINGS_SECRET
+  description: Secret with SMTP settings
+  value: "smtp"
+  required: true
+
+- name: ENABLE_ORGANIZATION_CREATION
+  description: Enable or disable the manual creation of the organization by users
+  required: true
+  value: "False"
+
+- description: Keycloak server url
+  name: KEYCLOAK_URL
+
+- description: Keycloak realm
+  name: KEYCLOAK_REALM
+
+- name: ENABLE_OBSERVABILITY_API
+  description: Enable prometheus metrics exporter
+  value: "True"
+  required: true
+
+- description: RDS secret name
+  name: RDS_SECRET_NAME
+  value: glitchtip-rds
+
+- description: Redis secret name
+  name: REDIS_SECRET_NAME
+  value: glitchtip-elasticache
+
+# Web Pod limits
+- name: GT_WEB_REPLICAS
+  description: Web replicas
+  value: "3"
+  required: true
+
+- name: GT_WEB_MEMORY_REQUESTS
+  description: Web memory requests
+  value: "1Gi"
+  required: true
+
+- name: GT_WEB_MEMORY_LIMITS
+  description: Web memory limits
+  value: "1Gi"
+  required: true
+
+- name: GT_WEB_CPU_REQUESTS
+  description: Web cpu requests
+  value: "500m"
+  required: true
+
+# - name: GT_WEB_CPU_LIMITS
+#   description: GT_WEB_CPU_LIMITS
+#   value: "5"
+#   required: true
+
+# Worker Pod limits
+- name: GT_WORKER_REPLICAS
+  description: Worker replicas
+  value: "3"
+  required: true
+
+- name: GT_WORKER_MEMORY_REQUESTS
+  description: Worker memory requests
+  value: "1Gi"
+  required: true
+
+- name: GT_WORKER_MEMORY_LIMITS
+  description: Worker memory limits
+  value: "1Gi"
+  required: true
+
+- name: GT_WORKER_CPU_REQUESTS
+  description: Worker cpu requests
+  value: "500m"
+  required: true
+
+# - name: GT_WORKER_CPU_LIMITS
+#   description: GT_WORKER_CPU_LIMITS
+#   value: "200m"
+#   required: true
+
+# Beat Pod limits
+- name: BEAT_MEMORY_REQUESTS
+  description: Beat memory requests
+  value: "500M"
+  required: true
+
+- name: BEAT_MEMORY_LIMITS
+  description: Beat memory limits
+  value: "600M"
+  required: true
+
+- name: BEAT_CPU_REQUESTS
+  description: Beat cpu requests
+  value: "100m"
+  required: true
+
+# - name: BEAT_CPU_LIMITS
+#   description: Beat cpu limits
+#   value: "600m"
+#   required: true
