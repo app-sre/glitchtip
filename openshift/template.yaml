@@ -24,7 +24,6 @@ objects:
     annotations:
       qontract.recycle: "true"
     labels:
-      app.kubernetes.io/instance: glitchtip
       app.kubernetes.io/name: glitchtip
     name: glitchtip-configmap
 
@@ -33,17 +32,18 @@ objects:
   kind: ServiceAccount
   metadata:
     name: glitchtip-beat
+    labels:
+      app.kubernetes.io/component: beat
+      app.kubernetes.io/name: glitchtip
 
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
     name: glitchtip-beat
     annotations:
-      deployment.kubernetes.io/revision: "1"
       ignore-check.kube-linter.io/minimum-three-replicas: "Beat deployment should only have 1 replica"
     labels:
       app.kubernetes.io/component: beat
-      app.kubernetes.io/instance: glitchtip
       app.kubernetes.io/name: glitchtip
   spec:
     progressDeadlineSeconds: 600
@@ -52,7 +52,6 @@ objects:
     selector:
       matchLabels:
         app.kubernetes.io/component: beat
-        app.kubernetes.io/instance: glitchtip
         app.kubernetes.io/name: glitchtip
     strategy:
       type: Recreate
@@ -60,7 +59,6 @@ objects:
       metadata:
         labels:
           app.kubernetes.io/component: beat
-          app.kubernetes.io/instance: glitchtip
           app.kubernetes.io/name: glitchtip
       spec:
         serviceAccountName: glitchtip-beat
@@ -139,7 +137,7 @@ objects:
               cpu: ${{BEAT_CPU_REQUESTS}}
               memory: ${{BEAT_MEMORY_REQUESTS}}
             limits:
-              # cpu: ${{BEAT_CPU_LIMITS}}
+              cpu: ${{BEAT_CPU_LIMITS}}
               memory: ${{BEAT_MEMORY_LIMITS}}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
@@ -149,22 +147,28 @@ objects:
   kind: ServiceAccount
   metadata:
     name: glitchtip-web
+    labels:
+      app.kubernetes.io/component: web
+      app.kubernetes.io/name: glitchtip
 
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
     labels:
-      glitchtip: web
+      app.kubernetes.io/component: web
+      app.kubernetes.io/name: glitchtip
     name: glitchtip-web
   spec:
     replicas: ${{GT_WEB_REPLICAS}}
     selector:
       matchLabels:
-        glitchtip: web
+        app.kubernetes.io/component: web
+        app.kubernetes.io/name: glitchtip
     template:
       metadata:
         labels:
-          glitchtip: web
+          app.kubernetes.io/component: web
+          app.kubernetes.io/name: glitchtip
       spec:
         serviceAccountName: glitchtip-web
         affinity:
@@ -172,7 +176,7 @@ objects:
             requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
                 matchExpressions:
-                - key: glitchtip
+                - key: app.kubernetes.io/component
                   operator: In
                   values:
                   - web
@@ -296,7 +300,7 @@ objects:
               cpu: ${{GT_WEB_CPU_REQUESTS}}
               memory: ${{GT_WEB_MEMORY_REQUESTS}}
             limits:
-              # cpu: ${{GT_WEB_CPU_LIMITS}}
+              cpu: ${{GT_WEB_CPU_LIMITS}}
               memory: ${{GT_WEB_MEMORY_LIMITS}}
         restartPolicy: Always
 
@@ -305,7 +309,8 @@ objects:
   kind: Service
   metadata:
     labels:
-      glitchtip: web
+      app.kubernetes.io/component: web
+      app.kubernetes.io/name: glitchtip
     name: glitchtip-web
   spec:
     ports:
@@ -320,22 +325,28 @@ objects:
   kind: ServiceAccount
   metadata:
     name: glitchtip-worker
+    labels:
+      app.kubernetes.io/component: worker
+      app.kubernetes.io/name: glitchtip
 
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
     labels:
-      glitchtip: worker
+      app.kubernetes.io/component: worker
+      app.kubernetes.io/name: glitchtip
     name: glitchtip-worker
   spec:
     replicas: ${{GT_WORKER_REPLICAS}}
     selector:
       matchLabels:
-        glitchtip: worker
+        app.kubernetes.io/component: worker
+        app.kubernetes.io/name: glitchtip
     template:
       metadata:
         labels:
-          glitchtip: worker
+          app.kubernetes.io/component: worker
+          app.kubernetes.io/name: glitchtip
       spec:
         serviceAccountName: glitchtip-worker
         affinity:
@@ -343,7 +354,7 @@ objects:
             requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
                 matchExpressions:
-                - key: glitchtip
+                - key: app.kubernetes.io/component
                   operator: In
                   values:
                   - worker
@@ -438,7 +449,7 @@ objects:
               cpu: ${{GT_WORKER_CPU_REQUESTS}}
               memory: ${{GT_WORKER_MEMORY_REQUESTS}}
             limits:
-              # cpu: ${{GT_WORKER_CPU_LIMITS}}
+              cpu: ${{GT_WORKER_CPU_LIMITS}}
               memory: ${{GT_WORKER_MEMORY_LIMITS}}
         restartPolicy: Always
 
@@ -523,10 +534,10 @@ parameters:
   value: "500m"
   required: true
 
-# - name: GT_WEB_CPU_LIMITS
-#   description: GT_WEB_CPU_LIMITS
-#   value: "5"
-#   required: true
+- name: GT_WEB_CPU_LIMITS
+  description: GT_WEB_CPU_LIMITS
+  value: "1"
+  required: true
 
 # Worker Pod limits
 - name: GT_WORKER_REPLICAS
@@ -549,10 +560,10 @@ parameters:
   value: "500m"
   required: true
 
-# - name: GT_WORKER_CPU_LIMITS
-#   description: GT_WORKER_CPU_LIMITS
-#   value: "200m"
-#   required: true
+- name: GT_WORKER_CPU_LIMITS
+  description: GT_WORKER_CPU_LIMITS
+  value: "1"
+  required: true
 
 # Beat Pod limits
 - name: BEAT_MEMORY_REQUESTS
@@ -570,7 +581,7 @@ parameters:
   value: "100m"
   required: true
 
-# - name: BEAT_CPU_LIMITS
-#   description: Beat cpu limits
-#   value: "600m"
-#   required: true
+- name: BEAT_CPU_LIMITS
+  description: Beat cpu limits
+  value: "500m"
+  required: true
