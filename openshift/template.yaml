@@ -52,6 +52,7 @@ objects:
     selector:
       matchLabels:
         app.kubernetes.io/component: beat
+        app.kubernetes.io/instance: glitchtip
         app.kubernetes.io/name: glitchtip
     strategy:
       type: Recreate
@@ -59,6 +60,7 @@ objects:
       metadata:
         labels:
           app.kubernetes.io/component: beat
+          app.kubernetes.io/instance: glitchtip
           app.kubernetes.io/name: glitchtip
       spec:
         serviceAccountName: glitchtip-beat
