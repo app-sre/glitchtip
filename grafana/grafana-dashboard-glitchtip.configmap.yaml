@@ -27,6 +27,8 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
+      "id": 232,
+      "iteration": 1674141762728,
       "links": [],
       "liveNow": false,
       "panels": [
@@ -46,7 +48,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P6FCC77E83F3CAD9E"
+            "uid": "${ds}"
           },
           "description": "SLI Specification: \nType: Availability\nSpecification: 95% of successful HTTP requests in the past 28 days were successful.\n\nWe measure the ratio of the total number of successful HTTP requests and the total number of HTTP requests regardless of status.",
           "fieldConfig": {
@@ -125,7 +127,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${DS}"
+                "uid": "${ds}"
               },
               "expr": "(sum(rate(haproxy_backend_http_responses_total{exported_namespace=~\"glitchtip-.*\", code!=\"5xx\"}[1d])) by (exported_namespace) / sum(rate(haproxy_backend_connections_total{backend=~\".*https.*\", exported_namespace=~\"glitchtip-.*\"}[1d])) by (exported_namespace)) * 100",
               "refId": "A"
@@ -137,7 +139,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "aQ7y3WBnk"
+            "uid": "${ds}"
           },
           "description": "SLI Specification:\nType: Latency\n90% of the HTTP requests in the past 28 days were completed in less than 400 milliseconds.\n\nWe measure The ratio of the number of HTTP requests with latencies less than 400 milliseconds and the total number of HTTP requests.",
           "fieldConfig": {
@@ -216,7 +218,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "aQ7y3WBnk"
+                "uid": "${ds}"
               },
               "expr": "(sum(rate(django_http_requests_latency_seconds_by_view_method_bucket{le=\"0.5\", job=\"glitchtip-web\"}[28d])) by(job)\n/\nsum(rate(django_http_requests_latency_seconds_by_view_method_bucket{le=\"+Inf\", job=\"glitchtip-web\"}[28d])) by(job)) * 100",
               "refId": "A"
@@ -241,7 +243,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "aQ7y3WBnk"
+            "uid": "${ds}"
           },
           "description": "% of Remaining Error Budget = (Error Budget - Consumed Error Budget) / Error Budget",
           "fieldConfig": {
@@ -289,9 +291,9 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "aQ7y3WBnk"
+                "uid": "${ds}"
               },
-              "expr": "(1 - ((sum(increase(haproxy_backend_http_responses_total{exported_namespace=\"glitchtip-stage\", code=\"5xx\"}[28d]))) / (0.05 * sum(increase(haproxy_backend_connections_total{backend=~\".*https.*\", exported_namespace=\"glitchtip-stage\"}[28d]))))) * 100",
+              "expr": "(1 - ((sum(increase(haproxy_backend_http_responses_total{exported_namespace=~\"glitchtip-.*\", code=\"5xx\"}[28d]))) / (0.05 * sum(increase(haproxy_backend_connections_total{backend=~\".*https.*\", exported_namespace=~\"glitchtip-.*\"}[28d]))))) * 100",
               "refId": "A"
             }
           ],
@@ -301,7 +303,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "aQ7y3WBnk"
+            "uid": "${ds}"
           },
           "description": "% of Remaining Error Budget = (Error Budget - Consumed Error Budget) / Error Budget",
           "fieldConfig": {
@@ -354,7 +356,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "aQ7y3WBnk"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "(\n    (0.1 * (sum(rate(django_http_requests_latency_seconds_by_view_method_count[28d])) by (job))) - (\n        (\n            sum(rate(django_http_requests_latency_seconds_by_view_method_bucket{le=\"+Inf\"}[28d])) by (job) - sum(rate(django_http_requests_latency_seconds_by_view_method_bucket{le=\"0.5\"}[28d])) by (job)\n        )\n        )) / (0.1 * (sum(rate(django_http_requests_latency_seconds_by_view_method_count[28d])) by (job)))",
@@ -382,7 +384,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "tuHy3WB7z"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -433,7 +435,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "tuHy3WB7z"
+                "uid": "${ds}"
               },
               "expr": "sum by (alertname) (changes(ALERTS_FOR_STATE{job=\"glitchtip-web\"}[24h]) OR vector(0))",
               "refId": "A"
@@ -451,9 +453,9 @@ data:
         "list": [
           {
             "current": {
-              "selected": false,
-              "text": "app-sre-prod-04",
-              "value": "app-sre-prod-04"
+              "selected": true,
+              "text": "app-sre-prod-04-prometheus",
+              "value": "app-sre-prod-04-prometheus"
             },
             "hide": 0,
             "includeAll": false,
@@ -461,6 +463,7 @@ data:
             "name": "ds",
             "options": [],
             "query": "prometheus",
+            "queryValue": "",
             "refresh": 1,
             "regex": "",
             "skipUrlSync": false,
@@ -476,7 +479,7 @@ data:
       "timezone": "",
       "title": "Glitchtip SLO",
       "uid": "8hKIWxr7z",
-      "version": 15,
+      "version": 13,
       "weekStart": ""
     }
 kind: ConfigMap
