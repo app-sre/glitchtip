@@ -20,7 +20,8 @@ objects:
     DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
     I_PAID_FOR_GLITCHTIP: "True"
   metadata:
-    annotations: {}
+    annotations:
+      qontract.recycle: "true"
     labels:
       app.kubernetes.io/instance: glitchtip
       app.kubernetes.io/name: glitchtip
