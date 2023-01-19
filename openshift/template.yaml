@@ -320,7 +320,8 @@ objects:
       port: ${{GT_APP_PORT}}
       targetPort: ${{GT_APP_PORT}}
     selector:
-      glitchtip: web
+      app.kubernetes.io/component: web
+      app.kubernetes.io/name: glitchtip
 
 # --------- WORKER DEPLOYMENT --------------
 - apiVersion: v1
