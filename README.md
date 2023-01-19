@@ -1,6 +1,10 @@
-# glitchtip
-AppSRE glitchtip deployment
+# Red Hat AppSRE glitchtip deployment
 
+<img src="https://glitchtip.com/assets/home/issues-page@2x.webp">
+
+## What is Glitchtip?
+
+[Glitchtip](https://glitchtip.com) is a Sentry-compatible error-tracking service that helps you to find and fix bugs faster. It is a self-hosted alternative to Sentry.
 
 ## Release Process
 
