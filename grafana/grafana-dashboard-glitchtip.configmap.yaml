@@ -27,7 +27,6 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 381,
       "links": [],
       "liveNow": false,
       "panels": [
@@ -47,7 +46,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "aQ7y3WBnk"
+            "uid": "P6FCC77E83F3CAD9E"
           },
           "description": "SLI Specification: \nType: Availability\nSpecification: 95% of successful HTTP requests in the past 28 days were successful.\n\nWe measure the ratio of the total number of successful HTTP requests and the total number of HTTP requests regardless of status.",
           "fieldConfig": {
@@ -126,9 +125,9 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "aQ7y3WBnk"
+                "uid": "${DS}"
               },
-              "expr": "(sum(rate(haproxy_backend_http_responses_total{exported_namespace=\"glitchtip-stage\", code!=\"5xx\"}[1d])) by (exported_namespace) / sum(rate(haproxy_backend_connections_total{backend=~\".*https.*\", exported_namespace=\"glitchtip-stage\"}[1d])) by (exported_namespace)) * 100",
+              "expr": "(sum(rate(haproxy_backend_http_responses_total{exported_namespace=~\"glitchtip-.*\", code!=\"5xx\"}[1d])) by (exported_namespace) / sum(rate(haproxy_backend_connections_total{backend=~\".*https.*\", exported_namespace=~\"glitchtip-.*\"}[1d])) by (exported_namespace)) * 100",
               "refId": "A"
             }
           ],
@@ -449,7 +448,25 @@ data:
       "style": "dark",
       "tags": [],
       "templating": {
-        "list": []
+        "list": [
+          {
+            "current": {
+              "selected": false,
+              "text": "app-sre-prod-04",
+              "value": "app-sre-prod-04"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "multi": false,
+            "name": "ds",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          }
+        ]
       },
       "time": {
         "from": "now-30d",
@@ -459,7 +476,7 @@ data:
       "timezone": "",
       "title": "Glitchtip SLO",
       "uid": "8hKIWxr7z",
-      "version": 14,
+      "version": 15,
       "weekStart": ""
     }
 kind: ConfigMap
