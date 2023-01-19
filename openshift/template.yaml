@@ -19,6 +19,7 @@ objects:
     SOCIALACCOUNT_PROVIDERS_keycloak_KEYCLOAK_REALM: ${KEYCLOAK_REALM}
     DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
     I_PAID_FOR_GLITCHTIP: "True"
+    GLITCHTIP_MAX_EVENT_LIFE_DAYS: "${GLITCHTIP_MAX_EVENT_LIFE_DAYS}"
   metadata:
     annotations:
       qontract.recycle: "true"
@@ -486,6 +487,11 @@ parameters:
 - name: ENABLE_OBSERVABILITY_API
   description: Enable prometheus metrics exporter
   value: "True"
+  required: true
+
+- name: GLITCHTIP_MAX_EVENT_LIFE_DAYS
+  description: Max number of days to keep events in the database
+  value: "30"
   required: true
 
 - description: RDS secret name
