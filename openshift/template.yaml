@@ -15,6 +15,7 @@ objects:
     PORT: "${GT_APP_PORT}"
     ENABLE_OBSERVABILITY_API: "${ENABLE_OBSERVABILITY_API}"
     ENABLE_ORGANIZATION_CREATION: "${ENABLE_ORGANIZATION_CREATION}"
+    ENABLE_USER_REGISTRATION: "${ENABLE_USER_REGISTRATION}"
     SOCIALACCOUNT_PROVIDERS_keycloak_KEYCLOAK_URL: ${KEYCLOAK_URL}
     SOCIALACCOUNT_PROVIDERS_keycloak_KEYCLOAK_REALM: ${KEYCLOAK_REALM}
     DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
@@ -489,6 +490,11 @@ parameters:
 
 - name: ENABLE_ORGANIZATION_CREATION
   description: Enable or disable the manual creation of the organization by users
+  required: true
+  value: "False"
+
+- name: ENABLE_USER_REGISTRATION
+  description: Enable or disable the manual user registration
   required: true
   value: "False"
 
