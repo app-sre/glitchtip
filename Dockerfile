@@ -8,4 +8,4 @@ COPY *.patch /code/
 # Do not send invitation emails
 RUN cat 00-do-not-send-invitation-emails.patch | patch -p1
 # Accept all open invitations automatically
-RUN cat 01-automatically-accept-open-inivitations-at-login.patch | patch -p1
+# RUN cat 01-automatically-accept-open-inivitations-at-login.patch | patch -p1
