@@ -530,12 +530,12 @@ parameters:
 
 - name: GT_WEB_MEMORY_REQUESTS
   description: Web memory requests
-  value: "1Gi"
+  value: "500Mi"
   required: true
 
 - name: GT_WEB_MEMORY_LIMITS
   description: Web memory limits
-  value: "1Gi"
+  value: "500Mi"
   required: true
 
 - name: GT_WEB_CPU_REQUESTS
@@ -556,12 +556,12 @@ parameters:
 
 - name: GT_WORKER_MEMORY_REQUESTS
   description: Worker memory requests
-  value: "1Gi"
+  value: "1.2Gi"
   required: true
 
 - name: GT_WORKER_MEMORY_LIMITS
   description: Worker memory limits
-  value: "1Gi"
+  value: "1.2Gi"
   required: true
 
 - name: GT_WORKER_CPU_REQUESTS
@@ -577,12 +577,12 @@ parameters:
 # Beat Pod limits
 - name: BEAT_MEMORY_REQUESTS
   description: Beat memory requests
-  value: "500M"
+  value: "700M"
   required: true
 
 - name: BEAT_MEMORY_LIMITS
   description: Beat memory limits
-  value: "600M"
+  value: "700M"
   required: true
 
 - name: BEAT_CPU_REQUESTS
