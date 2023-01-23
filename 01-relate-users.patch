@@ -1,5 +1,5 @@
 diff --git a/glitchtip/settings.py b/glitchtip/settings.py
-index 59c46d2..8a4af9a 100644
+index 59c46d2..5f42013 100644
 --- a/glitchtip/settings.py
 +++ b/glitchtip/settings.py
 @@ -421,6 +421,10 @@ CELERY_BEAT_SCHEDULE = {
@@ -13,6 +13,14 @@ index 59c46d2..8a4af9a 100644
  }
  
  
+@@ -556,6 +560,7 @@ ACCOUNT_EMAIL_REQUIRED = True
+ ACCOUNT_USERNAME_REQUIRED = False
+ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ ACCOUNT_ADAPTER = "glitchtip.social.MFAAccountAdapter"
++ACCOUNT_UNIQUE_EMAIL = False
+ SOCIALACCOUNT_ADAPTER = "glitchtip.social.CustomSocialAccountAdapter"
+ INVITATION_BACKEND = "organizations_ext.invitation_backend.InvitationBackend"
+ SOCIALACCOUNT_PROVIDERS = {}
 diff --git a/organizations_ext/tasks.py b/organizations_ext/tasks.py
 index 666f1d5..e6cedaa 100644
 --- a/organizations_ext/tasks.py
