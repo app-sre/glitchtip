@@ -496,7 +496,7 @@ parameters:
 - name: ENABLE_USER_REGISTRATION
   description: Enable or disable the manual user registration
   required: true
-  value: "True"
+  value: "False"
 
 - description: Keycloak server url
   name: KEYCLOAK_URL
