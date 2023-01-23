@@ -1,25 +1,17 @@
 diff --git a/glitchtip/social.py b/glitchtip/social.py
-index c4ef995..1d4f2ef 100644
+index c4ef995..f3156a1 100644
 --- a/glitchtip/social.py
 +++ b/glitchtip/social.py
-@@ -154,12 +154,14 @@ class SocialLoginSerializer(BaseSocialLoginSerializer):
-                     raise serializers.ValidationError(
-                         _("User is already registered with this e-mail address."),
-                     )
--            # Added check for open signup
--            if not get_adapter(request).is_open_for_signup(request, login):
--                raise serializers.ValidationError(_("User registration is closed."))
--            else:
--                login.lookup()
--                login.save(request, connect=True)
-+            login.lookup()
-+            login.save(request, connect=True)
-+
+@@ -161,6 +161,12 @@ class SocialLoginSerializer(BaseSocialLoginSerializer):
+                 login.lookup()
+                 login.save(request, connect=True)
+ 
 +        # automatically accept any open invitation for this user
-+        from ..organizations_ext.models import OrganizationUser
++        from organizations_ext.models import OrganizationUser
 +
 +        for org_user in OrganizationUser.objects.filter(email=login.user.email):
 +            org_user.accept_invite(login.user)
- 
++
          attrs["user"] = login.account.user
  
+         return attrs
