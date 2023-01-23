@@ -1,0 +1,40 @@
+diff --git a/glitchtip/settings.py b/glitchtip/settings.py
+index 59c46d2..8a4af9a 100644
+--- a/glitchtip/settings.py
++++ b/glitchtip/settings.py
+@@ -421,6 +421,10 @@ CELERY_BEAT_SCHEDULE = {
+         "task": "glitchtip.uptime.tasks.dispatch_checks",
+         "schedule": timedelta(seconds=30),
+     },
++    "relate-users": {
++        "task": "organizations_ext.tasks.relate_users",
++        "schedule": timedelta(minutes=1),
++    },
+ }
+ 
+ 
+diff --git a/organizations_ext/tasks.py b/organizations_ext/tasks.py
+index 666f1d5..e6cedaa 100644
+--- a/organizations_ext/tasks.py
++++ b/organizations_ext/tasks.py
+@@ -46,3 +46,20 @@ def send_email_met_quota(organization_id: int):
+ @shared_task
+ def send_email_invite(org_user_id: int, token: str):
+     InvitationEmail(pk=org_user_id, token=token).send_email()
++
++
++@shared_task
++def relate_users():
++    """Create missing django users for all org users and accept the invite manually."""
++    from django.contrib.auth import get_user_model
++
++    from .models import OrganizationUser
++
++    User = get_user_model()
++    for org_user in OrganizationUser.objects.filter(user=None):
++        user, created = User.objects.get_or_create(
++            email=org_user.email,
++        )
++        if created:
++            user.set_unusable_password()
++        org_user.accept_invite(user)
