@@ -4,7 +4,7 @@ USER root
 RUN apt-get update && apt-get install -y patch && rm -rf /var/lib/apt/lists/*
 
 USER app:app
-COPY *.patch .
+COPY *.patch /code/
 # Do not send invitation emails
 RUN cat 00-do-not-send-invitation-emails.patch | patch -p1
 # Accept all open invitations automatically
