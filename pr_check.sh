@@ -1,2 +1,5 @@
 #!/bin/bash
-echo "No tests yet."
+set -exv
+
+# Build Image
+docker build . -t glitchtip:latest
