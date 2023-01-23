@@ -1,5 +1,5 @@
 diff --git a/glitchtip/settings.py b/glitchtip/settings.py
-index 59c46d2..5f42013 100644
+index 59c46d2..8a4af9a 100644
 --- a/glitchtip/settings.py
 +++ b/glitchtip/settings.py
 @@ -421,6 +421,10 @@ CELERY_BEAT_SCHEDULE = {
@@ -13,14 +13,37 @@ index 59c46d2..5f42013 100644
  }
  
  
-@@ -556,6 +560,7 @@ ACCOUNT_EMAIL_REQUIRED = True
- ACCOUNT_USERNAME_REQUIRED = False
- ACCOUNT_USER_MODEL_USERNAME_FIELD = None
- ACCOUNT_ADAPTER = "glitchtip.social.MFAAccountAdapter"
-+ACCOUNT_UNIQUE_EMAIL = False
- SOCIALACCOUNT_ADAPTER = "glitchtip.social.CustomSocialAccountAdapter"
- INVITATION_BACKEND = "organizations_ext.invitation_backend.InvitationBackend"
- SOCIALACCOUNT_PROVIDERS = {}
+diff --git a/glitchtip/social.py b/glitchtip/social.py
+index c4ef995..e2f454b 100644
+--- a/glitchtip/social.py
++++ b/glitchtip/social.py
+@@ -142,24 +142,8 @@ class SocialLoginSerializer(BaseSocialLoginSerializer):
+             raise serializers.ValidationError(ret.content)
+ 
+         if not login.is_existing:
+-            if allauth_settings.UNIQUE_EMAIL:
+-                account_exists = (
+-                    get_user_model()
+-                    .objects.filter(
+-                        email=login.user.email,
+-                    )
+-                    .exists()
+-                )
+-                if account_exists:
+-                    raise serializers.ValidationError(
+-                        _("User is already registered with this e-mail address."),
+-                    )
+-            # Added check for open signup
+-            if not get_adapter(request).is_open_for_signup(request, login):
+-                raise serializers.ValidationError(_("User registration is closed."))
+-            else:
+-                login.lookup()
+-                login.save(request, connect=True)
++            login.lookup()
++            login.save(request, connect=True)
+ 
+         attrs["user"] = login.account.user
+ 
 diff --git a/organizations_ext/tasks.py b/organizations_ext/tasks.py
 index 666f1d5..e6cedaa 100644
 --- a/organizations_ext/tasks.py
