@@ -2,7 +2,7 @@
 FROM registry.gitlab.com/glitchtip/glitchtip-frontend:v3.0.4
 USER root
 RUN apt-get update && apt-get install -y patch && rm -rf /var/lib/apt/lists/*
-RUN pip install --no-cache-dir -U django-allauth==0.51.0
+RUN pip install --no-cache-dir -U dj-rest-auth==2.2.5
 
 USER app:app
 COPY *.patch /code/
