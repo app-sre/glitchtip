@@ -195,6 +195,42 @@ objects:
               secretKeyRef:
                 name: ${RDS_SECRET_NAME}
                 key: db.user
+        - name: init-api-users
+          image: "${IMAGE}:${IMAGE_TAG}"
+          command: ["python3", "appsre/create-api-users.py"]
+          env:
+          - name: DATABASE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.host
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.password
+          - name: DATABASE_NAME
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.name
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.user
+          - name: APPSRE_API_USER_1_EMAIL
+            value: "$API_USER_1_EMAIL"
+          - name: APPSRE_API_USER_1_PASSWORD
+            value: "$API_USER_1_PASSWORD"
+          - name: APPSRE_API_USER_1_TOKEN
+            value: "$API_USER_1_TOKEN"
+          - name: APPSRE_API_USER_2_EMAIL
+            value: "$API_USER_2_EMAIL"
+          - name: APPSRE_API_USER_2_PASSWORD
+            value: "$API_USER_2_PASSWORD"
+          - name: APPSRE_API_USER_2_TOKEN
+            value: "$API_USER_2_TOKEN"
         containers:
         - env:
           - name: SERVER_ROLE
@@ -491,6 +527,27 @@ parameters:
 - description: Redis secret name
   name: REDIS_SECRET_NAME
   value: redis-url
+
+# Populated users
+- name: API_USER_1_EMAIL
+  description: Email of the first user to be created
+  value: ""
+- name: API_USER_1_PASSWORD
+  description: Password of the first user to be created
+  value: ""
+- name: API_USER_1_TOKEN
+  description: Token of the first user to be created
+  value: ""
+
+- name: API_USER_2_EMAIL
+  description: Email of the second user to be created
+  value: ""
+- name: API_USER_2_PASSWORD
+  description: Password of the second user to be created
+  value: ""
+- name: API_USER_2_TOKEN
+  description: Token of the second user to be created
+  value: ""
 
 # Web Pod limits
 - name: GT_WEB_REPLICAS
