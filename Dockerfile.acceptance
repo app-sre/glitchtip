@@ -1,0 +1,14 @@
+FROM quay.io/app-sre/qontract-reconcile
+ARG CONTAINER_UID=1000
+RUN useradd --uid ${CONTAINER_UID} reconcile
+
+WORKDIR /acceptance
+
+COPY requirements-acceptance.txt ./
+RUN python3 -m pip install install --no-cache-dir -r requirements-acceptance.txt
+
+COPY acceptance/ ./
+RUN chown -R reconcile .
+
+USER reconcile
+CMD ["pytest", "-v", "."]
