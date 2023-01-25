@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y patch git && rm -rf /var/lib/apt/lists/
 RUN pip install --no-cache-dir -U "git+https://github.com/chassing/django-allauth.git@abae97f319a15f987e4695564529c7c1bd9f017d"
 
 USER app:app
-COPY *.patch /code/
+COPY patches/*.patch /code/
 # Do not send invitation emails
 RUN cat 00-do-not-send-invitation-emails.patch | patch -p1
 # Accept all open invitations automatically
