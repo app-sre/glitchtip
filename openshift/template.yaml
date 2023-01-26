@@ -66,10 +66,7 @@ objects:
           app.kubernetes.io/name: glitchtip
       spec:
         serviceAccountName: glitchtip-beat
-        dnsPolicy: ClusterFirst
         restartPolicy: Always
-        schedulerName: default-scheduler
-        terminationGracePeriodSeconds: 30
         containers:
         - env:
           - name: SERVER_ROLE
@@ -128,8 +125,6 @@ objects:
             limits:
               cpu: ${{BEAT_CPU_LIMITS}}
               memory: ${{BEAT_MEMORY_LIMITS}}
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
 
 # ------- WEB DEPLOYMENT --------------------
 - apiVersion: v1
@@ -159,6 +154,7 @@ objects:
           app.kubernetes.io/component: web
           app.kubernetes.io/name: glitchtip
       spec:
+        restartPolicy: Always
         serviceAccountName: glitchtip-web
         affinity:
           podAntiAffinity:
@@ -292,6 +288,13 @@ objects:
           name: web
           ports:
           - containerPort: ${{GT_APP_PORT}}
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - sh
+                  - "-c"
+                  - sleep 5
           readinessProbe:
             httpGet:
               path: /
@@ -317,7 +320,6 @@ objects:
             limits:
               cpu: ${{GT_WEB_CPU_LIMITS}}
               memory: ${{GT_WEB_MEMORY_LIMITS}}
-        restartPolicy: Always
 
 # ---------- WEB SERVICE -----------
 - apiVersion: v1
@@ -364,6 +366,7 @@ objects:
           app.kubernetes.io/component: worker
           app.kubernetes.io/name: glitchtip
       spec:
+        restartPolicy: Always
         serviceAccountName: glitchtip-worker
         affinity:
           podAntiAffinity:
@@ -457,7 +460,7 @@ objects:
             limits:
               cpu: ${{GT_WORKER_CPU_LIMITS}}
               memory: ${{GT_WORKER_MEMORY_LIMITS}}
-        restartPolicy: Always
+
 
 parameters:
 - name: IMAGE
@@ -583,12 +586,12 @@ parameters:
 
 - name: GT_WORKER_MEMORY_REQUESTS
   description: Worker memory requests
-  value: "1.2Gi"
+  value: "1200Mi"
   required: true
 
 - name: GT_WORKER_MEMORY_LIMITS
   description: Worker memory limits
-  value: "1.2Gi"
+  value: "1200Mi"
   required: true
 
 - name: GT_WORKER_CPU_REQUESTS
