@@ -39,6 +39,8 @@ def parse_enviroment() -> list[User]:
         email = os.environ[f"APPSRE_API_USER_{index}_EMAIL"]
         password = os.environ.get(f"APPSRE_API_USER_{index}_PASSWORD", None)
         token = os.environ.get(f"APPSRE_API_USER_{index}_TOKEN", None)
+        if not email:
+            continue
         users.append(User(email=email, password=password, token=token))
 
     return users
