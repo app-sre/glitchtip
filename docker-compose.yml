@@ -1,0 +1,77 @@
+version: "3.8"
+x-environment: &default-environment
+  DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+  SECRET_KEY: unsecure
+  ENABLE_ORGANIZATION_CREATION: "true"
+  ENABLE_TEST_API: "true"
+  DEBUG: "true"
+  EMAIL_BACKEND: "django.core.mail.backends.console.EmailBackend"
+  ENABLE_OBSERVABILITY_API: "true"
+  CELERY_WORKER_CONCURRENCY: 1
+  # admin user to login to the admin web UI
+  APPSRE_API_USER_1_EMAIL: "admin@admin.org"
+  APPSRE_API_USER_1_PASSWORD: "rev9tbk!YUE.wfy8uku"
+  # user to use for the API
+  APPSRE_API_USER_2_EMAIL: "glitchtip@qontract-reconcile.org"
+  APPSRE_API_USER_2_TOKEN: "token"
+
+x-depends_on: &default-depends_on
+  - postgres
+  - redis
+
+name: glitchtip-dev
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    restart: unless-stopped
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    networks:
+      - qontract-development
+  redis:
+    image: redis
+    restart: unless-stopped
+    networks:
+      - qontract-development
+  web:
+    image: quay.io/app-sre/glitchtip:latest
+    command:
+      - bin/run-migrate-and-runserver.sh
+    depends_on: *default-depends_on
+    ports:
+      - "8000:8080"
+    environment: *default-environment
+    networks:
+      - qontract-development
+    restart: on-failure
+  worker:
+    image: quay.io/app-sre/glitchtip:latest
+    command:
+      - bin/run-celery-with-beat.sh
+    depends_on: *default-depends_on
+    environment: *default-environment
+    networks:
+      - qontract-development
+    restart: on-failure
+  init-api-users:
+    image: quay.io/app-sre/glitchtip:latest
+    command:
+      - python
+      - appsre/create-api-users.py
+    depends_on: *default-depends_on
+    environment: *default-environment
+    networks:
+      - qontract-development
+    restart: on-failure
+
+volumes:
+  pg-data:
+
+
+networks:
+  qontract-development:
+    external: true
+    name: qontract-development
