@@ -27,13 +27,12 @@ objects:
             imagePullPolicy: Always
             name: glitchtip-acceptance
             env:
-              - name: GITHUB_MIRROR_URL
-                value: ${GITHUB_MIRROR_URL}
-              - name: CLIENT_TOKEN
-                valueFrom:
-                  secretKeyRef:
-                    name: ${CLIENT_TOKEN_SECRET}
-                    key: CLIENT_TOKEN
+              - name: GLITCHTIP_URL
+                value: ${GLITCHTIP_URL}
+              - name: GLITCHTIP_API_USER_EMAIL
+                value: ${GLITCHTIP_API_USER_EMAIL}
+              - name: GLITCHTIP_API_USER_TOKEN
+                value: ${GLITCHTIP_API_USER_TOKEN}
             resources:
               requests:
                 memory: ${MEMORY_REQUESTS}
