@@ -220,17 +220,17 @@ objects:
                 name: ${RDS_SECRET_NAME}
                 key: db.user
           - name: APPSRE_API_USER_1_EMAIL
-            value: "$API_USER_1_EMAIL"
+            value: "${API_USER_1_EMAIL}"
           - name: APPSRE_API_USER_1_PASSWORD
-            value: "$API_USER_1_PASSWORD"
+            value: "${API_USER_1_PASSWORD}"
           - name: APPSRE_API_USER_1_TOKEN
-            value: "$API_USER_1_TOKEN"
+            value: "${API_USER_1_TOKEN}"
           - name: APPSRE_API_USER_2_EMAIL
-            value: "$API_USER_2_EMAIL"
+            value: "${API_USER_2_EMAIL}"
           - name: APPSRE_API_USER_2_PASSWORD
-            value: "$API_USER_2_PASSWORD"
+            value: "${API_USER_2_PASSWORD}"
           - name: APPSRE_API_USER_2_TOKEN
-            value: "$API_USER_2_TOKEN"
+            value: "${API_USER_2_TOKEN}"
         containers:
         - env:
           - name: SERVER_ROLE
