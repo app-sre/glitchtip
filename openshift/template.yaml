@@ -21,6 +21,7 @@ objects:
     DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
     I_PAID_FOR_GLITCHTIP: "True"
     GLITCHTIP_MAX_EVENT_LIFE_DAYS: "${GLITCHTIP_MAX_EVENT_LIFE_DAYS}"
+    SECRET_KEY: "${SECRET_KEY}"
   metadata:
     annotations:
       qontract.recycle: "true"
@@ -73,16 +74,11 @@ objects:
         - env:
           - name: SERVER_ROLE
             value: beat
-          - name: REDIS_URL
+          - name: REDIS_HOST
             valueFrom:
               secretKeyRef:
-                name: redis-credentials
-                key: redis.url
-          - name: SECRET_KEY
-            valueFrom:
-              secretKeyRef:
-                name: tokens
-                key: PASSWORD_SALT_TOKEN
+                name: ${REDIS_SECRET_NAME}
+                key: db.endpoint
           - name: REDIS_PORT
             valueFrom:
               secretKeyRef:
@@ -213,11 +209,11 @@ objects:
         - env:
           - name: SERVER_ROLE
             value: web
-          - name: REDIS_URL
+          - name: REDIS_HOST
             valueFrom:
               secretKeyRef:
-                name: redis-credentials
-                key: redis.url
+                name: ${REDIS_SECRET_NAME}
+                key: db.endpoint
           - name: REDIS_PORT
             valueFrom:
               secretKeyRef:
@@ -367,11 +363,11 @@ objects:
         - env:
           - name: SERVER_ROLE
             value: worker
-          - name: REDIS_URL
+          - name: REDIS_HOST
             valueFrom:
               secretKeyRef:
-                name: redis-credentials
-                key: redis.url
+                name: ${REDIS_SECRET_NAME}
+                key: db.endpoint
           - name: REDIS_PORT
             valueFrom:
               secretKeyRef:
@@ -481,6 +477,10 @@ parameters:
 - name: DEFAULT_FROM_EMAIL
   description: Email address to use as the sender
   value: "no-reply@devshift.net"
+  required: true
+
+- name: SECRET_KEY
+  description: This is used to provide cryptographic signing, and should be set to a unique, unpredictable value.
   required: true
 
 - name: SMTP_SETTINGS_SECRET
