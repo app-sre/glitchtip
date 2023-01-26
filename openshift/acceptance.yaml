@@ -1,0 +1,73 @@
+---
+apiVersion: v1
+kind: Template
+metadata:
+  name: glitchtip-acceptance
+objects:
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    name: ${SERVICE_ACCOUNT}
+    labels:
+      app.kubernetes.io/component: acceptance-test
+      app.kubernetes.io/name: glitchtip
+
+- apiVersion: batch/v1
+  kind: Job
+  metadata:
+    name: glitchtip-acceptance-${IMAGE_TAG}
+  spec:
+    backoffLimit: 5
+    template:
+      spec:
+        restartPolicy: Never
+        serviceAccountName: ${SERVICE_ACCOUNT}
+        containers:
+          - image: ${IMAGE}:${IMAGE_TAG}
+            imagePullPolicy: Always
+            name: glitchtip-acceptance
+            env:
+              - name: GITHUB_MIRROR_URL
+                value: ${GITHUB_MIRROR_URL}
+              - name: CLIENT_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: ${CLIENT_TOKEN_SECRET}
+                    key: CLIENT_TOKEN
+            resources:
+              requests:
+                memory: ${MEMORY_REQUESTS}
+                cpu: ${CPU_REQUESTS}
+              limits:
+                memory: ${MEMORY_LIMIT}
+                cpu: ${CPU_LIMIT}
+
+parameters:
+- name: IMAGE
+  value: quay.io/app-sre/glitchtip-acceptance
+- name: IMAGE_TAG
+  value: ''
+  required: true
+- name: SERVICE_ACCOUNT
+  description: name of the service account to use when deploying the pod
+  value: "glitchtip-acceptance"
+- name: MEMORY_REQUESTS
+  value: 128Mi
+- name: MEMORY_LIMIT
+  value: 128Mi
+- name: CPU_REQUESTS
+  value: 300m
+- name: CPU_LIMIT
+  value: 300m
+- name: GLITCHTIP_URL
+  description: URL of the glitchtip instance to test
+  value: ""
+  required: true
+- name: GLITCHTIP_API_USER_EMAIL
+  description: Email of the glitchtip API user
+  value: ""
+  required: true
+- name: GLITCHTIP_API_USER_TOKEN
+  description: Token of the glitchtip API user
+  value: ""
+  required: true
