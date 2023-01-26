@@ -12,7 +12,7 @@ do
     QUAY_IMAGE="quay.io/app-sre/$IMG_NAME"
     IMG="$IMG_NAME:latest"
     if [ -n "$GIT_COMMIT" ]; then
-        GIT_HASH=$GIT_COMMIT:0:7
+        GIT_HASH=${GIT_COMMIT:0:7}
     fi
 
     # Build Image
