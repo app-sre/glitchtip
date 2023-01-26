@@ -73,10 +73,14 @@ def create_or_update_token(user: AbstractBaseUser, token: str) -> None:
 
 
 def main() -> None:
+    print("Creating API users...")
     for user in parse_enviroment():
+        print(f"Creating/updating user {user.email}")
         django_user = create_or_update_user(user.email, user.password)
         if user.token:
+            print(f"Creating/updating token for user {user.email}")
             create_or_update_token(django_user, user.token)
+    print("Done.")
 
 
 if __name__ == "__main__":
