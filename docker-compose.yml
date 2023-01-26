@@ -1,7 +1,7 @@
 version: "3.8"
 x-environment: &default-environment
   DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
-  SECRET_KEY: unsecure
+  SECRET_KEY: unsecure # gitleaks:allow
   ENABLE_ORGANIZATION_CREATION: "true"
   ENABLE_TEST_API: "true"
   DEBUG: "true"
@@ -10,10 +10,10 @@ x-environment: &default-environment
   CELERY_WORKER_CONCURRENCY: 1
   # admin user to login to the admin web UI
   APPSRE_API_USER_1_EMAIL: "admin@admin.org"
-  APPSRE_API_USER_1_PASSWORD: "rev9tbk!YUE.wfy8uku"
+  APPSRE_API_USER_1_PASSWORD: "rev9tbk!YUE.wfy8uku" # gitleaks:allow
   # user to use for the API
   APPSRE_API_USER_2_EMAIL: "glitchtip@qontract-reconcile.org"
-  APPSRE_API_USER_2_TOKEN: "token"
+  APPSRE_API_USER_2_TOKEN: "token" # gitleaks:allow
 
 x-depends_on: &default-depends_on
   - postgres
