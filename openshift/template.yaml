@@ -74,21 +74,11 @@ objects:
         - env:
           - name: SERVER_ROLE
             value: beat
-          - name: REDIS_HOST
+          - name: REDIS_URL
             valueFrom:
               secretKeyRef:
                 name: ${REDIS_SECRET_NAME}
-                key: db.endpoint
-          - name: REDIS_PORT
-            valueFrom:
-              secretKeyRef:
-                name: ${REDIS_SECRET_NAME}
-                key: db.port
-          - name: REDIS_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: ${REDIS_SECRET_NAME}
-                key: db.auth_token
+                key: redis.url
           - name: DATABASE_HOST
             valueFrom:
               secretKeyRef:
@@ -209,21 +199,11 @@ objects:
         - env:
           - name: SERVER_ROLE
             value: web
-          - name: REDIS_HOST
+          - name: REDIS_URL
             valueFrom:
               secretKeyRef:
                 name: ${REDIS_SECRET_NAME}
-                key: db.endpoint
-          - name: REDIS_PORT
-            valueFrom:
-              secretKeyRef:
-                name: ${REDIS_SECRET_NAME}
-                key: db.port
-          - name: REDIS_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: ${REDIS_SECRET_NAME}
-                key: db.auth_token
+                key: redis.url
           - name: DATABASE_HOST
             valueFrom:
               secretKeyRef:
@@ -363,21 +343,11 @@ objects:
         - env:
           - name: SERVER_ROLE
             value: worker
-          - name: REDIS_HOST
+          - name: REDIS_URL
             valueFrom:
               secretKeyRef:
                 name: ${REDIS_SECRET_NAME}
-                key: db.endpoint
-          - name: REDIS_PORT
-            valueFrom:
-              secretKeyRef:
-                name: ${REDIS_SECRET_NAME}
-                key: db.port
-          - name: REDIS_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: ${REDIS_SECRET_NAME}
-                key: db.auth_token
+                key: redis.url
           - name: DATABASE_HOST
             valueFrom:
               secretKeyRef:
@@ -520,7 +490,7 @@ parameters:
 
 - description: Redis secret name
   name: REDIS_SECRET_NAME
-  value: glitchtip-elasticache
+  value: redis-url
 
 # Web Pod limits
 - name: GT_WEB_REPLICAS
