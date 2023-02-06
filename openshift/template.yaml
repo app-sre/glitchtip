@@ -233,6 +233,12 @@ objects:
             value: "${API_USER_3_PASSWORD}"
           - name: APPSRE_API_USER_3_TOKEN
             value: "${API_USER_3_TOKEN}"
+          - name: APPSRE_API_USER_4_EMAIL
+            value: "${API_USER_4_EMAIL}"
+          - name: APPSRE_API_USER_4_PASSWORD
+            value: "${API_USER_4_PASSWORD}"
+          - name: APPSRE_API_USER_4_TOKEN
+            value: "${API_USER_4_TOKEN}"
         containers:
         - env:
           - name: SERVER_ROLE
@@ -566,6 +572,16 @@ parameters:
   value: ""
 - name: API_USER_3_TOKEN
   description: Token of the third user to be created
+  value: ""
+
+- name: API_USER_4_EMAIL
+  description: Email of the fourth user to be created
+  value: ""
+- name: API_USER_4_PASSWORD
+  description: Password of the fourth user to be created
+  value: ""
+- name: API_USER_4_TOKEN
+  description: Token of the fourth user to be created
   value: ""
 
 # Web Pod limits
