@@ -1,4 +1,11 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-glitchtip-slo
+  labels:
+    grafana_dashboard: "true"
+  annotations:
+    grafana-folder: /grafana-dashboard-definitions/glitchtip
 data:
   dashboard.json: |-
     {
@@ -482,10 +489,3 @@ data:
       "version": 13,
       "weekStart": ""
     }
-kind: ConfigMap
-metadata:
-  name: grafana-dashboard-glitchtip
-  labels:
-    grafana_dashboard: "true"
-  annotations:
-    grafana-folder: /grafana-dashboard-definitions/glitchtip
