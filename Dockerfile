@@ -1,5 +1,5 @@
 # glitchtip-frontend image includes the glitchtip backend and the frontend
-FROM registry.gitlab.com/glitchtip/glitchtip-frontend:v3.0.4
+FROM registry.gitlab.com/glitchtip/glitchtip-frontend:v3.0.5
 USER root
 RUN apt-get update && apt-get install -y patch git && rm -rf /var/lib/apt/lists/*
 RUN pip install --no-cache-dir -U "git+https://github.com/chassing/django-allauth.git@abae97f319a15f987e4695564529c7c1bd9f017d"
