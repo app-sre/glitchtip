@@ -22,6 +22,7 @@ objects:
     I_PAID_FOR_GLITCHTIP: "True"
     GLITCHTIP_MAX_EVENT_LIFE_DAYS: "${GLITCHTIP_MAX_EVENT_LIFE_DAYS}"
     SECRET_KEY: "${SECRET_KEY}"
+    SESSION_COOKIE_AGE: "${SESSION_TIMEOUT_SECONDS}"
   metadata:
     annotations:
       qontract.recycle: "true"
@@ -502,6 +503,11 @@ parameters:
 
 - name: SECRET_KEY
   description: This is used to provide cryptographic signing, and should be set to a unique, unpredictable value.
+  required: true
+
+- name: SESSION_TIMEOUT_SECONDS
+  description: User session timeout in seconds
+  value: "21600" # 6 hours
   required: true
 
 - name: SMTP_SETTINGS_SECRET
