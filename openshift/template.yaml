@@ -192,6 +192,13 @@ objects:
               secretKeyRef:
                 name: ${RDS_SECRET_NAME}
                 key: db.user
+          resources:
+            requests:
+              cpu: ${{GT_WEB_CPU_REQUESTS}}
+              memory: ${{GT_WEB_MEMORY_REQUESTS}}
+            limits:
+              cpu: ${{GT_WEB_CPU_LIMITS}}
+              memory: ${{GT_WEB_MEMORY_LIMITS}}
         - name: init-api-users
           image: "${IMAGE}:${IMAGE_TAG}"
           command: ["python3", "appsre/create-api-users.py"]
@@ -240,6 +247,13 @@ objects:
             value: "${API_USER_4_PASSWORD}"
           - name: APPSRE_API_USER_4_TOKEN
             value: "${API_USER_4_TOKEN}"
+          resources:
+            requests:
+              cpu: ${{GT_WEB_CPU_REQUESTS}}
+              memory: ${{GT_WEB_MEMORY_REQUESTS}}
+            limits:
+              cpu: ${{GT_WEB_CPU_LIMITS}}
+              memory: ${{GT_WEB_MEMORY_LIMITS}}
         containers:
         - env:
           - name: SERVER_ROLE
