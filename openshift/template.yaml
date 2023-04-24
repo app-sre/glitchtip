@@ -23,6 +23,7 @@ objects:
     GLITCHTIP_MAX_EVENT_LIFE_DAYS: "${GLITCHTIP_MAX_EVENT_LIFE_DAYS}"
     SECRET_KEY: "${SECRET_KEY}"
     SESSION_COOKIE_AGE: "${SESSION_TIMEOUT_SECONDS}"
+    UWSGI_LISTEN: "${UWSGI_LISTEN}"
   metadata:
     annotations:
       qontract.recycle: "true"
@@ -562,6 +563,11 @@ parameters:
 - description: Redis secret name
   name: REDIS_SECRET_NAME
   value: redis-url
+
+- description: Set the UWSGI socket listen queue size
+  name: UWSGI_LISTEN
+  value: "128"
+  required: true
 
 # Populated users
 - name: API_USER_1_EMAIL
