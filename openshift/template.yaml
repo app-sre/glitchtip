@@ -325,21 +325,15 @@ objects:
                   - sleep 5
           readinessProbe:
             httpGet:
-              path: /
+              path: /api/settings/
               port: ${{GT_APP_PORT}}
-              httpHeaders:
-              - name: Test-Header
-                value: Awesome
-            initialDelaySeconds: 10
+            initialDelaySeconds: 30
             periodSeconds: 15
           livenessProbe:
             httpGet:
-              path: /
+              path: /_health/
               port: ${{GT_APP_PORT}}
-              httpHeaders:
-              - name: Test-Header
-                value: Awesome
-            initialDelaySeconds: 15
+            initialDelaySeconds: 30
             periodSeconds: 15
           resources:
             requests:
