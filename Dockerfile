@@ -1,5 +1,5 @@
 # glitchtip-frontend image includes the glitchtip backend and the frontend
-FROM registry.gitlab.com/glitchtip/glitchtip-frontend:v3.2.0
+FROM registry.gitlab.com/glitchtip/glitchtip-frontend:v3.2.1
 USER root
 RUN apt-get update && apt-get install -y patch && rm -rf /var/lib/apt/lists/*
 
