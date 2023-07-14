@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
 
-# Build Image
-docker build . -t glitchtip:latest
+export NO_PUSH=1
+exec ./build_deploy.sh
