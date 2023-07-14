@@ -27,3 +27,4 @@ do
         test -z "$NO_PUSH" && docker push "$QUAY_IMAGE:$GIT_HASH"
     fi
 done
+exit 0
