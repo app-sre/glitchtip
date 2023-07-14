@@ -90,4 +90,4 @@ def test_project_delete(
     test_project: str,
 ) -> None:
     """Delete a project."""
-    glitchtip_client.delete_project(test_org, test_team, test_project)
+    glitchtip_client.delete_project(test_org, test_project)

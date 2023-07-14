@@ -1,4 +1,4 @@
-FROM quay.io/app-sre/qontract-reconcile
+FROM quay.io/app-sre/qontract-reconcile:4ec79143580995ef9fc245d973611b5e0a41bab9
 ARG CONTAINER_UID=1000
 RUN useradd --uid ${CONTAINER_UID} reconcile
 
