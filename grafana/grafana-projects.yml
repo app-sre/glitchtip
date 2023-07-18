@@ -304,7 +304,7 @@ data:
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "topk(10, increase(glitchtip_events_total{organization=\"$org_slug\", project=\"$project_slug\"}[$__range]) > 0)",
+              "expr": "topk(10, sum(increase(glitchtip_events_total{organization=\"$org_slug\", project=\"$project_slug\"}[$__range]) > 0) by (issue))",
               "instant": true,
               "interval": "",
               "legendFormat": "{{issue}}",
@@ -568,7 +568,7 @@ data:
           },
           {
             "current": {
-              "selected": true,
+              "selected": false,
               "text": "app-sre",
               "value": "app-sre"
             },
@@ -623,13 +623,13 @@ data:
         ]
       },
       "time": {
-        "from": "now-24h",
+        "from": "now-12h",
         "to": "now"
       },
       "timepicker": {},
       "timezone": "",
       "title": "Glitchtip Project Statistics",
       "uid": "fefBzLjVz",
-      "version": 5,
+      "version": 7,
       "weekStart": ""
     }
