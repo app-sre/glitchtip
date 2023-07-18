@@ -34,7 +34,6 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 159422,
       "links": [],
       "liveNow": false,
       "panels": [
@@ -246,6 +245,7 @@ data:
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "description": "Number of events per issue in the selected time range",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -265,7 +265,7 @@ data:
                   }
                 ]
               },
-              "unit": "events/min"
+              "unit": "Events"
             },
             "overrides": []
           },
@@ -287,7 +287,7 @@ data:
                 "lastNotNull"
               ],
               "fields": "",
-              "values": true
+              "values": false
             },
             "showUnfilled": true,
             "text": {
@@ -304,8 +304,9 @@ data:
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "topk(10, (rate(glitchtip_events_total{organization=\"$org_slug\", project=\"$project_slug\"}[$__interval]) * 60) > 0)",
+              "expr": "topk(10, increase(glitchtip_events_total{organization=\"$org_slug\", project=\"$project_slug\"}[$__range]) > 0)",
               "instant": true,
+              "interval": "",
               "legendFormat": "{{issue}}",
               "range": false,
               "refId": "A"
@@ -356,74 +357,8 @@ data:
           },
           "gridPos": {
             "h": 9,
-            "w": 5,
+            "w": 8,
             "x": 0,
-            "y": 21
-          },
-          "id": 2,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "9.3.8",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "editorMode": "code",
-              "expr": "max(glitchtip_organizations)",
-              "legendFormat": "Number of Orgs",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Number of Organization",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 9,
-            "w": 5,
-            "x": 5,
             "y": 21
           },
           "id": 12,
@@ -457,6 +392,153 @@ data:
           ],
           "title": "Number of Projects in Organization",
           "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "description": "Number of new events in the selected project in the selected time range",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 8,
+            "x": 8,
+            "y": 21
+          },
+          "id": 13,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "9.3.8",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum(increase(glitchtip_events_total{organization=\"$org_slug\", project=\"$project_slug\"}[$__range]))",
+              "instant": false,
+              "legendFormat": "Events",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Number of Events in Project",
+          "transformations": [],
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "description": "Number of new issues in the selected project in the selected time range",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "dark-red",
+                    "value": 5
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 8,
+            "x": 16,
+            "y": 21
+          },
+          "id": 14,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "value"
+          },
+          "pluginVersion": "9.3.8",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum(increase(glitchtip_issues_total{organization=\"$org_slug\", project=\"$project_slug\"}[$__range]))",
+              "instant": false,
+              "legendFormat": "Events",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Number of new Issues in Project",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true
+                },
+                "indexByName": {},
+                "renameByName": {}
+              }
+            }
+          ],
+          "type": "stat"
         }
       ],
       "refresh": false,
@@ -486,7 +568,7 @@ data:
           },
           {
             "current": {
-              "selected": false,
+              "selected": true,
               "text": "app-sre",
               "value": "app-sre"
             },
@@ -541,13 +623,13 @@ data:
         ]
       },
       "time": {
-        "from": "now-3h",
+        "from": "now-24h",
         "to": "now"
       },
       "timepicker": {},
       "timezone": "",
       "title": "Glitchtip Project Statistics",
       "uid": "fefBzLjVz",
-      "version": 3,
+      "version": 5,
       "weekStart": ""
     }
