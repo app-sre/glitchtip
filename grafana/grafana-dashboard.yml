@@ -297,7 +297,7 @@ data:
           },
           "gridPos": {
             "h": 8,
-            "w": 24,
+            "w": 12,
             "x": 0,
             "y": 9
           },
@@ -326,15 +326,271 @@ data:
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "topk(10, sum by (issue) (rate(glitchtip_events_total[$__interval]) * 60) > 0)",
+              "expr": "topk(10, sum by (project, issue) (rate(glitchtip_events_total[$__interval]) * 60) > 0)",
               "instant": true,
               "legendFormat": "{{project}}: \"{{issue}}\"",
               "range": false,
               "refId": "A"
             }
           ],
-          "title": "Top 10 Issues",
+          "title": "Top 10 Issues by Event Rate",
+          "transformations": [],
           "type": "bargauge"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 5
+                  }
+                ]
+              },
+              "unit": "Events"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 9
+          },
+          "id": 50,
+          "interval": "5m",
+          "options": {
+            "displayMode": "gradient",
+            "minVizHeight": 10,
+            "minVizWidth": 0,
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showUnfilled": true
+          },
+          "pluginVersion": "9.3.8",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "topk(10, sum(increase(glitchtip_events_total[$__range]) > 0) by (project, issue))",
+              "instant": true,
+              "legendFormat": "{{project}}: \"{{issue}}\"",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Top 10 Issues by Event Count",
+          "transformations": [],
+          "type": "bargauge"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisGridShow": true,
+                "axisLabel": "",
+                "axisPlacement": "hidden",
+                "fillOpacity": 80,
+                "gradientMode": "hue",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineWidth": 1,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 17
+          },
+          "id": 52,
+          "options": {
+            "barRadius": 0,
+            "barWidth": 0.8,
+            "groupWidth": 1,
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "right",
+              "showLegend": true
+            },
+            "orientation": "vertical",
+            "showValue": "auto",
+            "stacking": "none",
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            },
+            "xField": "Time",
+            "xTickLabelRotation": 0,
+            "xTickLabelSpacing": 0
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum(increase(glitchtip_events_total[$__range])) by (organization)",
+              "instant": true,
+              "legendFormat": "{{project}}",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Number of Events per Organization",
+          "type": "barchart"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisGridShow": true,
+                "axisLabel": "",
+                "axisPlacement": "hidden",
+                "fillOpacity": 80,
+                "gradientMode": "hue",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineWidth": 1,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 17
+          },
+          "id": 53,
+          "options": {
+            "barRadius": 0,
+            "barWidth": 0.8,
+            "groupWidth": 1,
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "right",
+              "showLegend": true
+            },
+            "orientation": "vertical",
+            "showValue": "always",
+            "stacking": "none",
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            },
+            "xTickLabelRotation": 0,
+            "xTickLabelSpacing": 0
+          },
+          "pluginVersion": "9.3.8",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sort_desc(sum(increase(glitchtip_events_total[$__range])) by (project) > 0)",
+              "instant": true,
+              "legendFormat": "{{project}}",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Number of Events per Project",
+          "transformations": [],
+          "type": "barchart"
         },
         {
           "collapsed": false,
@@ -342,7 +598,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 17
+            "y": 25
           },
           "id": 2,
           "panels": [],
@@ -381,7 +637,7 @@ data:
             "h": 8,
             "w": 4,
             "x": 0,
-            "y": 18
+            "y": 26
           },
           "id": 4,
           "options": {
@@ -476,7 +732,7 @@ data:
             "h": 8,
             "w": 13,
             "x": 4,
-            "y": 18
+            "y": 26
           },
           "id": 6,
           "interval": "5m",
@@ -568,7 +824,7 @@ data:
             "h": 8,
             "w": 7,
             "x": 17,
-            "y": 18
+            "y": 26
           },
           "id": 8,
           "interval": "5m",
@@ -608,7 +864,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 26
+            "y": 34
           },
           "id": 12,
           "panels": [],
@@ -660,7 +916,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -676,7 +933,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 27
+            "y": 35
           },
           "id": 10,
           "options": {
@@ -776,7 +1033,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -792,7 +1050,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 27
+            "y": 35
           },
           "id": 13,
           "options": {
@@ -892,7 +1150,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -908,7 +1167,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 35
+            "y": 43
           },
           "id": 14,
           "options": {
@@ -1008,7 +1267,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1024,7 +1284,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 35
+            "y": 43
           },
           "id": 15,
           "options": {
@@ -1124,7 +1384,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1140,7 +1401,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 43
+            "y": 51
           },
           "id": 16,
           "options": {
@@ -1240,7 +1501,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1256,7 +1518,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 43
+            "y": 51
           },
           "id": 17,
           "options": {
@@ -1317,7 +1579,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 51
+            "y": 59
           },
           "id": 19,
           "panels": [],
@@ -1369,7 +1631,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1385,7 +1648,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 52
+            "y": 60
           },
           "id": 21,
           "options": {
@@ -1486,7 +1749,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1502,7 +1766,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 52
+            "y": 60
           },
           "id": 24,
           "options": {
@@ -1602,7 +1866,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1618,7 +1883,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 60
+            "y": 68
           },
           "id": 23,
           "options": {
@@ -1719,7 +1984,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1735,7 +2001,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 60
+            "y": 68
           },
           "id": 38,
           "options": {
@@ -1835,7 +2101,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1851,7 +2118,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 68
+            "y": 76
           },
           "id": 26,
           "options": {
@@ -1952,7 +2219,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1968,7 +2236,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 68
+            "y": 76
           },
           "id": 39,
           "options": {
@@ -2069,7 +2337,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2085,7 +2354,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 76
+            "y": 84
           },
           "id": 40,
           "options": {
@@ -2123,7 +2392,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 84
+            "y": 92
           },
           "id": 34,
           "panels": [],
@@ -2175,7 +2444,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2191,7 +2461,7 @@ data:
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 85
+            "y": 93
           },
           "id": 36,
           "options": {
@@ -2332,7 +2602,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2348,7 +2619,7 @@ data:
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 85
+            "y": 93
           },
           "id": 37,
           "options": {
@@ -2426,7 +2697,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 94
+            "y": 102
           },
           "id": 28,
           "panels": [],
@@ -2478,7 +2749,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2494,7 +2766,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 95
+            "y": 103
           },
           "id": 30,
           "options": {
@@ -2585,7 +2857,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2601,7 +2874,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 95
+            "y": 103
           },
           "id": 31,
           "options": {
@@ -2692,7 +2965,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2708,7 +2982,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 95
+            "y": 103
           },
           "id": 32,
           "options": {
@@ -2755,6 +3029,7 @@ data:
           "type": "timeseries"
         }
       ],
+      "refresh": "5m",
       "schemaVersion": 37,
       "style": "dark",
       "tags": [],
@@ -2920,6 +3195,6 @@ data:
       "timezone": "",
       "title": "Glitchtip Dashboard",
       "uid": "GRUqV30Vk",
-      "version": 8,
+      "version": 9,
       "weekStart": ""
     }
