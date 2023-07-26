@@ -38,6 +38,7 @@ data:
       "liveNow": false,
       "panels": [
         {
+          "collapsed": false,
           "gridPos": {
             "h": 1,
             "w": 24,
@@ -45,13 +46,14 @@ data:
             "y": 0
           },
           "id": 42,
+          "panels": [],
           "title": "Events",
           "type": "row"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -129,10 +131,10 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "sum(rate(glitchtip_events_total[$__interval]) * 60)",
+              "expr": "sum(rate(glitchtip_events_total{namespace=\"$namespace\"}[$__interval]) * 60)",
               "legendFormat": "Events/Minute",
               "range": true,
               "refId": "A"
@@ -144,7 +146,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -194,10 +196,10 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "max(glitchtip_organizations)",
+              "expr": "max(glitchtip_organizations{namespace=\"$namespace\"})",
               "legendFormat": "Number of Orgs",
               "range": true,
               "refId": "A"
@@ -209,7 +211,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -255,10 +257,10 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "sum(max(glitchtip_projects) by (organization))",
+              "expr": "sum(max(glitchtip_projects{namespace=\"$namespace\"}) by (organization))",
               "legendFormat": "Number of Prjs",
               "range": true,
               "refId": "A"
@@ -270,7 +272,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -322,11 +324,11 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "topk(10, sum by (project, issue) (rate(glitchtip_events_total[$__interval]) * 60) > 0)",
+              "expr": "topk(10, sum by (project, issue) (rate(glitchtip_events_total{namespace=\"$namespace\"}[$__interval]) * 60) > 0)",
               "instant": true,
               "legendFormat": "{{project}}: \"{{issue}}\"",
               "range": false,
@@ -340,7 +342,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -392,11 +394,11 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "topk(10, sum(increase(glitchtip_events_total[$__range]) > 0) by (project, issue))",
+              "expr": "topk(10, sum(increase(glitchtip_events_total{namespace=\"$namespace\"}[$__range]) > 0) by (project, issue))",
               "instant": true,
               "legendFormat": "{{project}}: \"{{issue}}\"",
               "range": false,
@@ -410,7 +412,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -487,11 +489,11 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum(increase(glitchtip_events_total[$__range])) by (organization)",
+              "expr": "sum(increase(glitchtip_events_total{namespace=\"$namespace\"}[$__range])) by (organization)",
               "instant": true,
               "legendFormat": "{{project}}",
               "range": false,
@@ -504,7 +506,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -577,11 +579,11 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sort_desc(sum(increase(glitchtip_events_total[$__range])) by (project) > 0)",
+              "expr": "sort_desc(sum(increase(glitchtip_events_total{namespace=\"$namespace\"}[$__range])) by (project) > 0)",
               "instant": true,
               "legendFormat": "{{project}}",
               "range": false,
@@ -608,7 +610,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -640,6 +642,7 @@ data:
             "y": 26
           },
           "id": 4,
+          "interval": "5m",
           "options": {
             "colorMode": "value",
             "graphMode": "area",
@@ -659,10 +662,10 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "1 -\nsum(increase(haproxy_backend_http_responses_total{route=\"$route\",code=\"5xx\"}[$__range]))\n/\nsum(increase(haproxy_backend_http_responses_total{route=\"$route\"}[$__range]))",
+              "expr": "1 -\nsum(increase(haproxy_backend_http_responses_total{code=\"5xx\", exported_namespace=\"$namespace\"}[$__range]))\n/\nsum(increase(haproxy_backend_http_responses_total{exported_namespace=\"$namespace\"}[$__range]))",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -674,7 +677,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -752,10 +755,10 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "sum by (code) (rate(haproxy_backend_http_responses_total{route=\"$route\"}[$__interval]))",
+              "expr": "sum by (code) (rate(haproxy_backend_http_responses_total{exported_namespace=\"$namespace\"}[$__interval]))",
               "range": true,
               "refId": "A"
             }
@@ -766,7 +769,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -844,11 +847,11 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum by (exported_namespace)(rate(haproxy_backend_http_responses_total{route=\"$route\",code=\"5xx\"}[$__interval])) /\nsum by (exported_namespace)(rate(haproxy_backend_http_responses_total{route=\"$route\"}[$__interval]))",
+              "expr": "sum by (exported_namespace)(rate(haproxy_backend_http_responses_total{exported_namespace=\"$namespace\", code=\"5xx\"}[$__interval])) /\nsum by (exported_namespace)(rate(haproxy_backend_http_responses_total{exported_namespace=\"$namespace\"}[$__interval]))",
               "instant": false,
               "legendFormat": "errors",
               "range": true,
@@ -874,7 +877,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -952,7 +955,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.99, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"POST\",view=\"event_store\"}[5m])))",
@@ -963,7 +966,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.9, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"POST\",view=\"event_store\"}[5m])))",
@@ -975,7 +978,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.5, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"POST\",view=\"event_store\"}[5m])))",
@@ -991,7 +994,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1069,7 +1072,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.99, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"organization-list\"}[5m])))",
@@ -1080,7 +1083,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.9, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"organization-list\"}[5m])))",
@@ -1092,7 +1095,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.5, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"organization-list\"}[5m])))",
@@ -1108,7 +1111,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1186,7 +1189,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.99, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"organization-teams-list\"}[5m])))",
@@ -1197,7 +1200,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.9, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"organization-teams-list\"}[5m])))",
@@ -1209,7 +1212,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.5, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"organization-teams-list\"}[5m])))",
@@ -1225,7 +1228,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1303,7 +1306,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.99, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"organization-projects-list\"}[5m])))",
@@ -1314,7 +1317,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.9, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"organization-projects-list\"}[5m])))",
@@ -1326,7 +1329,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.5, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"organization-projects-list\"}[5m])))",
@@ -1342,7 +1345,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1420,7 +1423,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.99, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"organization-members-list\"}[5m])))",
@@ -1431,7 +1434,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.9, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"organization-members-list\"}[5m])))",
@@ -1443,7 +1446,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.5, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"organization-members-list\"}[5m])))",
@@ -1459,7 +1462,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1537,7 +1540,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.99, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"team-members-list\"}[5m])))",
@@ -1548,7 +1551,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.9, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"team-members-list\"}[5m])))",
@@ -1560,7 +1563,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "histogram_quantile(0.5, sum by (le) (rate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\",method=\"GET\",view=\"team-members-list\"}[5m])))",
@@ -1589,7 +1592,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1667,7 +1670,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "container_memory_working_set_bytes{namespace=\"$namespace\", container=\"web\"}",
@@ -1678,7 +1681,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "avg(kube_pod_container_resource_limits{namespace=\"$namespace\", container=\"web\", resource=\"memory\"})",
@@ -1690,7 +1693,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "avg(kube_pod_container_resource_requests{namespace=\"$namespace\", container=\"web\", resource=\"memory\"})",
@@ -1706,7 +1709,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1785,7 +1788,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "pod:container_cpu_usage:sum{namespace=\"$namespace\", pod=~\"glitchtip-web.+\"}",
@@ -1796,7 +1799,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "avg(kube_pod_resource_limit{namespace=\"$namespace\", pod=~\"glitchtip-web.+\", resource=\"cpu\"})",
@@ -1808,7 +1811,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "avg(kube_pod_resource_limit{namespace=\"$namespace\", pod=~\"glitchtip-web.+\", resource=\"cpu\"})",
@@ -1824,8 +1827,9 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1902,7 +1906,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "container_memory_working_set_bytes{namespace=\"$namespace\", container=\"worker\"}",
@@ -1913,7 +1917,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "avg(kube_pod_container_resource_limits{namespace=\"$namespace\", container=\"worker\", resource=\"memory\"})",
@@ -1925,7 +1929,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "avg(kube_pod_container_resource_requests{namespace=\"$namespace\", container=\"worker\", resource=\"memory\"})",
@@ -1941,7 +1945,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2020,7 +2024,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "pod:container_cpu_usage:sum{namespace=\"$namespace\", pod=~\"glitchtip-worker.+\"}",
@@ -2031,7 +2035,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "avg(kube_pod_resource_limit{namespace=\"$namespace\", pod=~\"glitchtip-worker.+\", resource=\"cpu\"})",
@@ -2043,7 +2047,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "avg(kube_pod_resource_limit{namespace=\"$namespace\", pod=~\"glitchtip-worker.+\", resource=\"cpu\"})",
@@ -2059,7 +2063,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2137,7 +2141,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "container_memory_working_set_bytes{namespace=\"$namespace\", container=\"beat\"}",
@@ -2148,7 +2152,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "avg(kube_pod_container_resource_limits{namespace=\"$namespace\", container=\"beat\", resource=\"memory\"})",
@@ -2160,7 +2164,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "avg(kube_pod_container_resource_requests{namespace=\"$namespace\", container=\"beat\", resource=\"memory\"})",
@@ -2176,7 +2180,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2255,7 +2259,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "pod:container_cpu_usage:sum{namespace=\"$namespace\", pod=~\"glitchtip-beat.+\"}",
@@ -2266,7 +2270,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "avg(kube_pod_resource_limit{namespace=\"$namespace\", pod=~\"glitchtip-beat.+\", resource=\"cpu\"})",
@@ -2278,7 +2282,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "avg(kube_pod_resource_limit{namespace=\"$namespace\", pod=~\"glitchtip-beat.+\", resource=\"cpu\"})",
@@ -2294,7 +2298,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2373,7 +2377,7 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "expr": "sum by(pod) (rate(container_cpu_cfs_throttled_seconds_total{namespace=\"$namespace\", container!=\"\"}[5m]))",
@@ -2401,9 +2405,10 @@ data:
         },
         {
           "datasource": {
-            "type": "cloudwatch",
-            "uid": "${aws_account}"
+            "type": "prometheus",
+            "uid": "${aws_ds}"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2484,74 +2489,38 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "cloudwatch",
-                "uid": "${aws_account}"
+                "type": "prometheus",
+                "uid": "${aws_ds}"
               },
-              "dimensions": {
-                "DBInstanceIdentifier": "$rds"
-              },
-              "expression": "",
-              "id": "",
-              "label": "",
-              "matchExact": true,
-              "metricEditorMode": 0,
-              "metricName": "ReadIOPS",
-              "metricQueryType": 0,
-              "namespace": "AWS/RDS",
-              "period": "",
-              "queryMode": "Metrics",
-              "refId": "A",
-              "region": "us-east-1",
-              "sqlExpression": "",
-              "statistic": "Average"
+              "editorMode": "code",
+              "expr": "sum(aws_rds_read_iops_average{dbinstance_identifier=~\"glitchtip-${aws:text}.*\"})",
+              "legendFormat": "ReadIOPS",
+              "range": true,
+              "refId": "A"
             },
             {
               "datasource": {
-                "type": "cloudwatch",
-                "uid": "${aws_account}"
+                "type": "prometheus",
+                "uid": "${aws_ds}"
               },
-              "dimensions": {
-                "DBInstanceIdentifier": "$rds"
-              },
-              "expression": "",
+              "editorMode": "code",
+              "expr": "sum(aws_rds_write_iops_average{dbinstance_identifier=~\"glitchtip-.*${aws:text}.*\"})",
               "hide": false,
-              "id": "",
-              "label": "",
-              "matchExact": true,
-              "metricEditorMode": 0,
-              "metricName": "WriteIOPS",
-              "metricQueryType": 0,
-              "namespace": "AWS/RDS",
-              "period": "",
-              "queryMode": "Metrics",
-              "refId": "B",
-              "region": "default",
-              "sqlExpression": "",
-              "statistic": "Average"
+              "legendFormat": "WriteIOPS",
+              "range": true,
+              "refId": "B"
             },
             {
               "datasource": {
-                "type": "cloudwatch",
-                "uid": "${aws_account}"
+                "type": "prometheus",
+                "uid": "${aws_ds}"
               },
-              "dimensions": {
-                "DBInstanceIdentifier": "$rds"
-              },
-              "expression": "",
+              "editorMode": "code",
+              "expr": "sum(aws_rds_burst_balance_average{dbinstance_identifier=~\"glitchtip-.*${aws:text}.*\"})",
               "hide": false,
-              "id": "",
-              "label": "",
-              "matchExact": true,
-              "metricEditorMode": 0,
-              "metricName": "BurstBalance",
-              "metricQueryType": 0,
-              "namespace": "AWS/RDS",
-              "period": "",
-              "queryMode": "Metrics",
-              "refId": "C",
-              "region": "default",
-              "sqlExpression": "",
-              "statistic": "Average"
+              "legendFormat": "BurstBalance",
+              "range": true,
+              "refId": "C"
             }
           ],
           "title": "ReadIOPS/WriteIOPS/BurstBalance",
@@ -2559,8 +2528,8 @@ data:
         },
         {
           "datasource": {
-            "type": "cloudwatch",
-            "uid": "${aws_account}"
+            "type": "prometheus",
+            "uid": "${aws_ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2642,15 +2611,18 @@ data:
           "targets": [
             {
               "datasource": {
-                "type": "cloudwatch",
-                "uid": "${aws_account}"
+                "type": "prometheus",
+                "uid": "${aws_ds}"
               },
               "dimensions": {
                 "DBInstanceIdentifier": "$rds"
               },
+              "editorMode": "code",
+              "expr": "sum(aws_rds_read_latency_average{dbinstance_identifier=~\"glitchtip-${aws:text}.*\"})",
               "expression": "",
               "id": "",
               "label": "",
+              "legendFormat": "ReadLatency",
               "matchExact": true,
               "metricEditorMode": 0,
               "metricName": "ReadLatency",
@@ -2658,6 +2630,7 @@ data:
               "namespace": "AWS/RDS",
               "period": "",
               "queryMode": "Metrics",
+              "range": true,
               "refId": "A",
               "region": "us-east-1",
               "sqlExpression": "",
@@ -2665,16 +2638,19 @@ data:
             },
             {
               "datasource": {
-                "type": "cloudwatch",
-                "uid": "${aws_account}"
+                "type": "prometheus",
+                "uid": "${aws_ds}"
               },
               "dimensions": {
                 "DBInstanceIdentifier": "$rds"
               },
+              "editorMode": "code",
+              "expr": "sum(aws_rds_write_latency_average{dbinstance_identifier=~\"glitchtip-${aws:text}.*\"})",
               "expression": "",
               "hide": false,
               "id": "",
               "label": "",
+              "legendFormat": "WriteLatency",
               "matchExact": true,
               "metricEditorMode": 0,
               "metricName": "WriteLatency",
@@ -2682,6 +2658,7 @@ data:
               "namespace": "AWS/RDS",
               "period": "",
               "queryMode": "Metrics",
+              "range": true,
               "refId": "B",
               "region": "default",
               "sqlExpression": "",
@@ -2707,12 +2684,13 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P465885893AA82E04"
+            "uid": "${aws_ds}"
           },
+          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
-                "mode": "palette-classic"
+                "mode": "thresholds"
               },
               "custom": {
                 "axisCenteredZero": false,
@@ -2753,8 +2731,12 @@ data:
                     "value": null
                   },
                   {
+                    "color": "#EAB839",
+                    "value": 10
+                  },
+                  {
                     "color": "red",
-                    "value": 80
+                    "value": 20
                   }
                 ]
               },
@@ -2774,7 +2756,7 @@ data:
               "calcs": [],
               "displayMode": "list",
               "placement": "bottom",
-              "showLegend": true
+              "showLegend": false
             },
             "tooltip": {
               "mode": "single",
@@ -2785,16 +2767,16 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P465885893AA82E04"
+                "uid": "${aws_ds}"
               },
               "dimensions": {},
               "editorMode": "code",
-              "expr": "aws_elasticache_database_memory_usage_percentage_average{cache_cluster_id=~\"$redis-\\\\d+\"}",
+              "expr": "avg(aws_elasticache_database_memory_usage_percentage_average{cache_cluster_id=~\"glitchtip-.*${aws:text}.*\"})",
               "expression": "",
               "id": "",
               "interval": "",
               "label": "",
-              "legendFormat": "{{cache_cluster_id}}",
+              "legendFormat": "Mem%",
               "matchExact": true,
               "metricEditorMode": 0,
               "metricName": "",
@@ -2815,7 +2797,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P465885893AA82E04"
+            "uid": "${aws_ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2882,7 +2864,7 @@ data:
               "calcs": [],
               "displayMode": "list",
               "placement": "bottom",
-              "showLegend": true
+              "showLegend": false
             },
             "tooltip": {
               "mode": "single",
@@ -2893,16 +2875,16 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P465885893AA82E04"
+                "uid": "${aws_ds}"
               },
               "dimensions": {},
               "editorMode": "code",
-              "expr": "aws_elasticache_engine_cpuutilization_average{cache_cluster_id=~\"$redis-\\\\d+\"}",
+              "expr": "avg(aws_elasticache_engine_cpuutilization_average{cache_cluster_id=~\"glitchtip-.*${aws:text}.*\"})",
               "expression": "",
               "id": "",
               "interval": "",
               "label": "",
-              "legendFormat": "{{cache_cluster_id}}",
+              "legendFormat": "CPU%",
               "matchExact": true,
               "metricEditorMode": 0,
               "metricName": "",
@@ -2923,12 +2905,12 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P465885893AA82E04"
+            "uid": "${aws_ds}"
           },
           "fieldConfig": {
             "defaults": {
               "color": {
-                "mode": "palette-classic"
+                "mode": "thresholds"
               },
               "custom": {
                 "axisCenteredZero": false,
@@ -2969,8 +2951,12 @@ data:
                     "value": null
                   },
                   {
+                    "color": "#EAB839",
+                    "value": 50
+                  },
+                  {
                     "color": "red",
-                    "value": 80
+                    "value": 100
                   }
                 ]
               },
@@ -2990,7 +2976,7 @@ data:
               "calcs": [],
               "displayMode": "list",
               "placement": "bottom",
-              "showLegend": true
+              "showLegend": false
             },
             "tooltip": {
               "mode": "single",
@@ -3001,16 +2987,16 @@ data:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P465885893AA82E04"
+                "uid": "${aws_ds}"
               },
               "dimensions": {},
               "editorMode": "code",
-              "expr": "aws_elasticache_curr_items_average{cache_cluster_id=~\"$redis-\\\\d+\"}",
+              "expr": "avg(aws_elasticache_curr_items_average{cache_cluster_id=~\"glitchtip-.*${aws:text}.*\"})",
               "expression": "",
               "id": "",
               "interval": "",
               "label": "",
-              "legendFormat": "{{cache_cluster_id}}",
+              "legendFormat": "Items",
               "matchExact": true,
               "metricEditorMode": 0,
               "metricName": "",
@@ -3037,21 +3023,69 @@ data:
         "list": [
           {
             "current": {
-              "selected": false,
-              "text": "app-sre-prod-04-prometheus",
+              "selected": true,
+              "text": "prod",
               "value": "app-sre-prod-04-prometheus"
             },
             "hide": 0,
             "includeAll": false,
+            "label": "Glitchtip Instance",
             "multi": false,
-            "name": "datasource",
-            "options": [],
-            "query": "prometheus",
+            "name": "instance",
+            "options": [
+              {
+                "selected": true,
+                "text": "prod",
+                "value": "app-sre-prod-04-prometheus"
+              },
+              {
+                "selected": false,
+                "text": "stage",
+                "value": "app-sre-stage-01-prometheus"
+              },
+              {
+                "selected": false,
+                "text": "dev",
+                "value": "app-sre-stage-01-prometheus"
+              }
+            ],
+            "query": "prod : app-sre-prod-04-prometheus, stage : app-sre-stage-01-prometheus, dev : app-sre-stage-01-prometheus",
             "queryValue": "",
-            "refresh": 1,
-            "regex": "/app-sre-prod-04-prometheus|app-sre-stage-01-prometheus/",
             "skipUrlSync": false,
-            "type": "datasource"
+            "type": "custom"
+          },
+          {
+            "current": {
+              "selected": true,
+              "text": "prod",
+              "value": "app-sre-prod"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "label": "AWS account",
+            "multi": false,
+            "name": "aws",
+            "options": [
+              {
+                "selected": true,
+                "text": "prod",
+                "value": "app-sre-prod"
+              },
+              {
+                "selected": false,
+                "text": "stage",
+                "value": "app-sre-stage"
+              },
+              {
+                "selected": false,
+                "text": "dev",
+                "value": "app-sre-stage"
+              }
+            ],
+            "query": "prod : app-sre-prod, stage : app-sre-stage, dev : app-sre-stage",
+            "queryValue": "",
+            "skipUrlSync": false,
+            "type": "custom"
           },
           {
             "current": {
@@ -3061,10 +3095,10 @@ data:
             },
             "datasource": {
               "type": "prometheus",
-              "uid": "${datasource}"
+              "uid": "${ds}"
             },
             "definition": "label_values(django_http_requests_total_by_method_total, namespace)",
-            "hide": 0,
+            "hide": 2,
             "includeAll": false,
             "multi": false,
             "name": "namespace",
@@ -3074,7 +3108,7 @@ data:
               "refId": "StandardVariableQuery"
             },
             "refresh": 1,
-            "regex": "/glitchtip.+/",
+            "regex": "/glitchtip-${instance:text}.*/",
             "skipUrlSync": false,
             "sort": 0,
             "type": "query"
@@ -3082,106 +3116,34 @@ data:
           {
             "current": {
               "selected": false,
-              "text": "glitchtip-route",
-              "value": "glitchtip-route"
+              "text": "app-sre-prod-01-prometheus",
+              "value": "app-sre-prod-01-prometheus"
             },
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${datasource}"
-            },
-            "definition": "label_values(haproxy_backend_http_responses_total, route)",
-            "hide": 0,
+            "hide": 2,
             "includeAll": false,
             "multi": false,
-            "name": "route",
+            "name": "aws_ds",
             "options": [],
-            "query": {
-              "query": "label_values(haproxy_backend_http_responses_total, route)",
-              "refId": "StandardVariableQuery"
-            },
+            "query": "prometheus",
             "refresh": 1,
-            "regex": "/glitchtip.*/",
+            "regex": "/$aws-01-prometheus/",
             "skipUrlSync": false,
-            "sort": 0,
-            "type": "query"
+            "type": "datasource"
           },
           {
             "current": {
               "selected": false,
-              "text": "glitchtip-redis-production",
-              "value": "glitchtip-redis-production"
+              "text": "app-sre-prod-04-prometheus",
+              "value": "app-sre-prod-04-prometheus"
             },
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P465885893AA82E04"
-            },
-            "definition": "label_values(aws_elasticache_database_memory_usage_percentage_average, cache_cluster_id)",
-            "hide": 0,
+            "hide": 2,
             "includeAll": false,
             "multi": false,
-            "name": "redis",
+            "name": "ds",
             "options": [],
-            "query": {
-              "query": "label_values(aws_elasticache_database_memory_usage_percentage_average, cache_cluster_id)",
-              "refId": "StandardVariableQuery"
-            },
+            "query": "prometheus",
             "refresh": 1,
-            "regex": "/^(glitchtip-redis-production).+/",
-            "skipUrlSync": false,
-            "sort": 0,
-            "type": "query"
-          },
-          {
-            "current": {
-              "selected": false,
-              "text": "glitchtip-production",
-              "value": "glitchtip-production"
-            },
-            "datasource": {
-              "type": "cloudwatch",
-              "uid": "${aws_account}"
-            },
-            "definition": "",
-            "hide": 0,
-            "includeAll": false,
-            "multi": false,
-            "name": "rds",
-            "options": [],
-            "query": {
-              "attributeName": "",
-              "dimensionFilters": {},
-              "dimensionKey": "DBInstanceIdentifier",
-              "ec2Filters": {},
-              "instanceID": "",
-              "metricName": "CPUUtilization",
-              "namespace": "AWS/RDS",
-              "queryType": "dimensionValues",
-              "refId": "CloudWatchVariableQueryEditor-VariableQuery",
-              "region": "us-east-1",
-              "resourceType": "",
-              "tags": {}
-            },
-            "refresh": 1,
-            "regex": "/glitchtip.+/",
-            "skipUrlSync": false,
-            "sort": 0,
-            "type": "query"
-          },
-          {
-            "current": {
-              "selected": false,
-              "text": "AWS app-sre",
-              "value": "AWS app-sre"
-            },
-            "hide": 0,
-            "includeAll": false,
-            "multi": false,
-            "name": "aws_account",
-            "options": [],
-            "query": "cloudwatch",
-            "queryValue": "",
-            "refresh": 1,
-            "regex": "/AWS app-sre$/",
+            "regex": "/$instance/",
             "skipUrlSync": false,
             "type": "datasource"
           }
@@ -3195,6 +3157,6 @@ data:
       "timezone": "",
       "title": "Glitchtip Dashboard",
       "uid": "GRUqV30Vk",
-      "version": 9,
+      "version": 10,
       "weekStart": ""
     }
