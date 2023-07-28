@@ -2669,12 +2669,115 @@ data:
           "type": "timeseries"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${aws_ds}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              },
+              "unit": "bytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 102
+          },
+          "id": 55,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${aws_ds}"
+              },
+              "editorMode": "code",
+              "expr": "sum by(dbinstance_identifier) (aws_rds_free_storage_space_sum{dbinstance_identifier=~\"glitchtip-${aws:text}.*\"})",
+              "legendFormat": "Free",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${aws_ds}"
+              },
+              "editorMode": "code",
+              "expr": "sum by(dbinstance_identifier) (aws_resources_exporter_rds_allocatedstorage{dbinstance_identifier=~\"glitchtip-${aws:text}.*\"})",
+              "hide": false,
+              "legendFormat": "Used",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "RDS Volume",
+          "type": "timeseries"
+        },
+        {
           "collapsed": false,
           "gridPos": {
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 102
+            "y": 110
           },
           "id": 28,
           "panels": [],
@@ -2748,7 +2851,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 103
+            "y": 111
           },
           "id": 30,
           "options": {
@@ -2856,7 +2959,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 103
+            "y": 111
           },
           "id": 31,
           "options": {
@@ -2968,7 +3071,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 103
+            "y": 111
           },
           "id": 32,
           "options": {
@@ -3157,6 +3260,6 @@ data:
       "timezone": "",
       "title": "Glitchtip Dashboard",
       "uid": "GRUqV30Vk",
-      "version": 10,
+      "version": 11,
       "weekStart": ""
     }
