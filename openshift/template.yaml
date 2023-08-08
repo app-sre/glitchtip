@@ -327,22 +327,19 @@ objects:
             httpGet:
               path: /api/settings/
               port: ${{GT_APP_PORT}}
-            periodSeconds: 10
+            periodSeconds: 15
             timeoutSeconds: 60
           startupProbe:
-            httpGet:
-              path: /_health/
+            tcpSocket:
               port: ${{GT_APP_PORT}}
-            periodSeconds: 15
-            failureThreshold: 60
-            timeoutSeconds: 60
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 5
           livenessProbe:
-            httpGet:
-              path: /_health/
+            tcpSocket:
               port: ${{GT_APP_PORT}}
-            periodSeconds: 60
-            timeoutSeconds: 60
-            failureThreshold: 3
+            periodSeconds: 30
+            timeoutSeconds: 10
           resources:
             requests:
               cpu: ${{GT_WEB_CPU_REQUESTS}}
