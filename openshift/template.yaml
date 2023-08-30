@@ -46,6 +46,7 @@ objects:
     name: glitchtip-beat
     annotations:
       ignore-check.kube-linter.io/minimum-three-replicas: "Beat deployment should only have 1 replica"
+      ignore-check.kube-linter.io/unset-cpu-requirements: "no cpu limits"
     labels:
       app.kubernetes.io/component: beat
       app.kubernetes.io/name: glitchtip
@@ -125,7 +126,6 @@ objects:
               cpu: ${{BEAT_CPU_REQUESTS}}
               memory: ${{BEAT_MEMORY_REQUESTS}}
             limits:
-              cpu: ${{BEAT_CPU_LIMITS}}
               memory: ${{BEAT_MEMORY_LIMITS}}
 
 # ------- WEB DEPLOYMENT --------------------
@@ -140,6 +140,8 @@ objects:
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
+    annotations:
+      ignore-check.kube-linter.io/unset-cpu-requirements: "no cpu limits"
     labels:
       app.kubernetes.io/component: web
       app.kubernetes.io/name: glitchtip
@@ -198,7 +200,6 @@ objects:
               cpu: ${{GT_WEB_CPU_REQUESTS}}
               memory: ${{GT_WEB_MEMORY_REQUESTS}}
             limits:
-              cpu: ${{GT_WEB_CPU_LIMITS}}
               memory: ${{GT_WEB_MEMORY_LIMITS}}
         - name: init-api-users
           image: "${IMAGE}:${IMAGE_TAG}"
@@ -253,7 +254,6 @@ objects:
               cpu: ${{GT_WEB_CPU_REQUESTS}}
               memory: ${{GT_WEB_MEMORY_REQUESTS}}
             limits:
-              cpu: ${{GT_WEB_CPU_LIMITS}}
               memory: ${{GT_WEB_MEMORY_LIMITS}}
         containers:
         - env:
@@ -345,7 +345,6 @@ objects:
               cpu: ${{GT_WEB_CPU_REQUESTS}}
               memory: ${{GT_WEB_MEMORY_REQUESTS}}
             limits:
-              cpu: ${{GT_WEB_CPU_LIMITS}}
               memory: ${{GT_WEB_MEMORY_LIMITS}}
 
 # ---------- WEB SERVICE -----------
@@ -377,6 +376,8 @@ objects:
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
+    annotations:
+      ignore-check.kube-linter.io/unset-cpu-requirements: "no cpu limits"
     labels:
       app.kubernetes.io/component: worker
       app.kubernetes.io/name: glitchtip
@@ -485,7 +486,6 @@ objects:
               cpu: ${{GT_WORKER_CPU_REQUESTS}}
               memory: ${{GT_WORKER_MEMORY_REQUESTS}}
             limits:
-              cpu: ${{GT_WORKER_CPU_LIMITS}}
               memory: ${{GT_WORKER_MEMORY_LIMITS}}
 
 
@@ -627,12 +627,7 @@ parameters:
 
 - name: GT_WEB_CPU_REQUESTS
   description: Web cpu requests
-  value: "500m"
-  required: true
-
-- name: GT_WEB_CPU_LIMITS
-  description: GT_WEB_CPU_LIMITS
-  value: "1"
+  value: "100m"
   required: true
 
 # Worker Pod limits
@@ -653,31 +648,21 @@ parameters:
 
 - name: GT_WORKER_CPU_REQUESTS
   description: Worker cpu requests
-  value: "500m"
-  required: true
-
-- name: GT_WORKER_CPU_LIMITS
-  description: GT_WORKER_CPU_LIMITS
-  value: "1"
+  value: "100m"
   required: true
 
 # Beat Pod limits
 - name: BEAT_MEMORY_REQUESTS
   description: Beat memory requests
-  value: "700M"
+  value: "700Mi"
   required: true
 
 - name: BEAT_MEMORY_LIMITS
   description: Beat memory limits
-  value: "700M"
+  value: "700Mi"
   required: true
 
 - name: BEAT_CPU_REQUESTS
   description: Beat cpu requests
   value: "100m"
-  required: true
-
-- name: BEAT_CPU_LIMITS
-  description: Beat cpu limits
-  value: "500m"
   required: true

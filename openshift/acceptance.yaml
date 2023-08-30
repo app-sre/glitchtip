@@ -15,6 +15,8 @@ objects:
 - apiVersion: batch/v1
   kind: Job
   metadata:
+    annotations:
+      ignore-check.kube-linter.io/unset-cpu-requirements: "no cpu limits"
     name: glitchtip-acceptance-${IMAGE_TAG}
   spec:
     backoffLimit: 5
@@ -39,7 +41,6 @@ objects:
                 cpu: ${CPU_REQUESTS}
               limits:
                 memory: ${MEMORY_LIMIT}
-                cpu: ${CPU_LIMIT}
 
 parameters:
 - name: IMAGE
@@ -55,8 +56,6 @@ parameters:
 - name: MEMORY_LIMIT
   value: 128Mi
 - name: CPU_REQUESTS
-  value: 300m
-- name: CPU_LIMIT
   value: 300m
 - name: GLITCHTIP_URL
   description: URL of the glitchtip instance to test
