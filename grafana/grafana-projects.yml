@@ -549,22 +549,36 @@ data:
         "list": [
           {
             "current": {
-              "selected": false,
-              "text": "app-sre-prod-04-prometheus",
+              "selected": true,
+              "text": "glitchtip-prod",
               "value": "app-sre-prod-04-prometheus"
             },
             "hide": 0,
             "includeAll": false,
-            "label": "Prometheus",
+            "label": "Instance",
             "multi": false,
             "name": "datasource",
-            "options": [],
-            "query": "prometheus",
+            "options": [
+              {
+                "selected": true,
+                "text": "glitchtip-prod",
+                "value": "app-sre-prod-04-prometheus"
+              },
+              {
+                "selected": true,
+                "text": "error-tracking-prod",
+                "value": "app-sre-prod-04-prometheus"
+              },
+              {
+                "selected": false,
+                "text": "glitchtip-stage",
+                "value": "app-sre-stage-01-prometheus"
+              }
+            ],
+            "query": "glitchtip-prod : app-sre-prod-04-prometheus, error-tracking-prod : app-sre-prod-04-prometheus, glitchtip-stage : app-sre-stage-01-prometheus",
             "queryValue": "",
-            "refresh": 1,
-            "regex": "/app-sre-prod-04-prometheus|app-sre-stage-01-prometheus/",
             "skipUrlSync": false,
-            "type": "datasource"
+            "type": "custom"
           },
           {
             "current": {
@@ -588,7 +602,7 @@ data:
               "refId": "StandardVariableQuery"
             },
             "refresh": 2,
-            "regex": "/organization=\"(?<value>[^\"]+)/g",
+            "regex": "/namespace=\"${datasource:text}.*\".*organization=\"(?<value>[^\"]+)/g",
             "skipUrlSync": false,
             "sort": 1,
             "type": "query"
@@ -615,7 +629,7 @@ data:
               "refId": "StandardVariableQuery"
             },
             "refresh": 2,
-            "regex": "/project=\"(?<value>[^\"]+)/g",
+            "regex": "/namespace=\"${datasource:text}.*\".*project=\"(?<value>[^\"]+)/g",
             "skipUrlSync": false,
             "sort": 1,
             "type": "query"
@@ -630,6 +644,6 @@ data:
       "timezone": "",
       "title": "Glitchtip Project Statistics",
       "uid": "fefBzLjVz",
-      "version": 7,
+      "version": 8,
       "weekStart": ""
     }
