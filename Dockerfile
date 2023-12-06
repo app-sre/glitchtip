@@ -41,6 +41,8 @@ COPY patches /code/patches
 RUN cat patches/00-do-not-send-invitation-emails.patch | patch -p1
 # Accept all open invitations automatically
 RUN cat patches/01-automatically-accept-open-inivitations-at-login.patch | patch -p1
+# OpenID auth fix
+RUN cat patches/03-fix-openid-auth.patch | patch -p1
 
 # Our appsre custom scripts
 COPY appsre /code/appsre
