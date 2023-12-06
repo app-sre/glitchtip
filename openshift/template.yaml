@@ -16,8 +16,6 @@ objects:
     ENABLE_OBSERVABILITY_API: "${ENABLE_OBSERVABILITY_API}"
     ENABLE_ORGANIZATION_CREATION: "${ENABLE_ORGANIZATION_CREATION}"
     ENABLE_USER_REGISTRATION: "${ENABLE_USER_REGISTRATION}"
-    SOCIALACCOUNT_PROVIDERS_keycloak_KEYCLOAK_URL: ${KEYCLOAK_URL}
-    SOCIALACCOUNT_PROVIDERS_keycloak_KEYCLOAK_REALM: ${KEYCLOAK_REALM}
     DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
     I_PAID_FOR_GLITCHTIP: "True"
     GLITCHTIP_MAX_EVENT_LIFE_DAYS: "${GLITCHTIP_MAX_EVENT_LIFE_DAYS}"
@@ -540,12 +538,6 @@ parameters:
   description: Enable or disable the manual user registration
   required: true
   value: "True"
-
-- description: Keycloak server url
-  name: KEYCLOAK_URL
-
-- description: Keycloak realm
-  name: KEYCLOAK_REALM
 
 - name: ENABLE_OBSERVABILITY_API
   description: Enable prometheus metrics exporter
