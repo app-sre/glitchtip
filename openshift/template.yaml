@@ -25,6 +25,8 @@ objects:
     SESSION_COOKIE_AGE: "${SESSION_TIMEOUT_SECONDS}"
     UWSGI_LISTEN: "${UWSGI_LISTEN}"
     TASK_DEBOUNCE_DELAY: "${TASK_DEBOUNCE_DELAY_SECONDS}"
+    MAINTENANCE_EVENT_FREEZE: "${MAINTENANCE_EVENT_FREEZE}"
+    MAX_ISSUES_PER_ALERT: "${MAX_ISSUES_PER_ALERT}"
   metadata:
     annotations:
       qontract.recycle: "true"
@@ -325,11 +327,10 @@ objects:
                   - "-c"
                   - sleep 5
           readinessProbe:
-            httpGet:
-              path: /api/settings/
+            tcpSocket:
               port: ${{GT_APP_PORT}}
             periodSeconds: 15
-            timeoutSeconds: 60
+            timeoutSeconds: 5
           startupProbe:
             tcpSocket:
               port: ${{GT_APP_PORT}}
@@ -468,7 +469,7 @@ objects:
           name: worker
           readinessProbe:
             exec:
-              command: ["bash", "-c", "celery -A glitchtip inspect ping"]
+              command: ["bash", "-c", "celery -A glitchtip inspect ping -d celery@$HOSTNAME | grep -q OK"]
             initialDelaySeconds: 40
             timeoutSeconds: 180
             periodSeconds: 30
@@ -476,7 +477,7 @@ objects:
             failureThreshold: 3
           livenessProbe:
             exec:
-              command: ["bash", "-c", "celery -A glitchtip inspect ping"]
+              command: ["bash", "-c", "celery -A glitchtip inspect ping -d celery@$HOSTNAME | grep -q OK"]
             initialDelaySeconds: 40
             timeoutSeconds: 180
             periodSeconds: 30
@@ -572,6 +573,16 @@ parameters:
 - description: Debounce delay for issue update tasks
   name: TASK_DEBOUNCE_DELAY_SECONDS
   value: "300"
+  required: true
+
+- description: Maintenance event freeze flag
+  name: MAINTENANCE_EVENT_FREEZE
+  value: "False"
+  required: true
+
+- description: How many issues to include in an alert
+  name: MAX_ISSUES_PER_ALERT
+  value: "1000"
   required: true
 
 # Populated users
