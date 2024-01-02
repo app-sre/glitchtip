@@ -6,6 +6,7 @@ FROM registry.access.redhat.com/ubi9/ubi-minimal:9.3 as base-python
 ENV PYTHONUNBUFFERED=1
 RUN microdnf upgrade -y && \
     microdnf install -y \
+        procps \
         shadow-utils \
         python3.11 && \
     microdnf clean all && \
@@ -30,6 +31,8 @@ RUN microdnf install -y \
 
 RUN python3 - < <(curl -sSL https://install.python-poetry.org)
 RUN $POETRY_HOME/bin/poetry install --no-interaction --no-ansi --only main
+# install some additional python packages
+RUN python3 -m pip install uwsgitop
 
 # ---- Interims image to patch the upstream glitchtip code with our customizations ----
 FROM upstream-glitchtip as patched-glitchtip
