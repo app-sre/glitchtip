@@ -1,6 +1,6 @@
 # ---- Upstream Glitchtip image ----
 # glitchtip-frontend image includes the glitchtip backend and the frontend
-FROM registry.gitlab.com/glitchtip/glitchtip-frontend:v3.4.4 as upstream-glitchtip
+FROM registry.gitlab.com/glitchtip/glitchtip-frontend:v3.4.5 as upstream-glitchtip
 
 FROM registry.access.redhat.com/ubi9/ubi-minimal:9.3 as base-python
 ENV PYTHONUNBUFFERED=1
@@ -41,8 +41,6 @@ COPY patches /code/patches
 RUN cat patches/00-do-not-send-invitation-emails.patch | patch -p1
 # Accept all open invitations automatically
 RUN cat patches/01-automatically-accept-open-inivitations-at-login.patch | patch -p1
-# OpenID auth fix
-RUN cat patches/03-fix-openid-auth.patch | patch -p1
 
 # Our appsre custom scripts
 COPY appsre /code/appsre
