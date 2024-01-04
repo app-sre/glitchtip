@@ -32,7 +32,7 @@ RUN microdnf install -y \
 RUN python3 - < <(curl -sSL https://install.python-poetry.org)
 RUN $POETRY_HOME/bin/poetry install --no-interaction --no-ansi --only main
 # install some additional python packages
-RUN python3 -m pip install uwsgitop
+RUN python3 -m pip install uwsgitop locust
 
 # ---- Interims image to patch the upstream glitchtip code with our customizations ----
 FROM upstream-glitchtip as patched-glitchtip
