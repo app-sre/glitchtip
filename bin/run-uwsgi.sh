@@ -9,6 +9,7 @@ fi
 
 UWSGI_LISTEN="${UWSGI_LISTEN:-128}"
 PORT="${PORT:-8000}"
+HTTP_KEEPALIVE="${UWSGI_HTTP_KEEPALIVE:-120}"
 CHEAPER_OVERLOAD="${UWSGI_CHEAPER_OVERLOAD:-30}"
 MAX_REQUESTS="${UWSGI_MAX_REQUESTS:-10000}"
 WORKER_RELOAD_MERCY="${UWSGI_WORKER_RELOAD_MERCY:-10}"
@@ -19,7 +20,8 @@ exec uwsgi \
     --master --pidfile=/tmp/project-master.pid \
     --log-x-forwarded-for \
     --log-format-strftime \
-    --http11-socket=$HTTP_SOCKET \
+    --http=$HTTP_SOCKET \
+    --http-keepalive=$HTTP_KEEPALIVE \
     --cheaper-algo=busyness \
     --cheaper-overload=$CHEAPER_OVERLOAD \
     --cheaper-step=1 \

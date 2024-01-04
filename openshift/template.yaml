@@ -23,6 +23,7 @@ objects:
     SESSION_COOKIE_AGE: "${SESSION_TIMEOUT_SECONDS}"
     UWSGI_LISTEN: "${UWSGI_LISTEN}"
     UWSGI_ARGS: "${UWSGI_ARGS}"
+    UWSGI_HTTP_KEEPALIVE: "${UWSGI_HTTP_KEEPALIVE}"
     TASK_DEBOUNCE_DELAY: "${TASK_DEBOUNCE_DELAY_SECONDS}"
     MAINTENANCE_EVENT_FREEZE: "${MAINTENANCE_EVENT_FREEZE}"
     MAX_ISSUES_PER_ALERT: "${MAX_ISSUES_PER_ALERT}"
@@ -561,6 +562,11 @@ parameters:
 - description: Set the UWSGI socket listen queue size
   name: UWSGI_LISTEN
   value: "128"
+  required: true
+
+- description: Set HTTP_KEEPALIVE option
+  name: UWSGI_HTTP_KEEPALIVE
+  value: "120"
   required: true
 
 - description: Custom UWSGI args
