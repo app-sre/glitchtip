@@ -22,6 +22,8 @@ exec uwsgi \
     --log-format-strftime \
     --http=$HTTP_SOCKET \
     --http-keepalive=$HTTP_KEEPALIVE \
+    --http-auto-chunked \
+    --add-header="Connection: Close" \
     --cheaper-algo=busyness \
     --cheaper-overload=$CHEAPER_OVERLOAD \
     --cheaper-step=1 \
