@@ -21,7 +21,8 @@ objects:
     GLITCHTIP_MAX_EVENT_LIFE_DAYS: "${GLITCHTIP_MAX_EVENT_LIFE_DAYS}"
     SECRET_KEY: "${SECRET_KEY}"
     SESSION_COOKIE_AGE: "${SESSION_TIMEOUT_SECONDS}"
-    UWSGI_LISTEN: "${UWSGI_LISTEN} ${UWSGI_ARGS}"
+    UWSGI_LISTEN: "${UWSGI_LISTEN}"
+    UWSGI_ARGS: "${UWSGI_ARGS}"
     TASK_DEBOUNCE_DELAY: "${TASK_DEBOUNCE_DELAY_SECONDS}"
     MAINTENANCE_EVENT_FREEZE: "${MAINTENANCE_EVENT_FREEZE}"
     MAX_ISSUES_PER_ALERT: "${MAX_ISSUES_PER_ALERT}"
@@ -564,7 +565,7 @@ parameters:
 
 - description: Custom UWSGI args
   name: UWSGI_ARGS
-  value: "--stats /tmp/stats.socket --memory-report"
+  value: "--stats /tmp/stats.socket"
   required: true
 
 - description: Debounce delay for issue update tasks

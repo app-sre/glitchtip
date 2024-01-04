@@ -47,6 +47,7 @@ RUN cat patches/01-automatically-accept-open-inivitations-at-login.patch | patch
 
 # Our appsre custom scripts
 COPY appsre /code/appsre
+COPY bin/* /code/bin/
 
 # ---- Bundle everything together in the final image ----
 FROM base-python as release-glitchtip
