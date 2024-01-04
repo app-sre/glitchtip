@@ -19,7 +19,7 @@ exec uwsgi \
     --master --pidfile=/tmp/project-master.pid \
     --log-x-forwarded-for \
     --log-format-strftime \
-    --http=$HTTP_SOCKET \
+    --http11-socket=$HTTP_SOCKET \
     --cheaper-algo=busyness \
     --cheaper-overload=$CHEAPER_OVERLOAD \
     --cheaper-step=1 \
