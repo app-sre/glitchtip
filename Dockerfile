@@ -44,6 +44,8 @@ COPY patches /code/patches
 RUN cat patches/00-do-not-send-invitation-emails.patch | patch -p1
 # Accept all open invitations automatically
 RUN cat patches/01-automatically-accept-open-inivitations-at-login.patch | patch -p1
+# Support multiple alerts - https://gitlab.com/glitchtip/glitchtip-backend/-/merge_requests/655
+RUN cat patches/02-support-multiple-alerts.patch | patch -p1
 
 # Our appsre custom scripts
 COPY appsre /code/appsre
