@@ -14,7 +14,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "glitchtip.settings")
 django.setup()
 
 from django.contrib.auth.models import AbstractBaseUser  # isort:skip
-from api_tokens.models import APIToken  # isort:skip
+from apps.api_tokens.models import APIToken  # isort:skip
 
 
 @dataclass
