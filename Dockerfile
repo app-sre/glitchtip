@@ -46,6 +46,9 @@ RUN cat patches/00-do-not-send-invitation-emails.patch | patch -p1
 RUN cat patches/01-automatically-accept-open-inivitations-at-login.patch | patch -p1
 # Support multiple alerts - https://gitlab.com/glitchtip/glitchtip-backend/-/merge_requests/655
 RUN cat patches/02-support-multiple-alerts.patch | patch -p1
+# Reduce issue.tags size to 500kb. Upstream don't want to make this configurable, because
+# they are rewriting the event ingest and the DB model. Until then, we need to patch it.
+RUN cat patches/03-limit-tags-size.patch | patch -p1
 
 # Our appsre custom scripts
 COPY appsre /code/appsre
