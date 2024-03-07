@@ -312,6 +312,30 @@ objects:
               secretKeyRef:
                 name: ${SMTP_SETTINGS_SECRET}
                 key: require_tls
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: ${S3_SECRET_NAME}
+                key: aws_access_key_id
+                optional: true
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: ${S3_SECRET_NAME}
+                key: aws_secret_access_key
+                optional: true
+          - name: AWS_STORAGE_BUCKET_NAME
+            valueFrom:
+              secretKeyRef:
+                name: ${S3_SECRET_NAME}
+                key: bucket
+                optional: true
+          - name: AWS_S3_ENDPOINT_URL
+            valueFrom:
+              secretKeyRef:
+                name: ${S3_SECRET_NAME}
+                key: endpoint
+                optional: true
           envFrom:
             - configMapRef:
                 name: glitchtip-configmap
@@ -462,6 +486,30 @@ objects:
               secretKeyRef:
                 name: ${SMTP_SETTINGS_SECRET}
                 key: require_tls
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: ${S3_SECRET_NAME}
+                key: aws_access_key_id
+                optional: true
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: ${S3_SECRET_NAME}
+                key: aws_secret_access_key
+                optional: true
+          - name: AWS_STORAGE_BUCKET_NAME
+            valueFrom:
+              secretKeyRef:
+                name: ${S3_SECRET_NAME}
+                key: bucket
+                optional: true
+          - name: AWS_S3_ENDPOINT_URL
+            valueFrom:
+              secretKeyRef:
+                name: ${S3_SECRET_NAME}
+                key: endpoint
+                optional: true
           envFrom:
             - configMapRef:
                 name: glitchtip-configmap
@@ -588,6 +636,10 @@ parameters:
   name: MAX_ISSUES_PER_ALERT
   value: "1000"
   required: true
+
+- description: S3 secret name
+  name: S3_SECRET_NAME
+  value: glitchtip-s3
 
 # Populated users
 - name: API_USER_1_EMAIL
