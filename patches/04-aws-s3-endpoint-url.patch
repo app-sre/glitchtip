@@ -1,0 +1,16 @@
+diff --git a/glitchtip/settings.py b/glitchtip/settings.py
+index 0e8b49f..efaeb0e 100644
+--- a/glitchtip/settings.py
++++ b/glitchtip/settings.py
+@@ -603,9 +603,8 @@ GS_BUCKET_NAME = env("GS_BUCKET_NAME")
+ GS_PROJECT_ID = env("GS_PROJECT_ID")
+ 
+ if AWS_S3_ENDPOINT_URL:
+-    MEDIA_URL = env.str(
+-        "MEDIA_URL", "https://%s/%s/" % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
+-    )
++    AWS_S3_ENDPOINT_URL = f"https://{AWS_S3_ENDPOINT_URL}"
++    MEDIA_URL = env.str("MEDIA_URL", f"{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}")
+     STORAGES["default"] = {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"}
+ else:
+     MEDIA_URL = "media/"
