@@ -5,13 +5,13 @@ index c4ef995..f3156a1 100644
 @@ -161,6 +161,12 @@ class SocialLoginSerializer(BaseSocialLoginSerializer):
                  login.lookup()
                  login.save(request, connect=True)
- 
+
 +        # automatically accept any open invitation for this user
-+        from organizations_ext.models import OrganizationUser
++        from apps.organizations_ext.models import OrganizationUser
 +
 +        for org_user in OrganizationUser.objects.filter(email=login.user.email):
 +            org_user.accept_invite(login.user)
 +
          attrs["user"] = login.account.user
- 
+
          return attrs
