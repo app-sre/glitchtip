@@ -155,6 +155,10 @@ objects:
       matchLabels:
         app.kubernetes.io/component: web
         app.kubernetes.io/name: glitchtip
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxUnavailable: 1
     template:
       metadata:
         labels:
