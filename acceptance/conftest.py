@@ -2,6 +2,7 @@ import os
 
 import pytest
 from reconcile.utils.glitchtip import GlitchtipClient
+from reconcile.utils.rest_api_base import BearerTokenAuth
 
 
 @pytest.fixture
@@ -40,7 +41,7 @@ def api_user() -> str:
 def glitchtip_client() -> GlitchtipClient:
     return GlitchtipClient(
         host=os.environ.get("GLITCHTIP_URL", "http://web:8080"),
-        token=os.environ.get("GLITCHTIP_API_USER_TOKEN", "token"),
+        auth=BearerTokenAuth(os.environ.get("GLITCHTIP_API_USER_TOKEN", "token")),
     )
 
 
