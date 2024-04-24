@@ -1,6 +1,6 @@
 # ---- Upstream Glitchtip image ----
 # glitchtip-frontend image includes the glitchtip backend and the frontend
-FROM registry.gitlab.com/glitchtip/glitchtip-frontend:v3.4.6 as upstream-glitchtip
+FROM registry.gitlab.com/glitchtip/glitchtip-frontend:v4.0.6 as upstream-glitchtip
 
 FROM registry.access.redhat.com/ubi9/ubi-minimal:9.3 as base-python
 ENV PYTHONUNBUFFERED=1
@@ -27,6 +27,7 @@ RUN microdnf install -y \
         libxml2-devel \
         libpq-devel \
         gcc \
+        pcre2-devel \
         python3.11-devel
 
 RUN python3 - < <(curl -sSL https://install.python-poetry.org)
@@ -44,11 +45,6 @@ COPY patches /code/patches
 RUN cat patches/00-do-not-send-invitation-emails.patch | patch -p1
 # Accept all open invitations automatically
 RUN cat patches/01-automatically-accept-open-inivitations-at-login.patch | patch -p1
-# Support multiple alerts - https://gitlab.com/glitchtip/glitchtip-backend/-/merge_requests/655
-RUN cat patches/02-support-multiple-alerts.patch | patch -p1
-# Reduce issue.tags size to 500kb. Upstream don't want to make this configurable, because
-# they are rewriting the event ingest and the DB model. Until then, we need to patch it.
-RUN cat patches/03-limit-tags-size.patch | patch -p1
 # add https:// to the s3 endpoint url
 RUN cat patches/04-aws-s3-endpoint-url.patch | patch -p1
 
@@ -65,6 +61,7 @@ EXPOSE 8080
 
 RUN microdnf install -y \
         libxml2 \
+        pcre2 \
         libpq && \
     microdnf clean all
 
