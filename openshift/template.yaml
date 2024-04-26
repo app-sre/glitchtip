@@ -205,10 +205,10 @@ objects:
                 key: db.user
           resources:
             requests:
-              cpu: ${{GT_WEB_CPU_REQUESTS}}
-              memory: ${{GT_WEB_MEMORY_REQUESTS}}
+              cpu: ${{GT_MIGRATION_CPU_REQUESTS}}
+              memory: ${{GT_MIGRATION_MEMORY_REQUESTS}}
             limits:
-              memory: ${{GT_WEB_MEMORY_LIMITS}}
+              memory: ${{GT_MIGRATION_MEMORY_LIMITS}}
         - name: init-api-users
           image: "${IMAGE}:${IMAGE_TAG}"
           command: ["python3", "appsre/create-api-users.py"]
@@ -705,6 +705,21 @@ parameters:
 
 - name: GT_WEB_CPU_REQUESTS
   description: Web cpu requests
+  value: "100m"
+  required: true
+
+- name: GT_MIGRATION_MEMORY_REQUESTS
+  description: DB migration memory requests
+  value: "500Mi"
+  required: true
+
+- name: GT_MIGRATION_MEMORY_LIMITS
+  description: DB migration memory limits
+  value: "500Mi"
+  required: true
+
+- name: GT_MIGRATION_CPU_REQUESTS
+  description: DB migration cpu requests
   value: "100m"
   required: true
 
