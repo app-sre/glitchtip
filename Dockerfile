@@ -1,6 +1,6 @@
 # ---- Upstream Glitchtip image ----
 # glitchtip-frontend image includes the glitchtip backend and the frontend
-FROM registry.gitlab.com/glitchtip/glitchtip-frontend:v4.0.8 as upstream-glitchtip
+FROM registry.gitlab.com/glitchtip/glitchtip-frontend:v4.0.9 as upstream-glitchtip
 
 FROM registry.access.redhat.com/ubi9/ubi-minimal:9.3 as base-python
 ENV PYTHONUNBUFFERED=1
