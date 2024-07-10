@@ -39,7 +39,7 @@ def test_project_get(
 
 
 @pytest.mark.order(
-    after=["test_project_create"],
+    after=["test_project_create", "test_team.py:test_team_create"],
     before=["test_project_delete"],
 )
 def test_project_add_to_team(
