@@ -47,6 +47,8 @@ RUN cat patches/00-do-not-send-invitation-emails.patch | patch -p1
 RUN cat patches/01-automatically-accept-open-inivitations-at-login.patch | patch -p1
 # add https:// to the s3 endpoint url
 RUN cat patches/04-aws-s3-endpoint-url.patch | patch -p1
+# https://gitlab.com/glitchtip/glitchtip-backend/-/merge_requests/1037
+RUN cat patches/05-bug-team-api-fix-add_team_to_project-and-delete_team.patch | patch -p1
 
 # Our appsre custom scripts
 COPY appsre /code/appsre
