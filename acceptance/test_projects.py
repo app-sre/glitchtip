@@ -50,10 +50,16 @@ def test_project_add_to_team(
     test_team2: str,
 ) -> None:
     """Add a project to a team."""
+    assert test_team2 not in [
+        team.name
+        for project in glitchtip_client.projects(test_org)
+        for team in project.teams
+    ]
     glitchtip_client.add_project_to_team(test_org, test_team2, test_project)
-    projects = glitchtip_client.projects(test_org)
     assert [test_team, test_team2] == [
-        team.name for project in projects for team in project.teams
+        team.name
+        for project in glitchtip_client.projects(test_org)
+        for team in project.teams
     ]
 
 
@@ -69,10 +75,16 @@ def test_project_remove_from_team(
     test_team2: str,
 ) -> None:
     """Remove a project from a team."""
-    glitchtip_client.add_project_to_team(test_org, test_team2, test_project)
-    projects = glitchtip_client.projects(test_org)
-    assert [test_team, test_team2] == [
-        team.name for project in projects for team in project.teams
+    assert test_team2 in [
+        team.name
+        for project in glitchtip_client.projects(test_org)
+        for team in project.teams
+    ]
+    glitchtip_client.remove_project_from_team(test_org, test_team2, test_project)
+    assert test_team2 not in [
+        team.name
+        for project in glitchtip_client.projects(test_org)
+        for team in project.teams
     ]
 
 
