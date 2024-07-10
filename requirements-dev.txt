@@ -1,0 +1,5 @@
+-r requirements-acceptance.txt
+
+qontract-reconcile
+mypy
+ruff==0.5.1

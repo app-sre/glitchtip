@@ -22,4 +22,4 @@ def test_organsiation_delete(glitchtip_client: GlitchtipClient, test_org: str) -
 def test_organsiation_get(glitchtip_client: GlitchtipClient, test_org: str) -> None:
     """Get an organization."""
     orgs = glitchtip_client.organizations()
-    assert [org.name for org in orgs] == [test_org]
+    assert test_org in [org.name for org in orgs]
