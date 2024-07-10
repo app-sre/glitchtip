@@ -3,6 +3,9 @@ set -ev
 
 test -z "$NO_PUSH" && docker login -u="$QUAY_USER" -p="$QUAY_TOKEN" quay.io
 
+# Force image pull
+docker image rm --force quay.io/app-sre/qontract-reconcile:latest
+
 for i in "glitchtip Dockerfile" "glitchtip-acceptance Dockerfile.acceptance"
 do
     set -- $i # convert the "tuple" into the param args $1 $2...
