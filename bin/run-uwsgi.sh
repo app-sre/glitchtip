@@ -24,6 +24,7 @@ exec uwsgi \
     --http-keepalive=$HTTP_KEEPALIVE \
     --http-auto-chunked \
     --add-header="Connection: Close" \
+    --http-chunked-input \
     --cheaper-algo=busyness \
     --cheaper-overload=$CHEAPER_OVERLOAD \
     --cheaper-step=1 \
