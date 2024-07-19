@@ -18,6 +18,7 @@ exec uwsgi \
     --module=glitchtip.wsgi:application \
     --env DJANGO_SETTINGS_MODULE=glitchtip.settings \
     --master --pidfile=/tmp/project-master.pid \
+    --buffer-size=83146 \
     --log-x-forwarded-for \
     --log-format-strftime \
     --http=$HTTP_SOCKET \
@@ -38,7 +39,6 @@ exec uwsgi \
     --enable-threads \
     --single-interpreter \
     --post-buffering \
-    --buffer-size=83146 \
     --ignore-sigpipe \
     --ignore-write-errors \
     --disable-write-exception \
