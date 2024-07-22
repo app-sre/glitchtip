@@ -1,17 +1,19 @@
 diff --git a/glitchtip/social.py b/glitchtip/social.py
-index c4ef995..f3156a1 100644
+index 8fe4f75c..a5d270ef 100644
 --- a/glitchtip/social.py
 +++ b/glitchtip/social.py
-@@ -161,6 +161,12 @@ class SocialLoginSerializer(BaseSocialLoginSerializer):
-                 login.lookup()
-                 login.save(request, connect=True)
-
+@@ -190,6 +190,14 @@ class SocialLoginSerializer(BaseSocialLoginSerializer):
+                     ) from ex
+                 self.post_signup(login, attrs)
+ 
 +        # automatically accept any open invitation for this user
 +        from apps.organizations_ext.models import OrganizationUser
 +
 +        for org_user in OrganizationUser.objects.filter(email=login.user.email):
-+            org_user.accept_invite(login.user)
++            org_user.user = login.user
++            org_user.email = None
++            org_user.save()
 +
          attrs["user"] = login.account.user
-
+ 
          return attrs
