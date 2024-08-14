@@ -13,6 +13,8 @@ HTTP_KEEPALIVE="${UWSGI_HTTP_KEEPALIVE:-120}"
 CHEAPER_OVERLOAD="${UWSGI_CHEAPER_OVERLOAD:-30}"
 MAX_REQUESTS="${UWSGI_MAX_REQUESTS:-10000}"
 WORKER_RELOAD_MERCY="${UWSGI_WORKER_RELOAD_MERCY:-10}"
+UWSGI_HARAKIRI="${UWSGI_HARAKIRI:-60}"
+UWSGI_PROCESSES="${UWSGI_PROCESSES:-1}"
 
 exec uwsgi \
     --module=glitchtip.wsgi:application \
@@ -30,7 +32,7 @@ exec uwsgi \
     --cheaper-busyness-max=50 \
     --cheaper-busyness-min=25 \
     --cheaper-busyness-multiplier=20 \
-    --harakiri=60 \
+    --harakiri=$UWSGI_HARAKIRI \
     --max-requests=$MAX_REQUESTS \
     --worker-reload-mercy=$WORKER_RELOAD_MERCY \
     --die-on-term \
@@ -41,4 +43,5 @@ exec uwsgi \
     --ignore-sigpipe \
     --ignore-write-errors \
     --disable-write-exception \
-    --listen=$UWSGI_LISTEN $UWSGI_ARGS
+    --listen=$UWSGI_LISTEN $UWSGI_ARGS \
+    --processes=$UWSGI_PROCESSES
