@@ -860,8 +860,8 @@ parameters:
 - name: UWSGI_HARAKIRI
   description: harakiri timeout
   value: "60"
-  required: false
+  required: true
 - name: UWSGI_PROCESSES
   description: number of uwsgi worker processes
   value: "1"
-  required: false
+  required: true
