@@ -27,6 +27,8 @@ objects:
     TASK_DEBOUNCE_DELAY: "${TASK_DEBOUNCE_DELAY_SECONDS}"
     MAINTENANCE_EVENT_FREEZE: "${MAINTENANCE_EVENT_FREEZE}"
     MAX_ISSUES_PER_ALERT: "${MAX_ISSUES_PER_ALERT}"
+    UWSGI_HARAKIRI: "${UWSGI_HARAKIRI}"
+    UWSGI_PROCESSES: "${UWSGI_PROCESSES}"
   metadata:
     annotations:
       qontract.recycle: "true"
@@ -853,4 +855,13 @@ parameters:
 - name: NOTIFICATION_CLEANER_CPU_REQUESTS
   description: Notification Cleaner cpu requests
   value: "100m"
+  required: true
+
+- name: UWSGI_HARAKIRI
+  description: harakiri timeout
+  value: "60"
+  required: true
+- name: UWSGI_PROCESSES
+  description: number of uwsgi worker processes
+  value: "1"
   required: true
