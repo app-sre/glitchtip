@@ -29,6 +29,7 @@ objects:
     MAX_ISSUES_PER_ALERT: "${MAX_ISSUES_PER_ALERT}"
     UWSGI_HARAKIRI: "${UWSGI_HARAKIRI}"
     UWSGI_PROCESSES: "${UWSGI_PROCESSES}"
+    DATA_UPLOAD_MAX_NUMBER_FIELDS: "${DATA_UPLOAD_MAX_NUMBER_FIELDS}"
   metadata:
     annotations:
       qontract.recycle: "true"
@@ -679,6 +680,11 @@ parameters:
 - name: GLITCHTIP_MAX_EVENT_LIFE_DAYS
   description: Max number of days to keep events in the database
   value: "30"
+  required: true
+
+- name: DATA_UPLOAD_MAX_NUMBER_FIELDS
+  description: Max number of fields in a form
+  value: "5000"
   required: true
 
 - description: RDS secret name
