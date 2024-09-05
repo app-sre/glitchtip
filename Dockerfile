@@ -1,6 +1,6 @@
 # ---- Upstream Glitchtip image ----
 # glitchtip-frontend image includes the glitchtip backend and the frontend
-FROM registry.gitlab.com/glitchtip/glitchtip-frontend:v4.0.12 as upstream-glitchtip
+FROM registry.gitlab.com/glitchtip/glitchtip-frontend:v4.1.2 as upstream-glitchtip
 
 FROM registry.access.redhat.com/ubi9/ubi-minimal:9.3 as base-python
 ENV PYTHONUNBUFFERED=1
@@ -47,8 +47,6 @@ RUN cat patches/00-do-not-send-invitation-emails.patch | patch -p1
 RUN cat patches/01-automatically-accept-open-inivitations-at-login.patch | patch -p1
 # add https:// to the s3 endpoint url
 RUN cat patches/04-aws-s3-endpoint-url.patch | patch -p1
-# https://gitlab.com/glitchtip/glitchtip-backend/-/merge_requests/1128
-RUN cat patches/06-settings.patch | patch -p1
 
 # Our appsre custom scripts
 COPY appsre /code/appsre
