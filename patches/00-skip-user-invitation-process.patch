@@ -37,15 +37,16 @@ index 49fcfb0e..1adacba6 100644
 
 
 diff --git a/glitchtip/settings.py b/glitchtip/settings.py
-index 8e705905..31f114df 100644
+index 8e705905..07cdf3f8 100644
 --- a/glitchtip/settings.py
 +++ b/glitchtip/settings.py
-@@ -676,6 +676,9 @@ if NEXTCLOUD_URL := env.url("SOCIALACCOUNT_PROVIDERS_nextcloud_SERVER", None):
+@@ -676,6 +676,10 @@ if NEXTCLOUD_URL := env.url("SOCIALACCOUNT_PROVIDERS_nextcloud_SERVER", None):
  if MICROSOFT_TENANT := env.str("SOCIALACCOUNT_PROVIDERS_microsoft_TENANT", None):
      SOCIALACCOUNT_PROVIDERS["microsoft"] = {"TENANT": MICROSOFT_TENANT}
 
 +SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
 +SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
++SOCIALACCOUNT_LOGIN_ON_GET = True
 +
  ENABLE_USER_REGISTRATION = env.bool("ENABLE_USER_REGISTRATION", True)
  ENABLE_ORGANIZATION_CREATION = env.bool(
