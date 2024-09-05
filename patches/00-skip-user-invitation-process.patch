@@ -1,0 +1,38 @@
+diff --git a/apps/organizations_ext/api.py b/apps/organizations_ext/api.py
+index 49fcfb0e..1adacba6 100644
+--- a/apps/organizations_ext/api.py
++++ b/apps/organizations_ext/api.py
+@@ -244,7 +244,32 @@ async def create_organization_member(
+     if teams:
+         await member.teams.aadd(*teams)
+ 
+-    await sync_to_async(invitation_backend().send_invitation)(member)
++    # automatically connect Django user and organization user
++    from django.contrib.auth import get_user_model
++    import secrets
++    import string
++
++    alphabet = string.ascii_letters + string.digits
++    # the user.password field is required but we don't use it.
++    # just set a random string as password. it's not usable because it's not hashed
++    unuseble_password = "".join(secrets.choice(alphabet) for i in range(50))
++    user_model = get_user_model()
++    await user_model.objects.aget_or_create(
++        email=email,
++        defaults={
++            "password": unuseble_password,
++            "is_active": True,
++        },
++    )
++    # Fetch user obj from DB after creation to prefetch socialaccount_set. Needed for API response
++    user = await user_model.objects.prefetch_related("socialaccount_set").aget(
++        email=email
++    )
++
++    member.user = user
++    member.email = None
++    await member.asave()
++
+     return 201, member
+ 
+ 

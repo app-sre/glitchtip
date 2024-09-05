@@ -42,9 +42,7 @@ RUN apt-get update && apt-get install -y patch
 
 COPY patches /code/patches
 # Do not send invitation emails
-RUN cat patches/00-do-not-send-invitation-emails.patch | patch -p1
-# Accept all open invitations automatically
-RUN cat patches/01-automatically-accept-open-inivitations-at-login.patch | patch -p1
+RUN cat patches/patches/00-skip-user-invitation-process.patch | patch -p1
 # add https:// to the s3 endpoint url
 RUN cat patches/04-aws-s3-endpoint-url.patch | patch -p1
 
