@@ -5,7 +5,7 @@ index 49fcfb0e..1adacba6 100644
 @@ -244,7 +244,32 @@ async def create_organization_member(
      if teams:
          await member.teams.aadd(*teams)
- 
+
 -    await sync_to_async(invitation_backend().send_invitation)(member)
 +    # automatically connect Django user and organization user
 +    from django.contrib.auth import get_user_model
@@ -34,5 +34,19 @@ index 49fcfb0e..1adacba6 100644
 +    await member.asave()
 +
      return 201, member
- 
- 
+
+
+diff --git a/glitchtip/settings.py b/glitchtip/settings.py
+index 8e705905..31f114df 100644
+--- a/glitchtip/settings.py
++++ b/glitchtip/settings.py
+@@ -676,6 +676,9 @@ if NEXTCLOUD_URL := env.url("SOCIALACCOUNT_PROVIDERS_nextcloud_SERVER", None):
+ if MICROSOFT_TENANT := env.str("SOCIALACCOUNT_PROVIDERS_microsoft_TENANT", None):
+     SOCIALACCOUNT_PROVIDERS["microsoft"] = {"TENANT": MICROSOFT_TENANT}
+
++SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
++SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
++
+ ENABLE_USER_REGISTRATION = env.bool("ENABLE_USER_REGISTRATION", True)
+ ENABLE_ORGANIZATION_CREATION = env.bool(
+     "ENABLE_OPEN_USER_REGISTRATION", env.bool("ENABLE_ORGANIZATION_CREATION", False)
