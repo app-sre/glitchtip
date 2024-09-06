@@ -1,6 +1,7 @@
 # ---- Upstream Glitchtip image ----
-# glitchtip-frontend image includes the glitchtip backend and the frontend
+# Attention: Update the GLITCHTIP_VERSION also below in the release-glitchtip stage!
 ARG GLITCHTIP_VERSION=v4.1.3
+# glitchtip-frontend image includes the glitchtip backend and the frontend
 FROM registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP_VERSION} as upstream-glitchtip
 
 FROM registry.access.redhat.com/ubi9/ubi-minimal:9.3 as base-python
@@ -53,6 +54,7 @@ COPY bin/* /code/bin/
 
 # ---- Bundle everything together in the final image ----
 FROM base-python as release-glitchtip
+ARG GLITCHTIP_VERSION=v4.1.3
 ENV GLITCHTIP_VERSION ${GLITCHTIP_VERSION}
 ENV PORT=8080
 EXPOSE 8080
