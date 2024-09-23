@@ -1,6 +1,6 @@
 # ---- Upstream Glitchtip image ----
 # Attention: Update the GLITCHTIP_VERSION also below in the release-glitchtip stage!
-ARG GLITCHTIP_VERSION=v4.1.3
+ARG GLITCHTIP_VERSION=v4.1.4
 # glitchtip-frontend image includes the glitchtip backend and the frontend
 FROM registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP_VERSION} as upstream-glitchtip
 
