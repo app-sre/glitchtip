@@ -54,7 +54,7 @@ COPY bin/* /code/bin/
 
 # ---- Bundle everything together in the final image ----
 FROM base-python as release-glitchtip
-ARG GLITCHTIP_VERSION=v4.1.3
+ARG GLITCHTIP_VERSION=v4.1.4
 ENV GLITCHTIP_VERSION ${GLITCHTIP_VERSION}
 ENV PORT=8080
 EXPOSE 8080
