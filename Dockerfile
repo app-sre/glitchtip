@@ -44,7 +44,7 @@ RUN apt-get update && apt-get install -y patch
 
 COPY patches /code/patches
 # Do not send invitation emails
-RUN cat patches/patches/00-skip-user-invitation-process.patch | patch -p1
+RUN cat patches/00-skip-user-invitation-process.patch | patch -p1
 # add https:// to the s3 endpoint url
 RUN cat patches/04-aws-s3-endpoint-url.patch | patch -p1
 
