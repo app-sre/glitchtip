@@ -4,7 +4,7 @@ ARG GLITCHTIP_VERSION=v4.1.4
 # glitchtip-frontend image includes the glitchtip backend and the frontend
 FROM registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP_VERSION} as upstream-glitchtip
 
-FROM registry.access.redhat.com/ubi9/ubi-minimal:9.3 as base-python
+FROM registry.access.redhat.com/ubi9/ubi-minimal:9.5 as base-python
 ENV PYTHONUNBUFFERED=1
 RUN microdnf upgrade -y && \
     microdnf install -y \
