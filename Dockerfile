@@ -30,7 +30,7 @@ ENV \
     # disable uv cache. it doesn't make sense in a container
     UV_NO_CACHE=true
 
-COPY --from=ghcr.io/astral-sh/uv:0.5.1@sha256:190cbcca15602bad4531b4310f928fd34a036d50ec3edb6389edc167e21c35b6 /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.5.2@sha256:ab5cd8c7946ae6a359a9aea9073b5effd311d40a65310380caae938a1abf55da /uv /bin/uv
 COPY --from=upstream --chown=1001:root /code ./
 
 # Install the required packages
