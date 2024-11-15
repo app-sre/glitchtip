@@ -1,2 +1,0 @@
-pytest==7.2.*
-pytest-order==1.0.*
