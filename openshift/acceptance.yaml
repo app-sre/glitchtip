@@ -44,7 +44,7 @@ objects:
 
 parameters:
 - name: IMAGE
-  value: quay.io/app-sre/glitchtip-acceptance
+  value: quay.io/redhat-services-prod/app-sre-tenant/glitchtip-main/glitchtip-acceptance-main
 - name: IMAGE_TAG
   value: ''
   required: true
