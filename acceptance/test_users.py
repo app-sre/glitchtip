@@ -44,7 +44,7 @@ def test_user_get(
 ) -> None:
     """Get a user."""
     users = glitchtip_client.organization_users(test_org)
-    assert set(user.email for user in users) == {api_user, test_user}
+    assert {user.email for user in users} == {api_user, test_user}
 
 
 @pytest.mark.order(

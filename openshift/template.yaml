@@ -625,7 +625,7 @@ objects:
 parameters:
 - name: IMAGE
   description: Image to use for glitchtip
-  value: "quay.io/app-sre/glitchtip"
+  value: quay.io/redhat-services-prod/app-sre-tenant/glitchtip-main/glitchtip-main
   required: true
 
 - name: IMAGE_TAG
