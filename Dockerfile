@@ -15,6 +15,7 @@ COPY --from=upstream /code/LICENSE /licenses/LICENSE
 ARG GLITCHTIP_VERSION
 ENV GLITCHTIP_VERSION ${GLITCHTIP_VERSION}
 ARG TAG=prod
+# addtional tags for the image
 LABEL konflux.additional-tags="${GLITCHTIP_VERSION}, ${TAG}"
 
 
