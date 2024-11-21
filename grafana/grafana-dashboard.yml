@@ -613,7 +613,7 @@ data:
                   },
                   {
                     "color": "red",
-                    "value": 10
+                    "value": 80
                   }
                 ]
               },
@@ -2993,6 +2993,6 @@ data:
       "timezone": "",
       "title": "Glitchtip Dashboard",
       "uid": "GRUqV30Vk",
-      "version": 17,
+      "version": 18,
       "weekStart": ""
     }
