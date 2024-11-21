@@ -13,8 +13,8 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "glitchtip.settings")
 django.setup()
 
-from django.contrib.auth.models import AbstractBaseUser  # isort:skip  # noqa: E402
-from apps.api_tokens.models import APIToken  # isort:skip  # noqa: E402
+from django.contrib.auth.models import AbstractBaseUser  # isort:skip
+from apps.api_tokens.models import APIToken  # isort:skip
 
 
 @dataclass
@@ -65,7 +65,7 @@ def create_or_update_token(user: AbstractBaseUser, token: str) -> None:
     user_scopes = 0
 
     # grant all scopes to the user
-    for scope_name in APIToken.scopes.keys():  # noqa: SIM118
+    for scope_name in APIToken.scopes:  # type: ignore[attr-defined]
         user_scopes |= getattr(APIToken.scopes, scope_name)
 
     APIToken.objects.update_or_create(
