@@ -30,12 +30,6 @@ spec:
     value: .
   - name: target-stage
     value: prod
-  - name: build-platforms
-    value:
-    - linux/x86_64
-  - name: build-args
-    value:
-    - TAG=dev
   pipelineRef:
     resolver: git
     params:
