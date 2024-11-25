@@ -29,13 +29,7 @@ spec:
   - name: path-context
     value: .
   - name: target-stage
-    value: prod
-  - name: build-platforms
-    value:
-    - linux/x86_64
-  - name: build-args
-    value:
-    - TAG=dev
+    value: test
   pipelineRef:
     resolver: git
     params:

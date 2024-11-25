@@ -10,6 +10,6 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "glitchtip.settings")
 django.setup()
 
-from apps.alerts.models import Notification  # isort:skip  # noqa: E402
+from apps.alerts.models import Notification  # isort:skip
 
 Notification.objects.all().delete()

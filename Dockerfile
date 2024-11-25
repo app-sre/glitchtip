@@ -9,13 +9,12 @@ FROM ${GLITCHTIP_IMAGE} AS upstream
 #
 # Base image
 #
-FROM registry.access.redhat.com/ubi9/python-312:9.5 AS base
+FROM registry.access.redhat.com/ubi9/python-312:9.5@sha256:116fc1952f0647e4f1f0d81b4f8dfcf4e8fcde735f095314a7532c7dc64bdf7f AS base
 COPY --from=upstream /code/LICENSE /licenses/LICENSE
 
 ARG GLITCHTIP_VERSION
-ENV GLITCHTIP_VERSION ${GLITCHTIP_VERSION}
-ARG TAG=prod
-LABEL konflux.additional-tags="${GLITCHTIP_VERSION} ${TAG}"
+ENV GLITCHTIP_VERSION=${GLITCHTIP_VERSION}
+LABEL konflux.additional-tags="${GLITCHTIP_VERSION}"
 
 
 #
@@ -62,3 +61,19 @@ COPY --from=builder $APP_ROOT/ $APP_ROOT/
 RUN SECRET_KEY=ci ./manage.py collectstatic --noinput
 
 CMD ["./bin/start.sh"]
+
+
+#
+# Test image
+#
+FROM prod AS test
+COPY --from=ghcr.io/astral-sh/uv:0.5.2@sha256:ab5cd8c7946ae6a359a9aea9073b5effd311d40a65310380caae938a1abf55da /uv /bin/uv
+ENV \
+    # use venv from ubi image
+    UV_PROJECT_ENVIRONMENT=$APP_ROOT \
+    # disable uv cache. it doesn't make sense in a container
+    UV_NO_CACHE=true
+
+COPY Makefile pyproject.toml ./
+COPY acceptance/ ./acceptance/
+RUN make test

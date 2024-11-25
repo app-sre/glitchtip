@@ -1,9 +1,8 @@
 
-build-acceptance-tests:
-	NO_PUSH=1 ./build_deploy.sh
+CONTAINER_ENGINE ?= $(shell which podman >/dev/null 2>&1 && echo podman || echo docker)
 
-run-glitchtip:
-	docker-compose -f docker-compose.yml up
-
-run-acceptance-tests-locally: build-acceptance-tests
-	docker run --rm -it --network qontract-development glitchtip-acceptance
+.PHONY: test
+test:
+	uv run ruff check --no-fix
+	uv run ruff format --check
+	uv run mypy
