@@ -1431,8 +1431,7 @@ data:
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": null
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -1551,8 +1550,7 @@ data:
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": null
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -1671,8 +1669,7 @@ data:
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": null
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -1791,8 +1788,7 @@ data:
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": null
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -1910,8 +1906,7 @@ data:
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": null
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -2030,8 +2025,7 @@ data:
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": null
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -2163,8 +2157,7 @@ data:
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": null
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -2282,8 +2275,7 @@ data:
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": null
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -2401,8 +2393,7 @@ data:
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": null
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -2520,8 +2511,7 @@ data:
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": null
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -2639,8 +2629,7 @@ data:
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": null
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -2758,8 +2747,7 @@ data:
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green",
-                        "value": null
+                        "color": "green"
                       },
                       {
                         "color": "red",
@@ -2842,7 +2830,7 @@ data:
         "list": [
           {
             "current": {
-              "selected": false,
+              "selected": true,
               "text": "glitchtip",
               "value": "glitchtip"
             },
@@ -2870,7 +2858,7 @@ data:
           },
           {
             "current": {
-              "selected": false,
+              "selected": true,
               "text": "prod",
               "value": "app-sre-prod-04-prometheus"
             },
@@ -2940,9 +2928,9 @@ data:
           },
           {
             "current": {
-              "selected": false,
+              "selected": true,
               "text": "prod",
-              "value": "appsrep07ue1-prometheus"
+              "value": "aws-resources-exporter-production"
             },
             "description": "",
             "hide": 0,
@@ -2953,15 +2941,15 @@ data:
               {
                 "selected": true,
                 "text": "prod",
-                "value": "appsrep07ue1-prometheus"
+                "value": "aws-resources-exporter-production"
               },
               {
                 "selected": false,
                 "text": "stage",
-                "value": "appsres07ue1-prometheus"
+                "value": "aws-resources-exporter-stage"
               }
             ],
-            "query": "prod : appsrep07ue1-prometheus, stage : appsres07ue1-prometheus",
+            "query": "prod : aws-resources-exporter-production, stage : aws-resources-exporter-stage",
             "queryValue": "",
             "skipUrlSync": false,
             "type": "custom"
@@ -2969,8 +2957,8 @@ data:
           {
             "current": {
               "selected": false,
-              "text": "appsrep07ue1-prometheus",
-              "value": "P7E8E1698DF0AC988"
+              "text": "aws-resources-exporter-production",
+              "value": "PCEFB875D6FD018FC"
             },
             "hide": 2,
             "includeAll": false,
@@ -2993,6 +2981,6 @@ data:
       "timezone": "",
       "title": "Glitchtip Dashboard",
       "uid": "GRUqV30Vk",
-      "version": 18,
+      "version": 19,
       "weekStart": ""
     }
