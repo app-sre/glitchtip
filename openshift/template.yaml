@@ -266,6 +266,19 @@ objects:
               memory: ${{GT_WEB_MEMORY_REQUESTS}}
             limits:
               memory: ${{GT_WEB_MEMORY_LIMITS}}
+        # This is a workaround/hack to ensure that the glitchtip-accepatance image is also available.
+        # We've seen in the past that the Konflux release failed due to outages and the glitchtip image
+        # was avaiable but not the glitchtip-acceptance image.
+        # Feel free to remove this if we can manage this dependency better.
+        - name: check-acceptance-image
+          image: "${ACCEPTANCE_IMAGE}:${IMAGE_TAG}"
+          command: ["echo", "done"]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              memory: 100Mi
         containers:
         - env:
           - name: SERVER_ROLE
@@ -627,6 +640,9 @@ parameters:
   description: Image to use for glitchtip
   value: quay.io/redhat-services-prod/app-sre-tenant/glitchtip-main/glitchtip-main
   required: true
+
+- name: ACCEPTANCE_IMAGE
+  value: quay.io/redhat-services-prod/app-sre-tenant/glitchtip-main/glitchtip-acceptance-main
 
 - name: IMAGE_TAG
   description: Glitchtip version
