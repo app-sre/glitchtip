@@ -1150,7 +1150,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.1rc1201"
+version = "0.10.1rc1202"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1205,7 +1205,7 @@ dependencies = [
     { name = "yamllint" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/15/76/6cb446ad6da66255fdb317cd10ab714780a17153fa4def5246bbc05cdbef/qontract_reconcile-0.10.1rc1201-py3-none-any.whl", hash = "sha256:4f1a370c96b8c03420e364eb073d51e498f1d25b02f02a1564d560de438ef49a", size = 1388548 },
+    { url = "https://files.pythonhosted.org/packages/76/66/8b22bc73417b4a9425c0909df1cb7ffa90aec5ab4bc28840416dbc122867/qontract_reconcile-0.10.1rc1202-py3-none-any.whl", hash = "sha256:db38415f1bdd45cd24772f57fc3583c7d9f66b1ee964dd7ec0445f0b36462482", size = 1388784 },
 ]
 
 [[package]]
@@ -1416,11 +1416,11 @@ wheels = [
 
 [[package]]
 name = "slack-sdk"
-version = "3.33.4"
+version = "3.33.5"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/e6/ee/f1bd8fde0097d74ddc08d186726da17a1f041021ed6f422a8ac94ffc8e84/slack_sdk-3.33.4.tar.gz", hash = "sha256:5e109847f6b6a22d227609226ba4ed936109dc00675bddeb7e0bee502d3ee7e0", size = 233093 }
+sdist = { url = "https://files.pythonhosted.org/packages/48/06/2b567dbd5869b4a27e0612bf0cd5a8b852a94a2fc877a4488f420b8506ed/slack_sdk-3.33.5.tar.gz", hash = "sha256:a5e74c00c99dc844ad93e501ab764a20d86fa8184bbc9432af217496f632c4ee", size = 233265 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8a/7d/23074983ffd0d2d01163b74c621d7ffa3ea21e938b6d6443659adb63bb73/slack_sdk-3.33.4-py2.py3-none-any.whl", hash = "sha256:9f30cb3c9c07b441c49d53fc27f9f1837ad1592a7e9d4ca431f53cdad8826cc6", size = 292095 },
+    { url = "https://files.pythonhosted.org/packages/fc/1c/b8e4bc3c26ebcdf360fd70c58a7bc01552f440fd119523204fa005681a40/slack_sdk-3.33.5-py2.py3-none-any.whl", hash = "sha256:b8cccadfa3d4005a5e6529f52000d25c583f46173fda8e9136fdd2bc58923ff6", size = 292279 },
 ]
 
 [[package]]
