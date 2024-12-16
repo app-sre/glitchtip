@@ -9,7 +9,7 @@ FROM ${GLITCHTIP_IMAGE} AS upstream
 #
 # Base image
 #
-FROM registry.access.redhat.com/ubi9/python-312:9.5-1733164709@sha256:88ea2d10c741f169681102b46b16c66d20c94c3cc561edbb6444b0de3a1c81b3 AS base
+FROM registry.access.redhat.com/ubi9/python-312:9.5-1734308274@sha256:ebb5f6149080603ebf72e754b3468bb1475d6fd2b2efc3dc3f2dad2a8846c802 AS base
 COPY --from=upstream /code/LICENSE /licenses/LICENSE
 
 ARG GLITCHTIP_VERSION
