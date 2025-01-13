@@ -572,6 +572,8 @@ objects:
   kind: CronJob
   metadata:
     name: glitchtip-notification-cleaner
+    annotations:
+      ignore-check.kube-linter.io/unset-cpu-requirements: "no cpu limits"
     labels:
       app.kubernetes.io/component: notification-cleaner
       app.kubernetes.io/name: glitchtip
