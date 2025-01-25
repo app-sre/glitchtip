@@ -276,14 +276,14 @@ wheels = [
 
 [[package]]
 name = "deprecated"
-version = "1.2.15"
+version = "1.2.17"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "wrapt" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/2e/a3/53e7d78a6850ffdd394d7048a31a6f14e44900adedf190f9a165f6b69439/deprecated-1.2.15.tar.gz", hash = "sha256:683e561a90de76239796e6b6feac66b99030d2dd3fcf61ef996330f14bbb9b0d", size = 2977612 }
+sdist = { url = "https://files.pythonhosted.org/packages/2f/20/caa25c084ebad492360bf28ba5cb74f27b50fc6f3df965fd0add2b5b5993/deprecated-1.2.17.tar.gz", hash = "sha256:0114a10f0bbb750b90b2c2296c90cf7e9eaeb0abb5cf06c80de2c60138de0a82", size = 2928237 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1d/8f/c7f227eb42cfeaddce3eb0c96c60cbca37797fa7b34f8e1aeadf6c5c0983/Deprecated-1.2.15-py2.py3-none-any.whl", hash = "sha256:353bc4a8ac4bfc96800ddab349d89c25dec1079f65fd53acdcc1e0b975b21320", size = 9941 },
+    { url = "https://files.pythonhosted.org/packages/46/90/89be9a665bf63d3baaba6f34d9a514655abb42be2cc129f31c96df2cef51/Deprecated-1.2.17-py2.py3-none-any.whl", hash = "sha256:69cdc0a751671183f569495e2efb14baee4344b0236342eec29f1fde25d61818", size = 9140 },
 ]
 
 [[package]]
@@ -1159,7 +1159,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.2.dev27"
+version = "0.10.2.dev31"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1212,9 +1212,9 @@ dependencies = [
     { name = "websocket-client" },
     { name = "yamllint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f8/4f/7c9ffb3c2350c49f8db67c438eb2395deac1d3e3192a81c1feee28d64db5/qontract_reconcile-0.10.2.dev27.tar.gz", hash = "sha256:c1511118cfe5cbeb5c970ea7abfadcaa7cdeed4db71a8b8a3cef4bcc084c615d", size = 877593 }
+sdist = { url = "https://files.pythonhosted.org/packages/fd/ee/7a96f247dcb7e55a9a303e34c8c2d90cfa04b60687b6615d660bfd47f6ea/qontract_reconcile-0.10.2.dev31.tar.gz", hash = "sha256:4c8fc2d6adba8a742e99ecec09b304415655842117069eb375dbf1d0658e6cd6", size = 879235 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/16/a3/ef3fb8125fa44d9665117fbbace63f46b63f0a64b2da23d456cf9065acaf/qontract_reconcile-0.10.2.dev27-py3-none-any.whl", hash = "sha256:07264cab9fc9b7bc221c001b8b506572508d9220d59015de372fd3a0abf2cd18", size = 1271936 },
+    { url = "https://files.pythonhosted.org/packages/92/a3/66058f272a9388fe4dcae169513d9dc96817fd29fd2f0bf7ac8a1550c0c3/qontract_reconcile-0.10.2.dev31-py3-none-any.whl", hash = "sha256:3129bba9fdece1c6ad685d4f16253b41777ce8398dea59c2f9daa9fb5b773801", size = 1278589 },
 ]
 
 [[package]]
@@ -1373,11 +1373,11 @@ wheels = [
 
 [[package]]
 name = "semver"
-version = "3.0.2"
+version = "3.0.4"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/41/6c/a536cc008f38fd83b3c1b98ce19ead13b746b5588c9a0cb9dd9f6ea434bc/semver-3.0.2.tar.gz", hash = "sha256:6253adb39c70f6e51afed2fa7152bcd414c411286088fb4b9effb133885ab4cc", size = 214988 }
+sdist = { url = "https://files.pythonhosted.org/packages/72/d1/d3159231aec234a59dd7d601e9dd9fe96f3afff15efd33c1070019b26132/semver-3.0.4.tar.gz", hash = "sha256:afc7d8c584a5ed0a11033af086e8af226a9c0b206f313e0301f8dd7b6b589602", size = 269730 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/9a/77/0cc7a8a3bc7e53d07e8f47f147b92b0960e902b8254859f4aee5c4d7866b/semver-3.0.2-py3-none-any.whl", hash = "sha256:b1ea4686fe70b981f85359eda33199d60c53964284e0cfb4977d243e37cf4bf4", size = 17099 },
+    { url = "https://files.pythonhosted.org/packages/a6/24/4d91e05817e92e3a61c8a21e08fd0f390f5301f1c448b137c57c4bc6e543/semver-3.0.4-py3-none-any.whl", hash = "sha256:9c824d87ba7f7ab4a1890799cec8596f15c1241cb473404ea1cb0c55e4b04746", size = 17912 },
 ]
 
 [[package]]
