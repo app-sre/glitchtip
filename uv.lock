@@ -810,11 +810,14 @@ wheels = [
 
 [[package]]
 name = "pbr"
-version = "6.1.0"
+version = "6.1.1"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/b2/35/80cf8f6a4f34017a7fe28242dc45161a1baa55c41563c354d8147e8358b2/pbr-6.1.0.tar.gz", hash = "sha256:788183e382e3d1d7707db08978239965e8b9e4e5ed42669bf4758186734d5f24", size = 124032 }
+dependencies = [
+    { name = "setuptools" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/01/d2/510cc0d218e753ba62a1bc1434651db3cd797a9716a0a66cc714cb4f0935/pbr-6.1.1.tar.gz", hash = "sha256:93ea72ce6989eb2eed99d0f75721474f69ad88128afdef5ac377eb797c4bf76b", size = 125702 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1d/44/6a65ecd630393d47ad3e7d5354768cb7f9a10b3a0eb2cd8c6f52b28211ee/pbr-6.1.0-py2.py3-none-any.whl", hash = "sha256:a776ae228892d8013649c0aeccbb3d5f99ee15e005a4cbb7e61d55a067b28a2a", size = 108529 },
+    { url = "https://files.pythonhosted.org/packages/47/ac/684d71315abc7b1214d59304e23a982472967f6bf4bde5a98f1503f648dc/pbr-6.1.1-py2.py3-none-any.whl", hash = "sha256:38d4daea5d9fa63b3f626131b9d34947fd0c8be9b05a29276870580050a25a76", size = 108997 },
 ]
 
 [[package]]
@@ -1159,7 +1162,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.2.dev47"
+version = "0.10.2.dev48"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1212,9 +1215,9 @@ dependencies = [
     { name = "websocket-client" },
     { name = "yamllint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/9f/22/1083a60e75ef1de18dfb75d04593bbac7e6cc84019e7d074ff9891f11e24/qontract_reconcile-0.10.2.dev47.tar.gz", hash = "sha256:d1e8da9a57a206fbd2d62ef85e865534543f0d16b9ce7aa26990211e3cfa8ee2", size = 882853 }
+sdist = { url = "https://files.pythonhosted.org/packages/3f/82/93e46a6f65fc484a7b3b0110d817ad01a30c7915a8889e705d42b3c0db38/qontract_reconcile-0.10.2.dev48.tar.gz", hash = "sha256:bcefccd56b0153d68f3b41f1c556e2f5d4b696aab4c6e96306ad9113da421f9f", size = 883369 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b7/06/f2bdf482e4c96a2c8ae6cc475d25ce02ecf6de81ee0f8c789f502ab29b66/qontract_reconcile-0.10.2.dev47-py3-none-any.whl", hash = "sha256:d22de4b1ef97ad77fbf9215dc657ae416b1fec049dbf1c0902927ff8d723dfc3", size = 1283106 },
+    { url = "https://files.pythonhosted.org/packages/ea/d0/1e7bdc32796992f9ae9e58884f741f042786183cbe55cdb4b09f1665f19a/qontract_reconcile-0.10.2.dev48-py3-none-any.whl", hash = "sha256:3c7b0922ba2fbd3e82054f86cc10a6a5eef05e82f1b05e65e25e3fcb24d8a45a", size = 1285193 },
 ]
 
 [[package]]
