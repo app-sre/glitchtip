@@ -47,6 +47,8 @@ RUN cat patches/00-skip-user-invitation-process.patch | patch -p1
 RUN cat patches/04-aws-s3-endpoint-url.patch | patch -p1
 # Stats V2 Schema fix - https://gitlab.com/glitchtip/glitchtip-backend/-/merge_requests/1454
 RUN cat patches/05-statsv2-schema.patch | patch -p1
+# WSGI prometheus
+RUN cat patches/06-wsgi.patch | patch -p1
 
 
 #
