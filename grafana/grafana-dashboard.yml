@@ -409,7 +409,7 @@ data:
                 "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "sum(rate(django_http_requests_total_by_view_transport_method_total{namespace=\"$namespace\", view=~\"api:event.*\"}[$__interval]) * 60)",
+              "expr": "sum(rate(django_http_requests_total_by_view_transport_method_total{namespace=\"$namespace\", view=~\".*event.*\"}[$__interval]) * 60)",
               "legendFormat": "Events/Minute",
               "range": true,
               "refId": "A"
@@ -2830,7 +2830,7 @@ data:
         "list": [
           {
             "current": {
-              "selected": true,
+              "selected": false,
               "text": "glitchtip",
               "value": "glitchtip"
             },
@@ -2981,6 +2981,6 @@ data:
       "timezone": "",
       "title": "Glitchtip Dashboard",
       "uid": "GRUqV30Vk",
-      "version": 19,
+      "version": 20,
       "weekStart": ""
     }
