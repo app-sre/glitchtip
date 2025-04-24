@@ -41,6 +41,7 @@ exec uwsgi \
     --cheaper-busyness-min=25 \
     --cheaper-busyness-multiplier=20 \
     --harakiri="$UWSGI_HARAKIRI" \
+    --harakiri-verbose \
     --max-requests="$MAX_REQUESTS" \
     --worker-reload-mercy="$WORKER_RELOAD_MERCY" \
     --die-on-term \
