@@ -36,7 +36,6 @@ data:
       "fiscalYearStartMonth": 0,
       "gnetId": 17658,
       "graphTooltip": 0,
-      "id": 692863,
       "links": [],
       "liveNow": true,
       "panels": [
@@ -139,7 +138,7 @@ data:
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum(rate(django_http_requests_total_by_view_transport_method_total{namespace=\"$application\", view=~\"api:event_envelope|api:event_store\"}[$__interval])*60)",
+              "expr": "sum(rate(django_http_requests_total_by_view_transport_method_total{namespace=\"$application\", view=~\".*event_.*\"}[$__interval])*60)",
               "legendFormat": "Events/Minute",
               "range": true,
               "refId": "A"
@@ -1102,7 +1101,7 @@ data:
           "type": "heatmap"
         }
       ],
-      "refresh": "30s",
+      "refresh": "5m",
       "schemaVersion": 39,
       "tags": [
         "glitchtip",
@@ -1112,7 +1111,7 @@ data:
         "list": [
           {
             "current": {
-              "selected": true,
+              "selected": false,
               "text": "app-sre-prod-04-prometheus",
               "value": "P3CBCA2291C540C18"
             },
@@ -1138,16 +1137,16 @@ data:
               "type": "prometheus",
               "uid": "$datasource"
             },
-            "definition": "label_values(python_info,namespace)",
+            "definition": "label_values(django_http_requests_total_by_transport_total,namespace)",
             "hide": 0,
-            "includeAll": true,
+            "includeAll": false,
             "label": "application",
             "multi": false,
             "name": "application",
             "options": [],
             "query": {
               "qryType": 1,
-              "query": "label_values(python_info,namespace)",
+              "query": "label_values(django_http_requests_total_by_transport_total,namespace)",
               "refId": "PrometheusVariableQueryEditor-VariableQuery"
             },
             "refresh": 1,
@@ -1193,6 +1192,6 @@ data:
       "timezone": "",
       "title": "Glitchtip-Django",
       "uid": "liukzqh5oaruew",
-      "version": 1,
+      "version": 2,
       "weekStart": ""
     }
