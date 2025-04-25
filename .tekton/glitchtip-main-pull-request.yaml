@@ -7,7 +7,9 @@ metadata:
     build.appstudio.redhat.com/pull_request_number: '{{pull_request_number}}'
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/max-keep-runs: "20"
-    pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch == "main"
+    pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch
+      == "main"
+  creationTimestamp: null
   labels:
     appstudio.openshift.io/application: glitchtip-main
     appstudio.openshift.io/component: glitchtip-main
@@ -31,7 +33,6 @@ spec:
   - name: target-stage
     value: test
   pipelineRef:
-    resolver: git
     params:
     - name: url
       value: https://github.com/app-sre/shared-pipelines
@@ -39,16 +40,22 @@ spec:
       value: main
     - name: pathInRepo
       value: pipelines/multi-arch-build-pipeline.yaml
-  taskRunTemplate: {}
+    resolver: git
+  taskRunTemplate:
+    serviceAccountName: build-pipeline-glitchtip-main
   workspaces:
   - name: workspace
     volumeClaimTemplate:
+      metadata:
+        creationTimestamp: null
       spec:
         accessModes:
         - ReadWriteOnce
         resources:
           requests:
             storage: 1Gi
+      status: {}
   - name: git-auth
     secret:
       secretName: '{{ git_auth_secret }}'
+status: {}
