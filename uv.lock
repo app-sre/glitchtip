@@ -1566,7 +1566,7 @@ wheels = [
 
 [[package]]
 name = "unleashclient"
-version = "5.12.3"
+version = "5.12.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "apscheduler" },
@@ -1577,9 +1577,9 @@ dependencies = [
     { name = "requests" },
     { name = "semver" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/33/f5/03068e4599ea162e51c653ee7b8bcd237cf70688110e009febd37db9973d/unleashclient-5.12.3.tar.gz", hash = "sha256:3f14396f7e8406d6cd494a31b87cf79acaecd8fc55fb8bddb5c90d0f39b8fa9b", size = 46762 }
+sdist = { url = "https://files.pythonhosted.org/packages/0b/5f/7562240b60e02c55c5bc539226dd3fea5c893fb461856a1c5083f49c4a1b/unleashclient-5.12.5.tar.gz", hash = "sha256:ec30800cd9892844aea038d5bc340c86fc6b140455de9d5c21e94789524eb917", size = 46715 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d6/3c/f014d480de93b2030e4a93aceba90a50ef9fb429ffe0b1b7d7d49ba0fc6a/UnleashClient-5.12.3-py3-none-any.whl", hash = "sha256:9d1a98d10b5fa6a287ea7fdde99f25477bb2177493e110b78ce99b671a3c8476", size = 44330 },
+    { url = "https://files.pythonhosted.org/packages/f0/92/96efaa146df418b96d325128734ae7d306ba70c2ad737112d466fa310e4b/unleashclient-5.12.5-py3-none-any.whl", hash = "sha256:acc9eef9fc121a9ebc7bb9112f1b5dbf31f15a764dbe1394d55a2612b74a062d", size = 44356 },
 ]
 
 [[package]]
