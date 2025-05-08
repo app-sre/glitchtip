@@ -295,16 +295,16 @@ wheels = [
 
 [[package]]
 name = "django"
-version = "5.2"
+version = "5.2.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiref" },
     { name = "sqlparse" },
     { name = "tzdata", marker = "sys_platform == 'win32'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4c/1b/c6da718c65228eb3a7ff7ba6a32d8e80fa840ca9057490504e099e4dd1ef/Django-5.2.tar.gz", hash = "sha256:1a47f7a7a3d43ce64570d350e008d2949abe8c7e21737b351b6a1611277c6d89", size = 10824891 }
+sdist = { url = "https://files.pythonhosted.org/packages/ac/10/0d546258772b8f31398e67c85e52c66ebc2b13a647193c3eef8ee433f1a8/django-5.2.1.tar.gz", hash = "sha256:57fe1f1b59462caed092c80b3dd324fd92161b620d59a9ba9181c34746c97284", size = 10818735 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/63/e0/6a5b5ea350c5bd63fe94b05e4c146c18facb51229d9dee42aa39f9fc2214/Django-5.2-py3-none-any.whl", hash = "sha256:91ceed4e3a6db5aedced65e3c8f963118ea9ba753fc620831c77074e620e7d83", size = 8301361 },
+    { url = "https://files.pythonhosted.org/packages/90/92/7448697b5838b3a1c6e1d2d6a673e908d0398e84dc4f803a2ce11e7ffc0f/django-5.2.1-py3-none-any.whl", hash = "sha256:a9b680e84f9a0e71da83e399f1e922e1ab37b2173ced046b541c72e1589a5961", size = 8301833 },
 ]
 
 [[package]]
@@ -347,14 +347,14 @@ wheels = [
 
 [[package]]
 name = "dt"
-version = "1.1.61"
+version = "1.1.73"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "requests" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/40/23/209d5a0fb7465dff069b1e86f45b62f7ac3baf75cb215671a2d9a9a03830/dt-1.1.61.tar.gz", hash = "sha256:8e6d4f8b6fd6fa4f68cc5270590bb1f18e7b31b5c52b37393dfb8d3293245884", size = 79707 }
+sdist = { url = "https://files.pythonhosted.org/packages/46/51/5437b988896088c6df8a4a1ab788c4a0e2770e43820bf51ae46cb04e9743/dt-1.1.73.tar.gz", hash = "sha256:16852a636b4b2c484f99728c34b852ccb654ae00bfec3a2fc7cb6d587d07be4f", size = 68884 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/30/07/d11b133bd9a6990b16f72b5fe98f8cbc0da807f2fa6e6e7edd68c741fbc8/dt-1.1.61-py3-none-any.whl", hash = "sha256:7b1fbd1dc6820acb0a0efa81eef91f88085a08f1271b9f10b9582905531d8c7b", size = 128060 },
+    { url = "https://files.pythonhosted.org/packages/a1/d5/a178e5dc8cce0cea36d3c594bd93aade1cea607306a7daa6b593974079a8/dt-1.1.73-py3-none-any.whl", hash = "sha256:558c82c0aec0351c95529deccc48f103ca334c6d64326c437341b6a8e89585f0", size = 110766 },
 ]
 
 [[package]]
@@ -422,16 +422,16 @@ dev = [
 
 [[package]]
 name = "google-auth"
-version = "2.40.0"
+version = "2.40.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cachetools" },
     { name = "pyasn1-modules" },
     { name = "rsa" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8b/03/6b824ef961fb2ab74f3b54adf2a357f742d88e0667a3471621cb9477da96/google_auth-2.40.0.tar.gz", hash = "sha256:c277cf39f7c192d8540eb6331c08b5a0796e8041af8343ae73dd6b269732ca6c", size = 280934 }
+sdist = { url = "https://files.pythonhosted.org/packages/94/a5/38c21d0e731bb716cffcf987bd9a3555cb95877ab4b616cfb96939933f20/google_auth-2.40.1.tar.gz", hash = "sha256:58f0e8416a9814c1d86c9b7f6acf6816b51aba167b2c76821965271bac275540", size = 280975 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8b/40/02101ed0fd0af369558db30f5a90c7d843d5747343bb55f35cb96cd2112b/google_auth-2.40.0-py2.py3-none-any.whl", hash = "sha256:dc3a5078acb1043c3e43685c22d628afe40af8559cf561de388e0c939280fcc8", size = 216004 },
+    { url = "https://files.pythonhosted.org/packages/a1/b1/1272c6e80847ba5349f5ccb7574596393d1e222543f5003cb810865c3575/google_auth-2.40.1-py2.py3-none-any.whl", hash = "sha256:ed4cae4f5c46b41bae1d19c036e06f6c371926e97b19e816fc854eff811974ee", size = 216101 },
 ]
 
 [[package]]
@@ -1171,7 +1171,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.2.dev161"
+version = "0.10.2.dev163"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1224,9 +1224,9 @@ dependencies = [
     { name = "websocket-client" },
     { name = "yamllint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/32/93/3aeeb2b5da64b16544a485d1a3b86ddfccdf1459881c0aadb221a28a7e66/qontract_reconcile-0.10.2.dev161.tar.gz", hash = "sha256:0007da94178b935f76d8d4750509413ce7c124c0328130a13063c5f4b37c12e6", size = 905073 }
+sdist = { url = "https://files.pythonhosted.org/packages/ff/09/f4a463a1b6d01f038f72c5e79e48ce48165845daedaaf4c2f049eb1ee952/qontract_reconcile-0.10.2.dev163.tar.gz", hash = "sha256:060aaa41d6ecb06fa6f6830d3da1ef7e40ca6922ee723c2e21485efab5941e4c", size = 904875 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/00/be/72e40721461159681a3b33ba19f699c0d139e109f6a2c0358ff14c0274bf/qontract_reconcile-0.10.2.dev161-py3-none-any.whl", hash = "sha256:f53793ca3f27db946df613467793ee637dc5883fadc2faf347adf3fe1e466bbb", size = 1322518 },
+    { url = "https://files.pythonhosted.org/packages/c9/af/7bb3e6eca88796bf6e8b02346340ee5f495ace58e0902ec58a76da8924ca/qontract_reconcile-0.10.2.dev163-py3-none-any.whl", hash = "sha256:ba7fdfbdeebb98c37f8887bd0e832c6d3ff506ba1507e5dd08f95ea06d9bcb03", size = 1322283 },
 ]
 
 [[package]]
