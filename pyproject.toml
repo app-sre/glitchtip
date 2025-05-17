@@ -5,7 +5,7 @@ description = "GlitchTip"
 authors = [{ name = "AppSRE", email = "sd-app-sre@redhat.com" }]
 license = { text = "MIT License" }
 readme = "README.md"
-requires-python = "~= 3.12.0"
+requires-python = "~=3.13.3"
 dependencies = [
     # we want to use the latest!!! version of qontract-reconcile
     "qontract-reconcile>=0.10.1rc1177",
