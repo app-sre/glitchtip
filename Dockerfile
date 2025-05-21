@@ -35,6 +35,9 @@ COPY --from=upstream --chown=1001:root /code ./
 # Install the required packages
 RUN uv sync --frozen --no-group dev
 
+# Upgrade h11 CVE-2025-43859
+RUN uv pip install --no-cache-dir "h11>=0.16.0"
+
 # Our customizations
 COPY bin/* ./bin/
 COPY appsre ./appsre
