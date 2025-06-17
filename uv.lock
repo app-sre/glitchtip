@@ -726,22 +726,22 @@ wheels = [
 
 [[package]]
 name = "mypy"
-version = "1.16.0"
+version = "1.16.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "mypy-extensions" },
     { name = "pathspec" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d4/38/13c2f1abae94d5ea0354e146b95a1be9b2137a0d506728e0da037c4276f6/mypy-1.16.0.tar.gz", hash = "sha256:84b94283f817e2aa6350a14b4a8fb2a35a53c286f97c9d30f53b63620e7af8ab", size = 3323139, upload-time = "2025-05-29T13:46:12.532Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/81/69/92c7fa98112e4d9eb075a239caa4ef4649ad7d441545ccffbd5e34607cbb/mypy-1.16.1.tar.gz", hash = "sha256:6bd00a0a2094841c5e47e7374bb42b83d64c527a502e3334e1173a0c24437bab", size = 3324747, upload-time = "2025-06-16T16:51:35.145Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/70/cf/158e5055e60ca2be23aec54a3010f89dcffd788732634b344fc9cb1e85a0/mypy-1.16.0-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:c5436d11e89a3ad16ce8afe752f0f373ae9620841c50883dc96f8b8805620b13", size = 11062927, upload-time = "2025-05-29T13:35:52.328Z" },
-    { url = "https://files.pythonhosted.org/packages/94/34/cfff7a56be1609f5d10ef386342ce3494158e4d506516890142007e6472c/mypy-1.16.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:f2622af30bf01d8fc36466231bdd203d120d7a599a6d88fb22bdcb9dbff84090", size = 10083082, upload-time = "2025-05-29T13:35:33.378Z" },
-    { url = "https://files.pythonhosted.org/packages/b3/7f/7242062ec6288c33d8ad89574df87c3903d394870e5e6ba1699317a65075/mypy-1.16.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:d045d33c284e10a038f5e29faca055b90eee87da3fc63b8889085744ebabb5a1", size = 11828306, upload-time = "2025-05-29T13:21:02.164Z" },
-    { url = "https://files.pythonhosted.org/packages/6f/5f/b392f7b4f659f5b619ce5994c5c43caab3d80df2296ae54fa888b3d17f5a/mypy-1.16.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:b4968f14f44c62e2ec4a038c8797a87315be8df7740dc3ee8d3bfe1c6bf5dba8", size = 12702764, upload-time = "2025-05-29T13:20:42.826Z" },
-    { url = "https://files.pythonhosted.org/packages/9b/c0/7646ef3a00fa39ac9bc0938626d9ff29d19d733011be929cfea59d82d136/mypy-1.16.0-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:eb14a4a871bb8efb1e4a50360d4e3c8d6c601e7a31028a2c79f9bb659b63d730", size = 12896233, upload-time = "2025-05-29T13:18:37.446Z" },
-    { url = "https://files.pythonhosted.org/packages/6d/38/52f4b808b3fef7f0ef840ee8ff6ce5b5d77381e65425758d515cdd4f5bb5/mypy-1.16.0-cp312-cp312-win_amd64.whl", hash = "sha256:bd4e1ebe126152a7bbaa4daedd781c90c8f9643c79b9748caa270ad542f12bec", size = 9565547, upload-time = "2025-05-29T13:20:02.836Z" },
-    { url = "https://files.pythonhosted.org/packages/99/a3/6ed10530dec8e0fdc890d81361260c9ef1f5e5c217ad8c9b21ecb2b8366b/mypy-1.16.0-py3-none-any.whl", hash = "sha256:29e1499864a3888bca5c1542f2d7232c6e586295183320caa95758fc84034031", size = 2265773, upload-time = "2025-05-29T13:35:18.762Z" },
+    { url = "https://files.pythonhosted.org/packages/b4/d6/39482e5fcc724c15bf6280ff5806548c7185e0c090712a3736ed4d07e8b7/mypy-1.16.1-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:af4792433f09575d9eeca5c63d7d90ca4aeceda9d8355e136f80f8967639183d", size = 11066493, upload-time = "2025-06-16T16:47:01.683Z" },
+    { url = "https://files.pythonhosted.org/packages/e6/e5/26c347890efc6b757f4d5bb83f4a0cf5958b8cf49c938ac99b8b72b420a6/mypy-1.16.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:66df38405fd8466ce3517eda1f6640611a0b8e70895e2a9462d1d4323c5eb4b9", size = 10081687, upload-time = "2025-06-16T16:48:19.367Z" },
+    { url = "https://files.pythonhosted.org/packages/44/c7/b5cb264c97b86914487d6a24bd8688c0172e37ec0f43e93b9691cae9468b/mypy-1.16.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:44e7acddb3c48bd2713994d098729494117803616e116032af192871aed80b79", size = 11839723, upload-time = "2025-06-16T16:49:20.912Z" },
+    { url = "https://files.pythonhosted.org/packages/15/f8/491997a9b8a554204f834ed4816bda813aefda31cf873bb099deee3c9a99/mypy-1.16.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:0ab5eca37b50188163fa7c1b73c685ac66c4e9bdee4a85c9adac0e91d8895e15", size = 12722980, upload-time = "2025-06-16T16:37:40.929Z" },
+    { url = "https://files.pythonhosted.org/packages/df/f0/2bd41e174b5fd93bc9de9a28e4fb673113633b8a7f3a607fa4a73595e468/mypy-1.16.1-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:dedb6229b2c9086247e21a83c309754b9058b438704ad2f6807f0d8227f6ebdd", size = 12903328, upload-time = "2025-06-16T16:34:35.099Z" },
+    { url = "https://files.pythonhosted.org/packages/61/81/5572108a7bec2c46b8aff7e9b524f371fe6ab5efb534d38d6b37b5490da8/mypy-1.16.1-cp312-cp312-win_amd64.whl", hash = "sha256:1f0435cf920e287ff68af3d10a118a73f212deb2ce087619eb4e648116d1fe9b", size = 9562321, upload-time = "2025-06-16T16:48:58.823Z" },
+    { url = "https://files.pythonhosted.org/packages/cf/d3/53e684e78e07c1a2bf7105715e5edd09ce951fc3f47cf9ed095ec1b7a037/mypy-1.16.1-py3-none-any.whl", hash = "sha256:5fc2ac4027d0ef28d6ba69a0343737a23c4d1b83672bf38d1fe237bdc0643b37", size = 2265923, upload-time = "2025-06-16T16:48:02.366Z" },
 ]
 
 [[package]]
@@ -1173,7 +1173,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.2.dev214"
+version = "0.10.2.dev215"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1226,9 +1226,9 @@ dependencies = [
     { name = "websocket-client" },
     { name = "yamllint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4b/57/646290cf7e29e378e2d24c06350067d763d1d1a4050f806f2ca61c62be4e/qontract_reconcile-0.10.2.dev214.tar.gz", hash = "sha256:565012366ab64a6e55dac7127ed3549b53f65ca6a886b8e8aca93453ad810447", size = 914606, upload-time = "2025-06-13T16:32:54.953Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/0d/ed/365826496ae087e5df19e0f1d2fd7865cf526e0b25f9194d8f7a08a78a45/qontract_reconcile-0.10.2.dev215.tar.gz", hash = "sha256:b1c332943c484d29a5df0d33f43389617b3fd8b4bba99faf3e345307efae0f12", size = 914619, upload-time = "2025-06-16T14:48:21.261Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d8/d6/af64509eb7c89cb86045b35206521303e184dda0f2db529c3c7e0904bf0e/qontract_reconcile-0.10.2.dev214-py3-none-any.whl", hash = "sha256:0380c1ac853289b63145b7ba35b8467a7bd9b7007ba874855ef061fdfadd61ae", size = 1339710, upload-time = "2025-06-13T16:32:50.486Z" },
+    { url = "https://files.pythonhosted.org/packages/4e/cb/831555aeaa10083cfc427bdab9b7e060bb85a3ecad7cc668f73a3553e314/qontract_reconcile-0.10.2.dev215-py3-none-any.whl", hash = "sha256:3bc24fda6a943968006b4c2c01897b2452592b17de1fa478cb48922f3227a3a5", size = 1339723, upload-time = "2025-06-16T14:48:17.598Z" },
 ]
 
 [[package]]
