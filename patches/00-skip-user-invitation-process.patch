@@ -1,15 +1,34 @@
 diff --git a/apps/organizations_ext/api.py b/apps/organizations_ext/api.py
-index 3173d0ac..54c94c5e 100644
+index acbd3239..93e779f5 100644
 --- a/apps/organizations_ext/api.py
 +++ b/apps/organizations_ext/api.py
-@@ -245,7 +245,31 @@ async def create_organization_member(
+@@ -232,18 +232,6 @@ async def create_organization_member(
+             f"The user {email} is already a member",
+         )
+ 
+-    # Implement throttle using django cache
+-    count = settings.EMAIL_INVITE_THROTTLE_COUNT
+-    interval = settings.EMAIL_INVITE_THROTTLE_INTERVAL
+-    cache_key = f"email_invite_throttle_{user.id}"
+-    invite_attempts = cache.get(cache_key, 0)
+-    if invite_attempts >= count:
+-        raise Throttled(count)
+-    if invite_attempts == 0:
+-        cache.set(cache_key, 1, interval)
+-    else:
+-        cache.incr(cache_key)
+-
+     member, created = await OrganizationUser.objects.aget_or_create(
+         email=email,
+         organization=organization,
+@@ -264,7 +252,31 @@ async def create_organization_member(
      if teams:
          await member.teams.aadd(*teams)
  
 -    await sync_to_async(invitation_backend().send_invitation)(member)
 +    # automatically create and connect Django user and Glitchtip organization user
-+    from django.contrib.auth import get_user_model
 +    from allauth.account.models import EmailAddress
++    from django.contrib.auth import get_user_model
 +
 +    user_model = get_user_model()
 +    user, created = await user_model.objects.aget_or_create(
@@ -32,6 +51,6 @@ index 3173d0ac..54c94c5e 100644
 +    member.email = None
 +    await member.asave()
 +
-     member = await get_organization_users_queryset(user_id, organization_slug).aget(
+     member = await get_organization_users_queryset(user.id, organization_slug).aget(
          id=member.id
      )
