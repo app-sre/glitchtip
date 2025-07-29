@@ -527,7 +527,7 @@ wheels = [
 
 [[package]]
 name = "jira"
-version = "3.10.4"
+version = "3.10.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "defusedxml" },
@@ -537,9 +537,9 @@ dependencies = [
     { name = "requests-toolbelt" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f1/c3/16693df28566ae4e70c07522c2e9aba2cf5a6276010f9cd854a95ef14f45/jira-3.10.4.tar.gz", hash = "sha256:76ab091da01c432896ccba516a5c57fb3662db03ec1f0c3c56f269ceea21b7b7", size = 106818, upload-time = "2025-07-27T18:37:10.601Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/65/73/ee4daa7cf4eea457180de0ea78b730b44bb5ad2829dae49cf708a1460819/jira-3.10.5.tar.gz", hash = "sha256:2d09ae3bf4741a2787dd889dfea5926a5d509aac3b28ab3b98c098709e6ee72d", size = 105870, upload-time = "2025-07-28T12:18:22.796Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b9/37/82fd1a6bd77622121f24189e7a2d2f7256d90e312e87e56f7266c529c2cc/jira-3.10.4-py3-none-any.whl", hash = "sha256:5fe2e490ac3ecb7b7f99a874f383f83a870437e4cd17d1570b8701f78f65e684", size = 79724, upload-time = "2025-07-27T18:37:09.129Z" },
+    { url = "https://files.pythonhosted.org/packages/89/57/ad078d7379e390798559446607e413fc953c7510711462ab34194dba5924/jira-3.10.5-py3-none-any.whl", hash = "sha256:d4da1385c924ee693d6cc9838e56a34e31d74f0d6899934ef35bbd0d2d33997f", size = 79250, upload-time = "2025-07-28T12:18:21.368Z" },
 ]
 
 [[package]]
@@ -1153,7 +1153,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.2.dev290"
+version = "0.10.2.dev293"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1206,9 +1206,9 @@ dependencies = [
     { name = "websocket-client" },
     { name = "yamllint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/94/77/2f56f69785992eb121abe7115e57117daa321c467c9f9d7814d45caf88a9/qontract_reconcile-0.10.2.dev290.tar.gz", hash = "sha256:8b2c5bc5f8839d6173ffb64539a6c6fd570441d914efb48a39062283158697d3", size = 908569, upload-time = "2025-07-28T02:18:05.096Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e1/de/bac855ced90e5ce728e30c028a8f3c7cc6b0ba6e8e350a43676a00dd949e/qontract_reconcile-0.10.2.dev293.tar.gz", hash = "sha256:9d339ee520389ba54432db796f4906dfa1a4d59bdae1ad9f76e4449b8ea1540d", size = 908909, upload-time = "2025-07-29T02:37:18.915Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c0/01/3475ad96bd9a10c8bf0c4c0b7e1de5b1ee143f088ae6642594e312fad373/qontract_reconcile-0.10.2.dev290-py3-none-any.whl", hash = "sha256:e468cd75f8d4eabaf64144fb887b2ca4def27505abbe73d7fa3ace28bb673510", size = 1328609, upload-time = "2025-07-28T02:18:01.206Z" },
+    { url = "https://files.pythonhosted.org/packages/07/c0/57a7f0805a57e416faeb789244ac3a5e09122def7517c0943e374be383f8/qontract_reconcile-0.10.2.dev293-py3-none-any.whl", hash = "sha256:86a8a5543b4348211fe6f9fdbf66bb8bfb6392fd7dc7d08e6584252370449ee7", size = 1329059, upload-time = "2025-07-29T02:37:15.325Z" },
 ]
 
 [[package]]
