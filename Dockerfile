@@ -9,7 +9,7 @@ FROM ${GLITCHTIP_IMAGE} AS upstream
 #
 # Base image
 #
-FROM registry.access.redhat.com/ubi9/python-312:9.6-1753200829@sha256:95ec8d3ee9f875da011639213fd254256c29bc58861ac0b11f290a291fa04435 AS base
+FROM registry.access.redhat.com/ubi9/python-312:9.6-1753868858@sha256:946e1165dde472e1ab670fee010db9eafb8011964358a06e0d370a0bc0b1f06b AS base
 COPY --from=upstream /code/LICENSE /licenses/LICENSE
 
 ARG GLITCHTIP_VERSION
@@ -29,7 +29,7 @@ ENV \
     # disable uv cache. it doesn't make sense in a container
     UV_NO_CACHE=true
 
-COPY --from=ghcr.io/astral-sh/uv:0.8.3@sha256:ef11ed817e6a5385c02cd49fdcc99c23d02426088252a8eace6b6e6a2a511f36 /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.8.4@sha256:40775a79214294fb51d097c9117592f193bcfdfc634f4daa0e169ee965b10ef0 /uv /bin/uv
 COPY --from=upstream --chown=1001:root /code ./
 
 # Install the required packages
@@ -74,7 +74,7 @@ CMD ["./bin/start.sh"]
 # Test image
 #
 FROM prod AS test
-COPY --from=ghcr.io/astral-sh/uv:0.8.3@sha256:ef11ed817e6a5385c02cd49fdcc99c23d02426088252a8eace6b6e6a2a511f36 /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.8.4@sha256:40775a79214294fb51d097c9117592f193bcfdfc634f4daa0e169ee965b10ef0 /uv /bin/uv
 ENV \
     # use venv from ubi image
     UV_PROJECT_ENVIRONMENT=$APP_ROOT \
