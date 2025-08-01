@@ -2,8 +2,7 @@
 # Upstream image (Glitchtip version)
 #
 ARG GLITCHTIP_VERSION=v5.0.9
-ARG GLITCHTIP_IMAGE=registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP_VERSION}
-FROM ${GLITCHTIP_IMAGE} AS upstream
+FROM registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP_VERSION} AS upstream
 
 
 #
