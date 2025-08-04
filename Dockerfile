@@ -1,18 +1,12 @@
-#
-# Upstream image (Glitchtip version)
-#
 ARG GLITCHTIP_VERSION=v5.0.9
 ARG GLITCHTIP_IMAGE=registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP_VERSION}
-FROM ${GLITCHTIP_IMAGE} AS upstream
-
-
 #
 # Base image
 #
 FROM registry.access.redhat.com/ubi9/python-312:9.6-1753200829@sha256:95ec8d3ee9f875da011639213fd254256c29bc58861ac0b11f290a291fa04435 AS base
-COPY --from=upstream /code/LICENSE /licenses/LICENSE
+ARG GLITCHTIP_IMAGE
+COPY --from=${GLITCHTIP_IMAGE} /code/LICENSE /licenses/LICENSE
 
-ARG GLITCHTIP_VERSION
 ENV GLITCHTIP_VERSION=${GLITCHTIP_VERSION}
 LABEL konflux.additional-tags="${GLITCHTIP_VERSION}"
 
@@ -30,7 +24,8 @@ ENV \
     UV_NO_CACHE=true
 
 COPY --from=ghcr.io/astral-sh/uv:0.8.3@sha256:ef11ed817e6a5385c02cd49fdcc99c23d02426088252a8eace6b6e6a2a511f36 /uv /bin/uv
-COPY --from=upstream --chown=1001:root /code ./
+ARG GLITCHTIP_IMAGE
+COPY --from=${GLITCHTIP_IMAGE} --chown=1001:root /code ./
 
 # Install the required packages
 RUN uv sync --frozen --no-group dev
