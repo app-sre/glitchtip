@@ -4,10 +4,10 @@ ARG GLITCHTIP_IMAGE=registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP
 # Base image
 #
 FROM registry.access.redhat.com/ubi9/python-312:9.6-1754326132@sha256:8cf2ed9f376631e82a38e1b680332f7fda2955df61803ba660734559a8ed33d1 AS base
-ARG GLITCHTIP_VERSION
 ARG GLITCHTIP_IMAGE
 COPY --from=${GLITCHTIP_IMAGE} /code/LICENSE /licenses/LICENSE
 
+ARG GLITCHTIP_VERSION
 ENV GLITCHTIP_VERSION=${GLITCHTIP_VERSION}
 LABEL konflux.additional-tags="${GLITCHTIP_VERSION}"
 
@@ -56,6 +56,9 @@ RUN cat patches/07-events-counter.patch | patch -p1
 FROM base AS prod
 ENV PORT=8080
 EXPOSE ${PORT}
+
+# Test GLITCHTIP_VERSION is set
+RUN if [ -z "${GLITCHTIP_VERSION}" ]; then echo "Error: The environment variable GLITCHTIP_VERSION is not set or empty." >&2; false; fi
 
 # get everything from the builder
 COPY --from=builder $APP_ROOT/ $APP_ROOT/
