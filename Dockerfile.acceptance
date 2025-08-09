@@ -1,5 +1,5 @@
 FROM registry.access.redhat.com/ubi9/python-312:9.6-1754326132@sha256:8cf2ed9f376631e82a38e1b680332f7fda2955df61803ba660734559a8ed33d1
-COPY --from=ghcr.io/astral-sh/uv:0.8.6@sha256:6d9911b9f5703ed5f570d8032f2bfacc524e12f77d88e1e8f39eec742811a983 /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.8.8@sha256:67b2bcccdc103d608727d1b577e58008ef810f751ed324715eb60b3f0c040d30 /uv /bin/uv
 
 ENV \
     # use venv from ubi image
