@@ -293,16 +293,16 @@ wheels = [
 
 [[package]]
 name = "django"
-version = "5.2.5"
+version = "5.2.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiref" },
     { name = "sqlparse" },
     { name = "tzdata", marker = "sys_platform == 'win32'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/62/9b/779f853c3d2d58b9e08346061ff3e331cdec3fe3f53aae509e256412a593/django-5.2.5.tar.gz", hash = "sha256:0745b25681b129a77aae3d4f6549b62d3913d74407831abaa0d9021a03954bae", size = 10859748, upload-time = "2025-08-06T08:26:29.978Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/4c/8c/2a21594337250a171d45dda926caa96309d5136becd1f48017247f9cdea0/django-5.2.6.tar.gz", hash = "sha256:da5e00372763193d73cecbf71084a3848458cecf4cee36b9a1e8d318d114a87b", size = 10858861, upload-time = "2025-09-03T13:04:03.23Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/9d/6e/98a1d23648e0085bb5825326af17612ecd8fc76be0ce96ea4dc35e17b926/django-5.2.5-py3-none-any.whl", hash = "sha256:2b2ada0ee8a5ff743a40e2b9820d1f8e24c11bac9ae6469cd548f0057ea6ddcd", size = 8302999, upload-time = "2025-08-06T08:26:23.562Z" },
+    { url = "https://files.pythonhosted.org/packages/f5/af/6593f6d21404e842007b40fdeb81e73c20b6649b82d020bb0801b270174c/django-5.2.6-py3-none-any.whl", hash = "sha256:60549579b1174a304b77e24a93d8d9fafe6b6c03ac16311f3e25918ea5a20058", size = 8303111, upload-time = "2025-09-03T13:03:47.808Z" },
 ]
 
 [[package]]
@@ -1160,7 +1160,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.2.dev350"
+version = "0.10.2.dev354"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1213,9 +1213,9 @@ dependencies = [
     { name = "websocket-client" },
     { name = "yamllint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/5d/b5/73fbc7dd193f2f005d4e14925eb0572d682a3faf8a9d85d4c69df27b845e/qontract_reconcile-0.10.2.dev350.tar.gz", hash = "sha256:a17805bd454a70087d07b156da26dd3ffe26e6d39ccb0420cd1f46d2fdf6c5ca", size = 915021, upload-time = "2025-08-29T18:10:30.111Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b5/5b/3639a9c6f0452c950b29ac09f458067461fd8b11faf2528eedb1bf49dc0f/qontract_reconcile-0.10.2.dev354.tar.gz", hash = "sha256:ac8bf9d9394e7e572663f72e5bfca4e58df21483f1707fcc30bfcd498ebd5dc0", size = 915991, upload-time = "2025-09-03T15:40:27.183Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/56/e2/9a640bf48f34ddf6391c3f8345950dcab272dd5385e8b4eba45684e4ec0d/qontract_reconcile-0.10.2.dev350-py3-none-any.whl", hash = "sha256:77e3e6be9ebc5ec5e91825534633ff80bfe83efcee51b9939e5504783b091c49", size = 1338094, upload-time = "2025-08-29T18:10:26.076Z" },
+    { url = "https://files.pythonhosted.org/packages/4d/69/6d3c5fcbddd0beeb7b8fc6881edc8a962b1f5b3b04efe14c5c68ff760a24/qontract_reconcile-0.10.2.dev354-py3-none-any.whl", hash = "sha256:d90d97d0a167eb578849e7a124f0627f33e8f23be37653a3b82fbd1d4f617070", size = 1339217, upload-time = "2025-09-03T15:40:25.485Z" },
 ]
 
 [[package]]
