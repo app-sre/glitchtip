@@ -308,7 +308,7 @@ wheels = [
 
 [[package]]
 name = "django-stubs"
-version = "5.2.2"
+version = "5.2.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
@@ -316,22 +316,22 @@ dependencies = [
     { name = "types-pyyaml" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/bc/27/ab9813da817a29ae69ec92af31ad8fc58ce3c904f23ea604bd3bdd9adc37/django_stubs-5.2.2.tar.gz", hash = "sha256:2a04b510c7a812f88223fd7e6d87fb4ea98717f19c8e5c8b59691d83ad40a8a6", size = 243049, upload-time = "2025-07-17T08:35:02.747Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e1/8e/286150f593481c33f54d14efb58d72178f159d57d31043529d38bbc98e2f/django_stubs-5.2.5.tar.gz", hash = "sha256:fc78384e28d8c5292d60983075a5934f644f7c304c25ae2793fc57aa66d5018b", size = 247794, upload-time = "2025-09-12T19:29:49.636Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/55/cb/bb387a1d40691ad54fec2be9e5093becebd63cca0ccb9348cbb27602e1d1/django_stubs-5.2.2-py3-none-any.whl", hash = "sha256:79bd0fdbc78958a8f63e0b062bd9d03f1de539664476c0be62ade5f063c9e41e", size = 485188, upload-time = "2025-07-17T08:35:00.356Z" },
+    { url = "https://files.pythonhosted.org/packages/2f/02/cdbf7652ef2c9a7a1fed7c279484b7f3806f15b1bb34aec9fef8e8cfacbf/django_stubs-5.2.5-py3-none-any.whl", hash = "sha256:223c1a3324cd4873b7629dec6e9adbe224a94508284c1926b25fddff7a92252b", size = 490196, upload-time = "2025-09-12T19:29:47.954Z" },
 ]
 
 [[package]]
 name = "django-stubs-ext"
-version = "5.2.2"
+version = "5.2.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/fc/06/5e94715d103e6cc72380cb0d0b6682a7d5ad2c366cee478c94d77aad777d/django_stubs_ext-5.2.2.tar.gz", hash = "sha256:d9d151b919fe2438760f5bd938f03e1cb08c84d0651f9e5917f1313907e42683", size = 6244, upload-time = "2025-07-17T08:34:35.054Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/16/94/c9b8f4c47084a0fa666da9066c36771098101932688adf2c17a40fab79c2/django_stubs_ext-5.2.5.tar.gz", hash = "sha256:ecc628df29d36cede638567c4e33ff485dd7a99f1552ad0cece8c60e9c3a8872", size = 6489, upload-time = "2025-09-12T19:29:06.008Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/4e/38/2903676f97f7902ee31984a06756b0e8836e897f4b617e1a03be4a43eb4f/django_stubs_ext-5.2.2-py3-none-any.whl", hash = "sha256:8833bbe32405a2a0ce168d3f75a87168f61bd16939caf0e8bf173bccbd8a44c5", size = 8816, upload-time = "2025-07-17T08:34:33.715Z" },
+    { url = "https://files.pythonhosted.org/packages/e0/fe/a85a105fddffadb4a8d50e500caeee87d836b679d51a19d52dfa0cc6c660/django_stubs_ext-5.2.5-py3-none-any.whl", hash = "sha256:9b4b8ac9d32f7e6c304fd05477f8688fae6ed57f6a0f9f4d074f9e55b5a3da14", size = 9310, upload-time = "2025-09-12T19:29:04.62Z" },
 ]
 
 [[package]]
@@ -1166,7 +1166,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.2.dev373"
+version = "0.10.2.dev374"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1219,9 +1219,9 @@ dependencies = [
     { name = "websocket-client" },
     { name = "yamllint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c8/3f/983b24c115003755019067a2b613b1490ed41939ebc56d4c0d217c19fc68/qontract_reconcile-0.10.2.dev373.tar.gz", hash = "sha256:beaed266c8e1b9000ceb8ea36e65ff99b76ad6d184fbe11be99ee084ff12e287", size = 917718, upload-time = "2025-09-11T11:02:06.8Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/bd/58/ad27e6890cd7b3b87ceee0fac0faf77bfb2b041dd1b775b5b4e3a0784df8/qontract_reconcile-0.10.2.dev374.tar.gz", hash = "sha256:b4ef92bf5084a752c1718d5e43ce71b771d14ff60d85bf6c423884341623f1bc", size = 917751, upload-time = "2025-09-12T17:00:54.761Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6e/bc/e601229180a05c219fba4f840f38bc82f7438fe9e8ce967fc5f3e9bd5bb7/qontract_reconcile-0.10.2.dev373-py3-none-any.whl", hash = "sha256:ce83e328a3f87c1302515d278664a1dc98de1f454e4ec37b5acdb675691bc2d4", size = 1341674, upload-time = "2025-09-11T11:02:03.033Z" },
+    { url = "https://files.pythonhosted.org/packages/3b/57/600910dde75ce55d86eadb7c49ad88ffb48bd07022568b54d6510072aa1f/qontract_reconcile-0.10.2.dev374-py3-none-any.whl", hash = "sha256:e5814bcfc0bb777ed5492f2823b4712792053f0a62175e65abdfe3640b0c2ac3", size = 1341718, upload-time = "2025-09-12T17:00:50.644Z" },
 ]
 
 [[package]]
@@ -1616,11 +1616,11 @@ wheels = [
 
 [[package]]
 name = "xmltodict"
-version = "0.15.1"
+version = "1.0.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/d7/7a/42f705c672e77dc3ce85a6823bb289055323aac30de7c4b9eca1e28b2c17/xmltodict-0.15.1.tar.gz", hash = "sha256:3d8d49127f3ce6979d40a36dbcad96f8bab106d232d24b49efdd4bd21716983c", size = 62984, upload-time = "2025-09-08T18:33:19.349Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/8b/79/1b8215b967eb66b92ba323a2d70ff820188b5dd18c8975326fa06e7d50ef/xmltodict-1.0.0.tar.gz", hash = "sha256:f50eb9020d28c673b40bbe3f43458ee165f0267c67f8ad8df0d70d9a4f3ac824", size = 71681, upload-time = "2025-09-12T18:48:45.93Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5d/4e/001c53a22f6bd5f383f49915a53e40f0cab2d3f1884d968f3ae14be367b7/xmltodict-0.15.1-py2.py3-none-any.whl", hash = "sha256:dcd84b52f30a15be5ac4c9099a0cb234df8758624b035411e329c5c1e7a49089", size = 11260, upload-time = "2025-09-08T18:33:17.87Z" },
+    { url = "https://files.pythonhosted.org/packages/89/e1/719fc59777227614641f3103964c58c6c10203c72633ef0d5cdcb2d7f676/xmltodict-1.0.0-py3-none-any.whl", hash = "sha256:64316adb5e30ca21ad5cf391f4f0f6b34f673d96b79574f1db1e32b13b43ee34", size = 13292, upload-time = "2025-09-12T18:48:44.544Z" },
 ]
 
 [[package]]
