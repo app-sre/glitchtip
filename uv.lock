@@ -504,11 +504,12 @@ wheels = [
 
 [[package]]
 name = "jenkins-job-builder"
-version = "4.3.0"
+version = "6.4.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "fasteners" },
     { name = "jinja2" },
+    { name = "packaging" },
     { name = "pbr" },
     { name = "python-jenkins" },
     { name = "pyyaml" },
@@ -516,9 +517,9 @@ dependencies = [
     { name = "six" },
     { name = "stevedore" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/bc/e4/fccd5e2d0b8826bc465ea98dab5196bb2f7268619efaa58a04e5527e8739/jenkins-job-builder-4.3.0.tar.gz", hash = "sha256:a6f91af132cc11c973276230e222d2891d62a15ddfaf3412b4bbb6d7e9124872", size = 653095, upload-time = "2023-03-01T12:24:21.509Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/0d/a9/0ae4ef563aae6bfe21f316f4915b05e4b2c0edbb63b17eac9ed9398630df/jenkins-job-builder-6.4.2.tar.gz", hash = "sha256:1be0d545dea8dc6c13745367264a2d22276bc5ec496527600865d30382a72490", size = 697528, upload-time = "2024-12-02T17:09:27.032Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a4/e0/5539162ab9eed7ec12bb9efab15f8ca1fd833a4c28398965092411cc084c/jenkins_job_builder-4.3.0-py2.py3-none-any.whl", hash = "sha256:0d2dada19fd4ffadfaa5b51d69c6b54ee81750ca4fc1e2c98b6d108625c8af80", size = 350265, upload-time = "2023-03-01T12:24:20.094Z" },
+    { url = "https://files.pythonhosted.org/packages/5a/39/9f054ec0f0b1a702793523efbf9af17d5e1d956e49b6be47f2deec422157/jenkins_job_builder-6.4.2-py2.py3-none-any.whl", hash = "sha256:ec95ea27cc00b30474fe1452f5f67015795d6d4b046f101bd925c45ba89d2ca1", size = 366111, upload-time = "2024-12-02T17:09:25.001Z" },
 ]
 
 [[package]]
@@ -1166,7 +1167,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.2.dev377"
+version = "0.10.2.dev379"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1219,9 +1220,9 @@ dependencies = [
     { name = "websocket-client" },
     { name = "yamllint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7f/79/f52d1a9dc558ad4d5afbe1d7f463ed10491423cd9ce82b799d0789c3e1de/qontract_reconcile-0.10.2.dev377.tar.gz", hash = "sha256:7fc9365e9d1fedcd82751608f9ba634d440ce7071799d4b3e28c3fff7516c38a", size = 917741, upload-time = "2025-09-16T03:07:38.274Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/32/87/f84a3d74b47d465e8f566913f79822941e057e0bea10858fce474cbf3588/qontract_reconcile-0.10.2.dev379.tar.gz", hash = "sha256:00c70943e1971577ea6c4d9b176df120c3173f1d446f3d717a40ffdf3c99f2a6", size = 917706, upload-time = "2025-09-16T09:43:30.491Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/9c/5a/6fe73cfb541534abaf2577dcca39d2911943aba4e2988b4b795686c30660/qontract_reconcile-0.10.2.dev377-py3-none-any.whl", hash = "sha256:d3c6404b2107cae5dc790b868cb82e7fa328387a46a3f972ce1705e3595deaac", size = 1341708, upload-time = "2025-09-16T03:07:34.071Z" },
+    { url = "https://files.pythonhosted.org/packages/33/c7/66867003a657d0fb79061f94751d2ac6cede5a886cc605c7a4b847dffbd1/qontract_reconcile-0.10.2.dev379-py3-none-any.whl", hash = "sha256:3119657afc2c1638ca681a9eeb9db869a71c7734d77d0c460b9f07adc133b803", size = 1341667, upload-time = "2025-09-16T09:43:26.812Z" },
 ]
 
 [[package]]
@@ -1415,11 +1416,11 @@ wheels = [
 
 [[package]]
 name = "setuptools"
-version = "65.7.0"
+version = "80.9.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/a1/29/f2ad3b78b9ebd24afa282eed9add27b47ef52b37291198021154b4b65166/setuptools-65.7.0.tar.gz", hash = "sha256:4d3c92fac8f1118bb77a22181355e29c239cabfe2b9effdaa665c66b711136d7", size = 2618315, upload-time = "2023-01-11T19:11:22.063Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/18/5d/3bf57dcd21979b887f014ea83c24ae194cfcd12b9e0fda66b957c69d1fca/setuptools-80.9.0.tar.gz", hash = "sha256:f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c", size = 1319958, upload-time = "2025-05-27T00:56:51.443Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ff/97/9dc902414912192d68364cc01cf17e826d259ef9753504b7ae1a256f2e35/setuptools-65.7.0-py3-none-any.whl", hash = "sha256:8ab4f1dbf2b4a65f7eec5ad0c620e84c34111a68d3349833494b9088212214dd", size = 1234046, upload-time = "2023-01-11T19:11:19.839Z" },
+    { url = "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl", hash = "sha256:062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922", size = 1201486, upload-time = "2025-05-27T00:56:49.664Z" },
 ]
 
 [[package]]
@@ -1451,16 +1452,16 @@ wheels = [
 
 [[package]]
 name = "sretoolbox"
-version = "2.6.0"
+version = "2.7.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "python-json-logger" },
     { name = "requests" },
     { name = "semver" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d8/81/8163eb90ca684fbd4e5c93bc96d7275f74961ffd7f7822dac2978fa9067e/sretoolbox-2.6.0.tar.gz", hash = "sha256:f0e9c66d025b1980d0fb305e016ebe6f7b2888394d7175ac4656bbd8d343f644", size = 20888, upload-time = "2024-12-02T13:04:21.395Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/df/35/d2ee893956c288a780619ae5224c4b5da7e6e18371ff2233c1818653c00a/sretoolbox-2.7.0.tar.gz", hash = "sha256:54ddba0afe2ac9b2e1ffe1504e6fcfbf57a8cf8fba505e53f294ea5328aafa4e", size = 20933, upload-time = "2025-09-16T08:04:54.433Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/88/a9/456e3cc79fd036614d29aa2342b67fa709fed88f707a1f4463775adb8328/sretoolbox-2.6.0-py3-none-any.whl", hash = "sha256:15da321ef9d85ca46309930cc486a2a4289e4c7826eb119d6cd06620c635cf13", size = 35118, upload-time = "2024-12-02T13:04:20.371Z" },
+    { url = "https://files.pythonhosted.org/packages/19/e7/e18c55e79fb77d1667284a53f6784408e0369d6b3865893ecd39b12b33eb/sretoolbox-2.7.0-py3-none-any.whl", hash = "sha256:3b6f18e14f8186097f673ecfab77c211f0bb878971675d60ee80dda8cdf13837", size = 35155, upload-time = "2025-09-16T08:04:53.273Z" },
 ]
 
 [[package]]
