@@ -1169,7 +1169,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.2.dev389"
+version = "0.10.2.dev393"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1222,9 +1222,9 @@ dependencies = [
     { name = "websocket-client" },
     { name = "yamllint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f9/f1/bef70bb23ce744f08ca62bae64049b9659d9e5814ce3d9e126f6fe5a113f/qontract_reconcile-0.10.2.dev389.tar.gz", hash = "sha256:f6dbeb3bd37ca7bb3acba2ec86fb4de02a27b26e1843da5ced4c02a97f5974d0", size = 922061, upload-time = "2025-10-15T01:43:15.129Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/5e/27/de63c9de6d2e0f4c02a165eb7f54a700b37fe7e99a868125d0ace40dbd6c/qontract_reconcile-0.10.2.dev393.tar.gz", hash = "sha256:b1db6642ee349e243e17743d550469716bcf994146fd8698a8a21e09e87fa272", size = 924040, upload-time = "2025-10-15T12:01:33.184Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/eb/5a/25016bcf4cab7b0e22ba8dfa1fc192efce33fbbd9ab497f65b39503283d5/qontract_reconcile-0.10.2.dev389-py3-none-any.whl", hash = "sha256:7cde68d621c72547eb691076665d42b1299016d8950b952c059d09aace865261", size = 1348297, upload-time = "2025-10-15T01:43:11.116Z" },
+    { url = "https://files.pythonhosted.org/packages/ee/ca/8cbfa5d3a6a89d6b1135c0e401e4c2f80142d27c107ee5abb473f3190d4a/qontract_reconcile-0.10.2.dev393-py3-none-any.whl", hash = "sha256:0bb5ed3c38df788d92311466cf857afdbd95fa88d3bdd4004db9fadc8fceeccd", size = 1350566, upload-time = "2025-10-15T12:01:29.26Z" },
 ]
 
 [[package]]
@@ -1406,15 +1406,15 @@ wheels = [
 
 [[package]]
 name = "sentry-sdk"
-version = "2.41.0"
+version = "2.42.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/68/47/aea50a61d85bc07a34e6e7145aad7bd96c5671a86a32618059bad0cbc73b/sentry_sdk-2.41.0.tar.gz", hash = "sha256:e7af3f4d7f8bac4c56fbaf95adb0d111f061cce58d5df91cfcd4e69782759b10", size = 343942, upload-time = "2025-10-09T14:12:21.132Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c9/b2/7481156cf42b7f66cffb371e504b7ace12b4f016b8872ffcf0873ae9534b/sentry_sdk-2.42.0.tar.gz", hash = "sha256:91c69c9372fb5fb4df0ac39456ccf7286f0428b3ee1cdd389f9dd36c04e0f5c9", size = 351242, upload-time = "2025-10-15T07:41:15.577Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/71/58/175d0e4d93f62075a01f8aebe904b412c34a94a4517e5045d0a1d512aad0/sentry_sdk-2.41.0-py2.py3-none-any.whl", hash = "sha256:343cde6540574113d13d178d1b2093e011ac21dd55abd3a1ec7e540f0d18a5bd", size = 370606, upload-time = "2025-10-09T14:12:19.003Z" },
+    { url = "https://files.pythonhosted.org/packages/58/4a/9810a246ec5d1df2ae066efefeecfa91d3c548fa2bd5390184e016112887/sentry_sdk-2.42.0-py2.py3-none-any.whl", hash = "sha256:1a7986e638306ff158f52dd47d9480a4055e6c289388caa90628acb2563fe7bd", size = 379496, upload-time = "2025-10-15T07:41:13.802Z" },
 ]
 
 [[package]]
