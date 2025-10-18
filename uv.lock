@@ -1169,7 +1169,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.2.dev394"
+version = "0.10.2.dev395"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1211,6 +1211,7 @@ dependencies = [
     { name = "semver" },
     { name = "sendgrid" },
     { name = "sentry-sdk" },
+    { name = "setuptools" },
     { name = "slack-sdk" },
     { name = "sretoolbox" },
     { name = "sshtunnel" },
@@ -1222,9 +1223,9 @@ dependencies = [
     { name = "websocket-client" },
     { name = "yamllint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/30/14/c6b3af48017bb45cfec26ca17a807064eecd320d8cfb78d577afc078ef5c/qontract_reconcile-0.10.2.dev394.tar.gz", hash = "sha256:08045be8ca2bcd3a6360d90ddfe47b5d284616e098af1e84c9fa9c30af1a0414", size = 924059, upload-time = "2025-10-16T11:13:06.327Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/cf/5e/0342946eb0dd38ac69db22a3d9a92dbb74b0a833756a093b066a9470611f/qontract_reconcile-0.10.2.dev395.tar.gz", hash = "sha256:46396423c7c0f04c5e008aa256889bb973b6bfb6649e3701649048937b4bb144", size = 924185, upload-time = "2025-10-17T10:52:44.544Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/58/46/856f68448755892337b7260c7092dc67bff867de04d0be8eb8e93825b2b2/qontract_reconcile-0.10.2.dev394-py3-none-any.whl", hash = "sha256:9e5c923c8af26fb2cf72bb2fc078a9a08795b0908a1323e78173759b249421b4", size = 1350599, upload-time = "2025-10-16T11:13:02.796Z" },
+    { url = "https://files.pythonhosted.org/packages/cc/8b/7263ce8401b11c32c5e21ad6cef6f1dd2047d6b286c7043160cd22458ed1/qontract_reconcile-0.10.2.dev395-py3-none-any.whl", hash = "sha256:ff03be983b1b7804e42e45b204db45830237aca2b8a56a150c558004ab46f43a", size = 1350611, upload-time = "2025-10-17T10:52:40.048Z" },
 ]
 
 [[package]]
@@ -1419,11 +1420,11 @@ wheels = [
 
 [[package]]
 name = "setuptools"
-version = "80.9.0"
+version = "80.8.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/18/5d/3bf57dcd21979b887f014ea83c24ae194cfcd12b9e0fda66b957c69d1fca/setuptools-80.9.0.tar.gz", hash = "sha256:f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c", size = 1319958, upload-time = "2025-05-27T00:56:51.443Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/8d/d2/ec1acaaff45caed5c2dedb33b67055ba9d4e96b091094df90762e60135fe/setuptools-80.8.0.tar.gz", hash = "sha256:49f7af965996f26d43c8ae34539c8d99c5042fbff34302ea151eaa9c207cd257", size = 1319720, upload-time = "2025-05-20T14:02:53.503Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl", hash = "sha256:062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922", size = 1201486, upload-time = "2025-05-27T00:56:49.664Z" },
+    { url = "https://files.pythonhosted.org/packages/58/29/93c53c098d301132196c3238c312825324740851d77a8500a2462c0fd888/setuptools-80.8.0-py3-none-any.whl", hash = "sha256:95a60484590d24103af13b686121328cc2736bee85de8936383111e421b9edc0", size = 1201470, upload-time = "2025-05-20T14:02:51.348Z" },
 ]
 
 [[package]]
