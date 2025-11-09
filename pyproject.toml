@@ -9,7 +9,7 @@ requires-python = "~= 3.12.0"
 dependencies = [
     # we want to use the latest!!! version of qontract-reconcile
     "qontract-reconcile>=0.10.1rc1177",
-    "pytest ~=8.3",
+    "pytest ~=9.0",
     "pytest-order ~=1.3.0",
 ]
 
