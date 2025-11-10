@@ -33,6 +33,8 @@ RUN uv sync --frozen --no-group dev
 
 # Upgrade h11 CVE-2025-43859
 RUN uv pip install --no-cache-dir "h11>=0.16.0"
+# Upgrade django CVE-2025-64459
+RUN uv pip install --no-cache-dir "django>=5.2.8,<6"
 
 # Our customizations
 COPY bin/* ./bin/
