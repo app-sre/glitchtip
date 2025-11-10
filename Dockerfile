@@ -1,4 +1,4 @@
-ARG GLITCHTIP_VERSION=v5.0.9
+ARG GLITCHTIP_VERSION=v5.1.1
 ARG GLITCHTIP_IMAGE=registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP_VERSION}
 #
 # Base image
