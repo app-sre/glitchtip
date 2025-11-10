@@ -1,4 +1,4 @@
-ARG GLITCHTIP_VERSION=v5.0.9
+ARG GLITCHTIP_VERSION=v5.1.1
 ARG GLITCHTIP_IMAGE=registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP_VERSION}
 #
 # Base image
@@ -33,6 +33,8 @@ RUN uv sync --frozen --no-group dev
 
 # Upgrade h11 CVE-2025-43859
 RUN uv pip install --no-cache-dir "h11>=0.16.0"
+# Upgrade django CVE-2025-64459
+RUN uv pip install --no-cache-dir "django>=5.2.8,<6"
 
 # Our customizations
 COPY bin/* ./bin/
