@@ -363,6 +363,15 @@ wheels = [
 ]
 
 [[package]]
+name = "durationpy"
+version = "0.10"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/9d/a4/e44218c2b394e31a6dd0d6b095c4e1f32d0be54c2a4b250032d717647bab/durationpy-0.10.tar.gz", hash = "sha256:1fa6893409a6e739c9c72334fc65cca1f355dbdd93405d30f726deb5bde42fba", size = 3335, upload-time = "2025-05-17T13:52:37.26Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b0/0d/9feae160378a3553fa9a339b0e9c1a048e147a4127210e286ef18b730f03/durationpy-0.10-py3-none-any.whl", hash = "sha256:3b41e1b601234296b4fb368338fdcd3e13e0b4fb5b67345948f4f2bf9868b286", size = 3922, upload-time = "2025-05-17T13:52:36.463Z" },
+]
+
+[[package]]
 name = "fasteners"
 version = "0.20"
 source = { registry = "https://pypi.org/simple" }
@@ -622,23 +631,24 @@ wheels = [
 
 [[package]]
 name = "kubernetes"
-version = "24.2.0"
+version = "32.0.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
+    { name = "durationpy" },
     { name = "google-auth" },
+    { name = "oauthlib" },
     { name = "python-dateutil" },
     { name = "pyyaml" },
     { name = "requests" },
     { name = "requests-oauthlib" },
-    { name = "setuptools" },
     { name = "six" },
     { name = "urllib3" },
     { name = "websocket-client" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/22/eb/6b2385fb2e2b8da2f329a2832cd29b3ca39e462f9719d550c7d55e502a73/kubernetes-24.2.0.tar.gz", hash = "sha256:9900f12ae92007533247167d14cdee949cd8c7721f88b4a7da5f5351da3834cd", size = 760029, upload-time = "2022-06-22T18:33:33.437Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b7/e8/0598f0e8b4af37cd9b10d8b87386cf3173cb8045d834ab5f6ec347a758b3/kubernetes-32.0.1.tar.gz", hash = "sha256:42f43d49abd437ada79a79a16bd48a604d3471a117a8347e87db693f2ba0ba28", size = 946691, upload-time = "2025-02-18T21:06:34.148Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/47/55/edb4a69d03af4bc59fc6696946907aff516fe8e36aa9659b536a9506a558/kubernetes-24.2.0-py2.py3-none-any.whl", hash = "sha256:da19d58865cf903a8c7b9c3691a2e6315d583a98f0659964656dfdf645bf7e49", size = 1522592, upload-time = "2022-06-22T18:33:29.507Z" },
+    { url = "https://files.pythonhosted.org/packages/08/10/9f8af3e6f569685ce3af7faab51c8dd9d93b9c38eba339ca31c746119447/kubernetes-32.0.1-py2.py3-none-any.whl", hash = "sha256:35282ab8493b938b08ab5526c7ce66588232df00ef5e1dbe88a419107dc10998", size = 1988070, upload-time = "2025-02-18T21:06:31.391Z" },
 ]
 
 [[package]]
@@ -1059,7 +1069,7 @@ sdist = { url = "https://files.pythonhosted.org/packages/39/7c/dc2e5678d4d85f08b
 
 [[package]]
 name = "pytest"
-version = "9.0.0"
+version = "9.0.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "colorama", marker = "sys_platform == 'win32'" },
@@ -1068,9 +1078,9 @@ dependencies = [
     { name = "pluggy" },
     { name = "pygments" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/da/1d/eb34f286b164c5e431a810a38697409cca1112cee04b287bb56ac486730b/pytest-9.0.0.tar.gz", hash = "sha256:8f44522eafe4137b0f35c9ce3072931a788a21ee40a2ed279e817d3cc16ed21e", size = 1562764, upload-time = "2025-11-08T17:25:33.34Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/07/56/f013048ac4bc4c1d9be45afd4ab209ea62822fb1598f40687e6bf45dcea4/pytest-9.0.1.tar.gz", hash = "sha256:3e9c069ea73583e255c3b21cf46b8d3c56f6e3a1a8f6da94ccb0fcf57b9d73c8", size = 1564125, upload-time = "2025-11-12T13:05:09.333Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/72/99/cafef234114a3b6d9f3aaed0723b437c40c57bdb7b3e4c3a575bc4890052/pytest-9.0.0-py3-none-any.whl", hash = "sha256:e5ccdf10b0bac554970ee88fc1a4ad0ee5d221f8ef22321f9b7e4584e19d7f96", size = 373364, upload-time = "2025-11-08T17:25:31.811Z" },
+    { url = "https://files.pythonhosted.org/packages/0b/8b/6300fb80f858cda1c51ffa17075df5d846757081d11ab4aa35cef9e6258b/pytest-9.0.1-py3-none-any.whl", hash = "sha256:67be0030d194df2dfa7b556f2e56fb3c3315bd5c8822c6951162b92b32ce7dad", size = 373668, upload-time = "2025-11-12T13:05:07.379Z" },
 ]
 
 [[package]]
@@ -1171,7 +1181,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.2.dev416"
+version = "0.10.2.dev417"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1225,9 +1235,9 @@ dependencies = [
     { name = "websocket-client" },
     { name = "yamllint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e1/46/738d39dad91b25684d4a1c879acd6cd25137b2dd2b6a0c9a4def94db743b/qontract_reconcile-0.10.2.dev416.tar.gz", hash = "sha256:b6ca335fd9521a092a567ff66e75db25324d26ad48a46b4bb00aa709b01e2583", size = 926175, upload-time = "2025-11-11T14:31:57.452Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/8c/3a/81cec53d72fce038e0922964a104c343560a5875d0778ce0651776c54353/qontract_reconcile-0.10.2.dev417.tar.gz", hash = "sha256:0b21a9cbc1c9f8bff84f3045950e657a29e53331dd39b9a516fb9ba8fb3d1ad0", size = 926299, upload-time = "2025-11-12T08:30:52.801Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e2/38/f815d9cce388d3dec08dbc7ded9031a004fb5daee658b6e7899122404b7d/qontract_reconcile-0.10.2.dev416-py3-none-any.whl", hash = "sha256:7ab32d07dda3ca068d5212fa93288cdd09ca631d1bf1d66608f350292cb7fb94", size = 1352759, upload-time = "2025-11-11T14:31:53.402Z" },
+    { url = "https://files.pythonhosted.org/packages/51/1b/7367f35b6dcc2f977a6fa35a9ac8342f2d8ff831d64e50331b9cace3a0e1/qontract_reconcile-0.10.2.dev417-py3-none-any.whl", hash = "sha256:45da15cf4e34e89f99d368b7f38e70b45708525b083ef504fb32da6105c8791e", size = 1352821, upload-time = "2025-11-12T08:30:48.116Z" },
 ]
 
 [[package]]
