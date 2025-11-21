@@ -1215,7 +1215,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.2.dev432"
+version = "0.10.2.dev434"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1269,9 +1269,9 @@ dependencies = [
     { name = "websocket-client" },
     { name = "yamllint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/3f/50/19548194c375e1b60bb8064dd993e6403c4a4c84e9753fc34f8c14094182/qontract_reconcile-0.10.2.dev432.tar.gz", hash = "sha256:bf025999f9c7a4f5faf7dc3d660f4b48bd454af0eb022f4f2ded721a62248d93", size = 931957, upload-time = "2025-11-19T19:36:15.505Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/43/6b/2cd7280cfcd17dee925b1c7f0974f8c5cb012dc2cf2116e0ea4f3e77e8c6/qontract_reconcile-0.10.2.dev434.tar.gz", hash = "sha256:e48a1e41ea6102c66366d38f608d2d3433b9c01fbb83ed3871f563e55e197cb2", size = 931965, upload-time = "2025-11-20T10:02:13.319Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/fe/59/cc88ed783bd3e4667d0b372a8a4b6cc1ee7e13564e39ac16fe7e2d7b9be1/qontract_reconcile-0.10.2.dev432-py3-none-any.whl", hash = "sha256:ee9e5cf3d1d2937a037d4fa71ad7416f04efaf1db1991317c4e71d1c176eb0b2", size = 1359263, upload-time = "2025-11-19T19:36:13.025Z" },
+    { url = "https://files.pythonhosted.org/packages/ce/dc/ccc6e0e6a22f92b0ec01a3669fd46a54bdfafb3e6d665f8d53a5276b4503/qontract_reconcile-0.10.2.dev434-py3-none-any.whl", hash = "sha256:d9d96742b36a79f571ebbe2850bab1d1d2c2e232f3231a87113d02132208a610", size = 1359259, upload-time = "2025-11-20T10:02:10.767Z" },
 ]
 
 [[package]]
@@ -1484,11 +1484,11 @@ wheels = [
 
 [[package]]
 name = "slack-sdk"
-version = "3.38.0"
+version = "3.39.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/69/90/8c830172b1847bd3084a2cf39aee9d522e2a55d1c3d4e2b066001e9765ee/slack_sdk-3.38.0.tar.gz", hash = "sha256:73f43ef535929c6034982434aba4d5fd04db3b40f4e0cd14c3abfd56419d181d", size = 240091, upload-time = "2025-11-13T16:05:20.905Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b6/dd/645f3eb93fce38eadbb649e85684730b1fc3906c2674ca59bddc2ca2bd2e/slack_sdk-3.39.0.tar.gz", hash = "sha256:6a56be10dc155c436ff658c6b776e1c082e29eae6a771fccf8b0a235822bbcb1", size = 247207, upload-time = "2025-11-20T15:27:57.556Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3d/fc/0563891d3d1f7c503b2daf0b5b9ae9e605ea112272661897c150fd3d69cb/slack_sdk-3.38.0-py2.py3-none-any.whl", hash = "sha256:6c5e908abd68e97373a88437ef2fa3ff7a4c356807bbc41fcd7d6cbbfa2034d6", size = 302796, upload-time = "2025-11-13T16:05:18.856Z" },
+    { url = "https://files.pythonhosted.org/packages/ef/1f/32bcf088e535c1870b1a1f2e3b916129c66fdfe565a793316317241d41e5/slack_sdk-3.39.0-py2.py3-none-any.whl", hash = "sha256:b1556b2f5b8b12b94e5ea3f56c4f2c7f04462e4e1013d325c5764ff118044fa8", size = 309850, upload-time = "2025-11-20T15:27:55.729Z" },
 ]
 
 [[package]]
@@ -1534,11 +1534,11 @@ sdist = { url = "https://files.pythonhosted.org/packages/a3/f8/a6091be6a60ed4df9
 
 [[package]]
 name = "stevedore"
-version = "5.5.0"
+version = "5.6.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/2a/5f/8418daad5c353300b7661dd8ce2574b0410a6316a8be650a189d5c68d938/stevedore-5.5.0.tar.gz", hash = "sha256:d31496a4f4df9825e1a1e4f1f74d19abb0154aff311c3b376fcc89dae8fccd73", size = 513878, upload-time = "2025-08-25T12:54:26.806Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/96/5b/496f8abebd10c3301129abba7ddafd46c71d799a70c44ab080323987c4c9/stevedore-5.6.0.tar.gz", hash = "sha256:f22d15c6ead40c5bbfa9ca54aa7e7b4a07d59b36ae03ed12ced1a54cf0b51945", size = 516074, upload-time = "2025-11-20T10:06:07.264Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/80/c5/0c06759b95747882bb50abda18f5fb48c3e9b0fbfc6ebc0e23550b52415d/stevedore-5.5.0-py3-none-any.whl", hash = "sha256:18363d4d268181e8e8452e71a38cd77630f345b2ef6b4a8d5614dac5ee0d18cf", size = 49518, upload-time = "2025-08-25T12:54:25.445Z" },
+    { url = "https://files.pythonhosted.org/packages/f4/40/8561ce06dc46fd17242c7724ab25b257a2ac1b35f4ebf551b40ce6105cfa/stevedore-5.6.0-py3-none-any.whl", hash = "sha256:4a36dccefd7aeea0c70135526cecb7766c4c84c473b1af68db23d541b6dc1820", size = 54428, upload-time = "2025-11-20T10:06:05.946Z" },
 ]
 
 [[package]]
