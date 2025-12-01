@@ -3,7 +3,7 @@ ARG GLITCHTIP_IMAGE=registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP
 #
 # Base image
 #
-FROM registry.access.redhat.com/ubi9/python-312:9.7-1764275247@sha256:92c71d1e64cf84b9aa6e8e81555397175b9367298b456d24eac5b55ab41fdab9 AS base
+FROM registry.access.redhat.com/ubi9/python-312:9.7-1764607356@sha256:69aa8a11f6aef38aa5130c44ac94bad8a65e9641b7eaa0a44f04fd7decdf8be2 AS base
 ARG GLITCHTIP_IMAGE
 COPY --from=${GLITCHTIP_IMAGE} /code/LICENSE /licenses/LICENSE
 
@@ -24,7 +24,7 @@ ENV \
     # disable uv cache. it doesn't make sense in a container
     UV_NO_CACHE=true
 
-COPY --from=ghcr.io/astral-sh/uv:0.9.13@sha256:f07d1bf7b1fb4b983eed2b31320e25a2a76625bdf83d5ff0208fe105d4d8d2f5 /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.9.14@sha256:fef8e5fb8809f4b57069e919ffcd1529c92b432a2c8d8ad1768087b0b018d840 /uv /bin/uv
 ARG GLITCHTIP_IMAGE
 COPY --from=${GLITCHTIP_IMAGE} --chown=1001:root /code ./
 
@@ -75,7 +75,7 @@ CMD ["./bin/start.sh"]
 # Test image
 #
 FROM prod AS test
-COPY --from=ghcr.io/astral-sh/uv:0.9.13@sha256:f07d1bf7b1fb4b983eed2b31320e25a2a76625bdf83d5ff0208fe105d4d8d2f5 /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.9.14@sha256:fef8e5fb8809f4b57069e919ffcd1529c92b432a2c8d8ad1768087b0b018d840 /uv /bin/uv
 ENV \
     # use venv from ubi image
     UV_PROJECT_ENVIRONMENT=$APP_ROOT \
