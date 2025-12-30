@@ -24,7 +24,7 @@ ENV \
     # disable uv cache. it doesn't make sense in a container
     UV_NO_CACHE=true
 
-COPY --from=ghcr.io/astral-sh/uv:0.9.19@sha256:e614684f5327b44f2c3ef3958c5c121f4a8acb8ee5726207470526e42f4b49b8 /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.9.20@sha256:81f1a183fbdd9cec1498b066a32f0da043d4a9dda12b8372c7bfd183665e485d /uv /bin/uv
 ARG GLITCHTIP_IMAGE
 COPY --from=${GLITCHTIP_IMAGE} --chown=1001:root /code ./
 
@@ -75,7 +75,7 @@ CMD ["./bin/start.sh"]
 # Test image
 #
 FROM prod AS test
-COPY --from=ghcr.io/astral-sh/uv:0.9.19@sha256:e614684f5327b44f2c3ef3958c5c121f4a8acb8ee5726207470526e42f4b49b8 /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.9.20@sha256:81f1a183fbdd9cec1498b066a32f0da043d4a9dda12b8372c7bfd183665e485d /uv /bin/uv
 ENV \
     # use venv from ubi image
     UV_PROJECT_ENVIRONMENT=$APP_ROOT \
