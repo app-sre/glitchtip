@@ -1,4 +1,4 @@
-ARG GLITCHTIP_VERSION=v5.2.1
+ARG GLITCHTIP_VERSION=6.1.6
 ARG GLITCHTIP_IMAGE=registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP_VERSION}
 #
 # Base image
@@ -31,11 +31,6 @@ COPY --from=${GLITCHTIP_IMAGE} --chown=1001:root /code ./
 # Install the required packages
 RUN uv sync --frozen --no-group dev
 
-# Upgrade h11 CVE-2025-43859
-RUN uv pip install --no-cache-dir "h11>=0.16.0"
-# Upgrade django CVE-2025-64459
-RUN uv pip install --no-cache-dir "django>=5.2.8,<6"
-
 # Our customizations
 COPY bin/* ./bin/
 COPY appsre ./appsre
@@ -46,8 +41,6 @@ COPY patches ./patches
 RUN cat patches/00-skip-user-invitation-process.patch | patch -p1
 # add https:// to the s3 endpoint url
 RUN cat patches/04-aws-s3-endpoint-url.patch | patch -p1
-# WSGI prometheus
-RUN cat patches/06-wsgi.patch | patch -p1
 # Events counter - https://gitlab.com/glitchtip/glitchtip-backend/-/merge_requests/1528
 RUN cat patches/07-events-counter.patch | patch -p1
 
@@ -56,7 +49,7 @@ RUN cat patches/07-events-counter.patch | patch -p1
 # Final image
 #
 FROM base AS prod
-ENV PORT=8080
+ENV PORT=8000
 EXPOSE ${PORT}
 
 # Test GLITCHTIP_VERSION is set
