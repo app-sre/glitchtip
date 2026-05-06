@@ -1,26 +1,16 @@
 diff --git a/glitchtip/ingest_asgi.py b/glitchtip/ingest_asgi.py
-index 1234567..abcdefg 100644
+index 71aa25d2..a03fce70 100644
 --- a/glitchtip/ingest_asgi.py
 +++ b/glitchtip/ingest_asgi.py
-@@ -48,7 +48,17 @@ class IngestDispatcher:
+@@ -48,9 +48,11 @@ class IngestDispatcher:
                  @classmethod
                  def _get_middleware_setting(cls):
--                    return [
-+                    from django.conf import settings
-+
-+                    middleware = [
+                     return [
++                        "django_prometheus.middleware.PrometheusBeforeMiddleware"
                          "django.middleware.security.SecurityMiddleware",
                          "corsheaders.middleware.CorsMiddleware",
                          "glitchtip.middleware.DecompressBodyMiddleware",
++                        "django_prometheus.middleware.PrometheusAfterMiddleware",
                      ]
-+                    if settings.ENABLE_OBSERVABILITY_API:
-+                        middleware.insert(
-+                            0,
-+                            "django_prometheus.middleware.PrometheusBeforeMiddleware",
-+                        )
-+                        middleware.append(
-+                            "django_prometheus.middleware.PrometheusAfterMiddleware"
-+                        )
-+                    return middleware
-
+ 
                  def load_middleware(self, is_async=True):
