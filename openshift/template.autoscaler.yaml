@@ -25,6 +25,10 @@ objects:
     MAINTENANCE_EVENT_FREEZE: "${MAINTENANCE_EVENT_FREEZE}"
     MAX_ISSUES_PER_ALERT: "${MAX_ISSUES_PER_ALERT}"
     DATA_UPLOAD_MAX_NUMBER_FIELDS: "${DATA_UPLOAD_MAX_NUMBER_FIELDS}"
+    GRANIAN_LOG_ACCESS_ENABLED: "1"
+    GRANIAN_METRICS_ENABLED: "1"
+    GRANIAN_METRICS_ADDRESS: "0.0.0.0"
+    GRANIAN_METRICS_PORT: "9090"
   metadata:
     annotations:
       qontract.recycle: "true"
@@ -303,6 +307,9 @@ objects:
     - name: "8000"
       port: ${{GT_APP_PORT}}
       targetPort: ${{GT_APP_PORT}}
+    - name: "9090"  # granian metrics
+      port: 9090
+      targetPort: 9090
     selector:
       app.kubernetes.io/component: web
       app.kubernetes.io/name: glitchtip
