@@ -6,7 +6,7 @@ index 71aa25d2..a03fce70 100644
                  @classmethod
                  def _get_middleware_setting(cls):
                      return [
-+                        "django_prometheus.middleware.PrometheusBeforeMiddleware"
++                        "django_prometheus.middleware.PrometheusBeforeMiddleware",
                          "django.middleware.security.SecurityMiddleware",
                          "corsheaders.middleware.CorsMiddleware",
                          "glitchtip.middleware.DecompressBodyMiddleware",
