@@ -1,5 +1,5 @@
 diff --git a/apps/observability/metrics.py b/apps/observability/metrics.py
-index dd78c5d5..fdfd7d9f 100644
+index 1234567..abcdefg 100644
 --- a/apps/observability/metrics.py
 +++ b/apps/observability/metrics.py
 @@ -1,5 +1,5 @@
@@ -7,27 +7,24 @@ index dd78c5d5..fdfd7d9f 100644
 -from django.db.models import Count
 +from django.db.models import Count, Sum
  from prometheus_client import Gauge
- 
+
  from apps.observability.constants import OBSERVABILITY_ORG_CACHE_KEY
-@@ -9,10 +9,14 @@ organizations_metric = Gauge("glitchtip_organizations", "Number of organizations
- projects_metric = Gauge(
-     "glitchtip_projects", "Number of projects per organization", ["organization"]
- )
+@@ -9,6 +9,11 @@ from apps.organizations_ext.models import Organization
+ projects_metric = Gauge("glitchtip_projects_total", "Total number of projects")
 +events_counter = Gauge(
 +    "glitchtip_events", "Events per project", ["project", "organization"]
 +)
- 
- 
- async def compile_metrics():
+
+
+ async def update_metrics():
      """Update and cache the organization and project metrics"""
 +    from apps.projects.models import IssueEventProjectHourlyStatistic
- 
-     orgs = cache.get(OBSERVABILITY_ORG_CACHE_KEY)
-     if orgs is None:
-@@ -28,3 +32,14 @@ async def compile_metrics():
-         projects_metric.labels(org["slug"]).set(org["projects__count"])
- 
-     organizations_metric.set(len(orgs))
++
+     counts = await cache.aget(OBSERVABILITY_ORG_CACHE_KEY)
+@@ -24,3 +29,14 @@ async def update_metrics():
+
+     organizations_metric.set(counts["org_count"])
+     projects_metric.set(counts["project_count"])
 +    async for i in (
 +        IssueEventProjectHourlyStatistic.objects.select_related(
 +            "project", "project__organization"

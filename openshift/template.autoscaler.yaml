@@ -21,14 +21,9 @@ objects:
     GLITCHTIP_MAX_EVENT_LIFE_DAYS: "${GLITCHTIP_MAX_EVENT_LIFE_DAYS}"
     SECRET_KEY: "${SECRET_KEY}"
     SESSION_COOKIE_AGE: "${SESSION_TIMEOUT_SECONDS}"
-    UWSGI_LISTEN: "${UWSGI_LISTEN}"
-    UWSGI_ARGS: "${UWSGI_ARGS}"
-    UWSGI_HTTP_KEEPALIVE: "${UWSGI_HTTP_KEEPALIVE}"
     TASK_DEBOUNCE_DELAY: "${TASK_DEBOUNCE_DELAY_SECONDS}"
     MAINTENANCE_EVENT_FREEZE: "${MAINTENANCE_EVENT_FREEZE}"
     MAX_ISSUES_PER_ALERT: "${MAX_ISSUES_PER_ALERT}"
-    UWSGI_HARAKIRI: "${UWSGI_HARAKIRI}"
-    UWSGI_PROCESSES: "${UWSGI_PROCESSES}"
     DATA_UPLOAD_MAX_NUMBER_FIELDS: "${DATA_UPLOAD_MAX_NUMBER_FIELDS}"
   metadata:
     annotations:
@@ -36,103 +31,6 @@ objects:
     labels:
       app.kubernetes.io/name: glitchtip
     name: glitchtip-configmap
-
-# ---- BEAT DEPLOYMENT ------
-- apiVersion: v1
-  kind: ServiceAccount
-  metadata:
-    name: glitchtip-beat
-    labels:
-      app.kubernetes.io/component: beat
-      app.kubernetes.io/name: glitchtip
-
-- apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: glitchtip-beat
-    annotations:
-      ignore-check.kube-linter.io/minimum-three-replicas: "Beat deployment should only have 1 replica"
-      ignore-check.kube-linter.io/unset-cpu-requirements: "no cpu limits"
-    labels:
-      app.kubernetes.io/component: beat
-      app.kubernetes.io/name: glitchtip
-  spec:
-    progressDeadlineSeconds: 600
-    replicas: 1
-    revisionHistoryLimit: 10
-    selector:
-      matchLabels:
-        app.kubernetes.io/component: beat
-        app.kubernetes.io/instance: glitchtip
-        app.kubernetes.io/name: glitchtip
-    strategy:
-      type: Recreate
-    template:
-      metadata:
-        labels:
-          app.kubernetes.io/component: beat
-          app.kubernetes.io/instance: glitchtip
-          app.kubernetes.io/name: glitchtip
-      spec:
-        serviceAccountName: glitchtip-beat
-        restartPolicy: Always
-        containers:
-        - env:
-          - name: SERVER_ROLE
-            value: beat
-          - name: REDIS_URL
-            valueFrom:
-              secretKeyRef:
-                name: ${REDIS_SECRET_NAME}
-                key: redis.url
-          - name: DATABASE_HOST
-            valueFrom:
-              secretKeyRef:
-                name: ${RDS_SECRET_NAME}
-                key: db.host
-          - name: DATABASE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: ${RDS_SECRET_NAME}
-                key: db.password
-          - name: DATABASE_NAME
-            valueFrom:
-              secretKeyRef:
-                name: ${RDS_SECRET_NAME}
-                key: db.name
-          - name: DATABASE_USER
-            valueFrom:
-              secretKeyRef:
-                name: ${RDS_SECRET_NAME}
-                key: db.user
-          envFrom:
-            - configMapRef:
-                name: glitchtip-configmap
-          image: "${IMAGE}:${IMAGE_TAG}"
-          imagePullPolicy: Always
-          name: beat
-          readinessProbe:
-            exec:
-              command: ["bash", "-c", "celery -A glitchtip inspect ping"]
-            initialDelaySeconds: 40
-            timeoutSeconds: 180
-            periodSeconds: 30
-            successThreshold: 1
-            failureThreshold: 3
-          livenessProbe:
-            exec:
-              command: ["bash", "-c", "celery -A glitchtip inspect ping"]
-            initialDelaySeconds: 40
-            timeoutSeconds: 180
-            periodSeconds: 30
-            successThreshold: 1
-            failureThreshold: 3
-          resources:
-            requests:
-              cpu: ${{BEAT_CPU_REQUESTS}}
-              memory: ${{BEAT_MEMORY_REQUESTS}}
-            limits:
-              memory: ${{BEAT_MEMORY_LIMITS}}
 
 # ------- WEB DEPLOYMENT --------------------
 - apiVersion: v1
@@ -195,7 +93,7 @@ objects:
         initContainers:
         - name: init-migration
           image: "${IMAGE}:${IMAGE_TAG}"
-          command: ["python3", "./manage.py", "migrate"]
+          command: ["./bin/run-migrate.sh"]
           env:
           - name: DATABASE_HOST
             valueFrom:
@@ -546,20 +444,20 @@ objects:
           name: worker
           readinessProbe:
             exec:
-              command: ["bash", "-c", "celery -A glitchtip inspect ping -d celery@$HOSTNAME | grep -q OK"]
-            initialDelaySeconds: 40
-            timeoutSeconds: 180
-            periodSeconds: 30
-            successThreshold: 1
-            failureThreshold: 3
+              command:
+              - /bin/sh
+              - -c
+              - 'test -f /tmp/worker_health && [ $(($(date +%s) - $(stat -c %Y /tmp/worker_health))) -lt 15 ]'
+            initialDelaySeconds: 10
+            periodSeconds: 10
           livenessProbe:
             exec:
-              command: ["bash", "-c", "celery -A glitchtip inspect ping -d celery@$HOSTNAME | grep -q OK"]
-            initialDelaySeconds: 40
-            timeoutSeconds: 180
-            periodSeconds: 30
-            successThreshold: 1
-            failureThreshold: 3
+              command:
+              - /bin/sh
+              - -c
+              - 'test -f /tmp/worker_health && [ $(($(date +%s) - $(stat -c %Y /tmp/worker_health))) -lt 15 ]'
+            initialDelaySeconds: 10
+            periodSeconds: 10
           resources:
             requests:
               cpu: ${{GT_WORKER_CPU_REQUESTS}}
@@ -682,7 +580,7 @@ parameters:
   required: true
 
 - name: GT_APP_PORT
-  description: Glitchtip uwsgi application port
+  description: Glitchtip application port
   value: "8000"
   required: true
 
@@ -742,21 +640,6 @@ parameters:
 - description: Redis secret name
   name: REDIS_SECRET_NAME
   value: redis-url
-
-- description: Set the UWSGI socket listen queue size
-  name: UWSGI_LISTEN
-  value: "128"
-  required: true
-
-- description: Set HTTP_KEEPALIVE option
-  name: UWSGI_HTTP_KEEPALIVE
-  value: "120"
-  required: true
-
-- description: Custom UWSGI args
-  name: UWSGI_ARGS
-  value: "--stats /tmp/stats.socket"
-  required: true
 
 - description: Debounce delay for issue update tasks
   name: TASK_DEBOUNCE_DELAY_SECONDS
@@ -887,22 +770,6 @@ parameters:
   value: "100m"
   required: true
 
-# Beat Pod limits
-- name: BEAT_MEMORY_REQUESTS
-  description: Beat memory requests
-  value: "700Mi"
-  required: true
-
-- name: BEAT_MEMORY_LIMITS
-  description: Beat memory limits
-  value: "700Mi"
-  required: true
-
-- name: BEAT_CPU_REQUESTS
-  description: Beat cpu requests
-  value: "100m"
-  required: true
-
 # Notification Cleaner Pod limits
 - name: NOTIFICATION_CLEANER_MEMORY_REQUESTS
   description: Notification Cleaner memory requests
@@ -919,11 +786,3 @@ parameters:
   value: "100m"
   required: true
 
-- name: UWSGI_HARAKIRI
-  description: harakiri timeout
-  value: "60"
-  required: true
-- name: UWSGI_PROCESSES
-  description: number of uwsgi worker processes
-  value: "1"
-  required: true
