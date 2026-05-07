@@ -486,7 +486,7 @@ objects:
       metadata:
         serverAddress: http://prometheus-app-sre.openshift-customer-monitoring.svc.cluster.local:9090
         metricName: eventRate
-        query: sum(rate(django_http_requests_total_by_view_transport_method_total{namespace="${NAMESPACE}", view=~".*event.*"}[5m]) * 60)
+        query: sum(rate(django_http_requests_total_by_view_transport_method_total{namespace="${NAMESPACE}", view=~".*event_envelope.*|api:event_store.*"}[5m]) * 60)
         threshold: "${GT_WORKER_THRESHOLD}"
 
 
