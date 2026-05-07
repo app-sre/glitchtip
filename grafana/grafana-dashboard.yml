@@ -1499,18 +1499,6 @@ data:
               "legendFormat": "{{pod}}",
               "range": true,
               "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${ds}"
-              },
-              "editorMode": "code",
-              "expr": "avg(kube_pod_container_resource_limits{namespace=\"$namespace\", container=\"web\", resource=\"memory\"})",
-              "hide": false,
-              "legendFormat": "Memory Limit",
-              "range": true,
-              "refId": "B"
             }
           ],
           "title": "Web Pod Memory Usage",
@@ -1731,18 +1719,6 @@ data:
               "legendFormat": "{{pod}}",
               "range": true,
               "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${ds}"
-              },
-              "editorMode": "code",
-              "expr": "avg(kube_pod_container_resource_limits{namespace=\"$namespace\", container=\"worker\", resource=\"memory\"})",
-              "hide": false,
-              "legendFormat": "Memory Limit",
-              "range": true,
-              "refId": "B"
             }
           ],
           "title": "Worker Pod Memory Usage",
@@ -2140,5 +2116,5 @@ data:
       "timezone": "",
       "title": "Glitchtip Dashboard",
       "uid": "GRUqV30Vk",
-      "version": 5
+      "version": 6
     }
