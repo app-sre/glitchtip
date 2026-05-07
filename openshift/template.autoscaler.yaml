@@ -25,6 +25,7 @@ objects:
     MAINTENANCE_EVENT_FREEZE: "${MAINTENANCE_EVENT_FREEZE}"
     MAX_ISSUES_PER_ALERT: "${MAX_ISSUES_PER_ALERT}"
     DATA_UPLOAD_MAX_NUMBER_FIELDS: "${DATA_UPLOAD_MAX_NUMBER_FIELDS}"
+    VTASKS_METRICS_PORT: "9091"
     GLITCHTIP_ENABLE_LOGS: "${GLITCHTIP_ENABLE_LOGS}"
     GLITCHTIP_ENABLE_UPTIME: "${GLITCHTIP_ENABLE_UPTIME}"
     GLITCHTIP_ENABLE_MCP: "${GLITCHTIP_ENABLE_MCP}"
@@ -453,6 +454,9 @@ objects:
                 name: glitchtip-configmap
           image: "${IMAGE}:${IMAGE_TAG}"
           name: worker
+          ports:
+          - containerPort: 9091
+            name: metrics
           readinessProbe:
             exec:
               command:
@@ -475,6 +479,22 @@ objects:
               memory: ${{GT_WORKER_MEMORY_REQUESTS}}
             limits:
               memory: ${{GT_WORKER_MEMORY_LIMITS}}
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app.kubernetes.io/component: worker
+      app.kubernetes.io/name: glitchtip
+    name: glitchtip-worker
+  spec:
+    ports:
+    - name: metrics
+      port: 9091
+      targetPort: 9091
+    selector:
+      app.kubernetes.io/component: worker
+      app.kubernetes.io/name: glitchtip
 
 - apiVersion: keda.sh/v1alpha1
   kind: ScaledObject
