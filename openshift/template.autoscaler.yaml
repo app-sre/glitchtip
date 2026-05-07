@@ -25,6 +25,10 @@ objects:
     MAINTENANCE_EVENT_FREEZE: "${MAINTENANCE_EVENT_FREEZE}"
     MAX_ISSUES_PER_ALERT: "${MAX_ISSUES_PER_ALERT}"
     DATA_UPLOAD_MAX_NUMBER_FIELDS: "${DATA_UPLOAD_MAX_NUMBER_FIELDS}"
+    GLITCHTIP_ENABLE_LOGS: "${GLITCHTIP_ENABLE_LOGS}"
+    GLITCHTIP_ENABLE_UPTIME: "${GLITCHTIP_ENABLE_UPTIME}"
+    GLITCHTIP_ENABLE_MCP: "${GLITCHTIP_ENABLE_MCP}"
+    GLITCHTIP_ENABLE_DUCKDB: "${GLITCHTIP_ENABLE_DUCKDB}"
     GRANIAN_LOG_ACCESS_ENABLED: "1"
     GRANIAN_METRICS_ENABLED: "1"
     GRANIAN_METRICS_ADDRESS: "0.0.0.0"
@@ -662,6 +666,22 @@ parameters:
   name: MAX_ISSUES_PER_ALERT
   value: "1000"
   required: true
+
+- description: Enable logs feature
+  name: GLITCHTIP_ENABLE_LOGS
+  value: "False"
+
+- description: Enable uptime monitoring
+  name: GLITCHTIP_ENABLE_UPTIME
+  value: "False"
+
+- description: Enable MCP server
+  name: GLITCHTIP_ENABLE_MCP
+  value: "False"
+
+- description: Enable DuckDB cold storage
+  name: GLITCHTIP_ENABLE_DUCKDB
+  value: "False"
 
 - description: S3 secret name
   name: S3_SECRET_NAME
