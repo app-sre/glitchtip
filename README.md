@@ -73,11 +73,11 @@ Applied during the Docker build (`Dockerfile`):
 
 ### Custom Metrics (via patches)
 
-| Metric                     | Type  | Labels                    | Source     |
-| -------------------------- | ----- | ------------------------- | ---------- |
-| `glitchtip_organizations`  | Gauge | —                         | upstream   |
-| `glitchtip_projects_total` | Gauge | —                         | upstream   |
-| `glitchtip_events`         | Gauge | `project`, `organization` | patch `07` |
+| Metric                    | Type  | Labels                    | Source     |
+| ------------------------- | ----- | ------------------------- | ---------- |
+| `glitchtip_organizations` | Gauge | —                         | upstream   |
+| `glitchtip_projects`      | Gauge | `organization`            | patch `09` |
+| `glitchtip_events`        | Gauge | `project`, `organization` | patch `09` |
 
 ### Django Prometheus Metrics (via middleware)
 

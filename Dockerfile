@@ -41,8 +41,8 @@ COPY patches ./patches
 RUN cat patches/00-skip-user-invitation-process.patch | patch -p1
 # add https:// to the s3 endpoint url
 RUN cat patches/04-aws-s3-endpoint-url.patch | patch -p1
-# Events counter - https://gitlab.com/glitchtip/glitchtip-backend/-/merge_requests/1528
-RUN cat patches/07-events-counter.patch | patch -p1
+# Upstream is slowly reverting all my Prometheus metrics. I'm sick of it.
+RUN cat patches/09-prometheus-metrics.patch | patch -p1
 # Restore prometheus middleware on ingest endpoints for per-view metrics (needed by KEDA autoscaler)
 RUN cat patches/08-ingest-prometheus-middleware.patch | patch -p1
 
