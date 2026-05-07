@@ -36,7 +36,6 @@ data:
       "graphTooltip": 0,
       "id": 1004889,
       "links": [],
-      "liveNow": false,
       "panels": [
         {
           "collapsed": false,
@@ -68,6 +67,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -98,8 +98,7 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -126,10 +125,12 @@ data:
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
+          "pluginVersion": "11.6.3",
           "targets": [
             {
               "datasource": {
@@ -196,8 +197,7 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -210,7 +210,7 @@ data:
           },
           "gridPos": {
             "h": 8,
-            "w": 6,
+            "w": 24,
             "x": 0,
             "y": 10
           },
@@ -252,21 +252,20 @@ data:
           "type": "timeseries"
         }
       ],
+      "preload": false,
       "refresh": "",
-      "schemaVersion": 39,
+      "schemaVersion": 41,
       "tags": [],
       "templating": {
         "list": [
           {
             "current": {
-              "selected": false,
               "text": "glitchtip",
               "value": "glitchtip"
             },
-            "hide": 0,
+            "hide": 2,
             "includeAll": false,
             "label": "Glitchtip Instance",
-            "multi": false,
             "name": "instance",
             "options": [
               {
@@ -280,20 +279,15 @@ data:
                 "value": "error-tracking"
               }
             ],
-            "query": "glitchtip, error-tracking",
-            "queryValue": "",
-            "skipUrlSync": false,
+            "query": "glitchtip",
             "type": "custom"
           },
           {
             "current": {
-              "selected": false,
               "text": "prod",
               "value": "app-sre-prod-04-prometheus"
             },
-            "hide": 0,
             "includeAll": false,
-            "multi": false,
             "name": "env",
             "options": [
               {
@@ -308,30 +302,24 @@ data:
               }
             ],
             "query": "prod : app-sre-prod-04-prometheus, stage : app-sre-stage-01-prometheus",
-            "queryValue": "",
-            "skipUrlSync": false,
             "type": "custom"
           },
           {
             "current": {
-              "selected": false,
               "text": "app-sre-prod-04-prometheus",
               "value": "P3CBCA2291C540C18"
             },
             "hide": 2,
             "includeAll": false,
-            "multi": false,
             "name": "ds",
             "options": [],
             "query": "prometheus",
             "refresh": 1,
             "regex": "/$env/",
-            "skipUrlSync": false,
             "type": "datasource"
           },
           {
             "current": {
-              "selected": false,
               "text": "glitchtip-production",
               "value": "glitchtip-production"
             },
@@ -342,7 +330,6 @@ data:
             "definition": "label_values(django_http_requests_total_by_method_total, namespace)",
             "hide": 2,
             "includeAll": false,
-            "multi": false,
             "name": "namespace",
             "options": [],
             "query": {
@@ -351,13 +338,10 @@ data:
             },
             "refresh": 1,
             "regex": "/${instance}-${env:text}.*/",
-            "skipUrlSync": false,
-            "sort": 0,
             "type": "query"
           },
           {
             "current": {
-              "selected": true,
               "text": [
                 "ocm"
               ],
@@ -370,7 +354,6 @@ data:
               "uid": "${ds}"
             },
             "definition": "label_values(glitchtip_events,organization)",
-            "hide": 0,
             "includeAll": false,
             "multi": true,
             "name": "org",
@@ -382,13 +365,11 @@ data:
             },
             "refresh": 2,
             "regex": "",
-            "skipUrlSync": false,
             "sort": 1,
             "type": "query"
           },
           {
             "current": {
-              "selected": true,
               "text": [
                 "All"
               ],
@@ -401,7 +382,6 @@ data:
               "uid": "${ds}"
             },
             "definition": "label_values(glitchtip_events{organization=~\"$org\"},project)",
-            "hide": 0,
             "includeAll": true,
             "multi": true,
             "name": "project",
@@ -413,7 +393,6 @@ data:
             },
             "refresh": 2,
             "regex": "",
-            "skipUrlSync": false,
             "sort": 1,
             "type": "query"
           }
@@ -427,6 +406,5 @@ data:
       "timezone": "",
       "title": "Glitchtip Projects",
       "uid": "dejux9gubx2wwc",
-      "version": 2,
-      "weekStart": ""
+      "version": 3
     }

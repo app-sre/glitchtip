@@ -128,7 +128,7 @@ After every upgrade, manually verify:
 - [ ] **Prometheus metrics present**:
   - `glitchtip_events` (per project/org)
   - `glitchtip_organizations`
-  - `glitchtip_projects_total`
+  - `glitchtip_projects`
   - `django_http_requests_total_by_view_transport_method_total` for `events` views (used by KEDA autoscaler)
 - [ ] **KEDA autoscaler** — check `ScaledObject` status, verify worker scaling on load
 - [ ] **Grafana dashboards** — all 4 dashboards load and show data
