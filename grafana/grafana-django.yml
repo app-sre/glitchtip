@@ -34,8 +34,8 @@ data:
       "description": "Django metrics dashboard using django-prometheus metrics exporter",
       "editable": true,
       "fiscalYearStartMonth": 0,
-      "gnetId": 17658,
       "graphTooltip": 0,
+      "id": 934356,
       "links": [],
       "liveNow": true,
       "panels": [
@@ -55,7 +55,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -69,6 +69,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 0,
                 "gradientMode": "none",
@@ -99,8 +100,7 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -127,18 +127,20 @@ data:
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
+          "pluginVersion": "11.6.3",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "sum(rate(django_http_requests_total_by_view_transport_method_total{namespace=\"$application\", view=~\".*event_.*\"}[$__interval])*60)",
+              "expr": "sum(rate(django_http_requests_total_by_view_transport_method_total{namespace=\"$namespace\", view=~\".*event_envelope.*|api:event_store.*\"}[$__interval]) * 60)",
               "legendFormat": "Events/Minute",
               "range": true,
               "refId": "A"
@@ -150,7 +152,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "$datasource"
+            "uid": "${ds}"
           },
           "description": "",
           "fieldConfig": {
@@ -173,8 +175,7 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -199,6 +200,7 @@ data:
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "horizontal",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "mean"
@@ -213,14 +215,15 @@ data:
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.6.3",
           "targets": [
             {
               "datasource": {
-                "uid": "$datasource"
+                "type": "prometheus",
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "sum(irate(django_http_requests_total_by_transport_total{namespace=\"$application\"}[5m]))",
+              "expr": "sum(irate(django_http_requests_total_by_transport_total{namespace=\"$namespace\"}[5m]))",
               "format": "time_series",
               "intervalFactor": 1,
               "range": true,
@@ -233,7 +236,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "$datasource"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -257,8 +260,7 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -283,6 +285,7 @@ data:
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "horizontal",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "mean"
@@ -297,14 +300,15 @@ data:
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.6.3",
           "targets": [
             {
               "datasource": {
-                "uid": "$datasource"
+                "type": "prometheus",
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "sum(irate(django_http_responses_total_by_status_total{status=~\"2.+\",namespace=\"$application\"}[5m]))",
+              "expr": "sum(irate(django_http_responses_total_by_status_total{status=~\"2.+\",namespace=\"$namespace\"}[5m]))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "",
@@ -318,7 +322,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "$datasource"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -342,8 +346,7 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -368,6 +371,7 @@ data:
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "horizontal",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "mean"
@@ -382,14 +386,15 @@ data:
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.6.3",
           "targets": [
             {
               "datasource": {
-                "uid": "$datasource"
+                "type": "prometheus",
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "sum(irate(django_http_responses_total_by_status_total{status=~\"3.+\",namespace=\"$application\"}[5m]))",
+              "expr": "sum(irate(django_http_responses_total_by_status_total{status=~\"3.+\",namespace=\"$namespace\"}[5m]))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "",
@@ -403,7 +408,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "$datasource"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -427,8 +432,7 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -453,6 +457,7 @@ data:
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "horizontal",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "mean"
@@ -467,14 +472,15 @@ data:
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.6.3",
           "targets": [
             {
               "datasource": {
-                "uid": "$datasource"
+                "type": "prometheus",
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "sum(irate(django_http_responses_total_by_status_total{status=~\"5.+\",namespace=\"$application\"}[5m]))",
+              "expr": "sum(irate(django_http_responses_total_by_status_total{status=~\"5.+\",namespace=\"$namespace\"}[5m]))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "",
@@ -488,7 +494,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "$datasource"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -512,8 +518,7 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -538,6 +543,7 @@ data:
             "graphMode": "none",
             "justifyMode": "auto",
             "orientation": "horizontal",
+            "percentChangeColorMode": "standard",
             "reduceOptions": {
               "calcs": [
                 "mean"
@@ -552,14 +558,15 @@ data:
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.6.3",
           "targets": [
             {
               "datasource": {
-                "uid": "$datasource"
+                "type": "prometheus",
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "sum(irate(django_http_responses_total_by_status_total{status=~\"4.+\",namespace=\"$application\"}[5m]))",
+              "expr": "sum(irate(django_http_responses_total_by_status_total{status=~\"4.+\",namespace=\"$namespace\"}[5m]))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "",
@@ -586,7 +593,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "$datasource"
+            "uid": "${ds}"
           },
           "description": "",
           "fieldConfig": {
@@ -601,6 +608,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
@@ -632,8 +640,7 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -666,19 +673,21 @@ data:
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "none"
             }
           },
-          "pluginVersion": "9.3.1",
+          "pluginVersion": "11.6.3",
           "targets": [
             {
               "datasource": {
-                "uid": "$datasource"
+                "type": "prometheus",
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "topk(10, sum(irate(django_http_requests_total_by_view_transport_method_total{namespace=\"$application\",view!~\"prometheus-django-metrics|healthcheck|.*shop_product_import_1c_status\"}[5m])) by(method, view) > 0)",
+              "expr": "topk(10, sum(irate(django_http_requests_total_by_view_transport_method_total{namespace=\"$namespace\"}[5m])) by(method, view) > 0)",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -695,7 +704,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "$datasource"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -709,6 +718,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
@@ -741,8 +751,7 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -770,18 +779,20 @@ data:
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "none"
             }
           },
-          "pluginVersion": "9.3.1",
+          "pluginVersion": "11.6.3",
           "targets": [
             {
               "datasource": {
-                "uid": "$datasource"
+                "type": "prometheus",
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "histogram_quantile(0.50, sum(irate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$application\"}[5m])) by (le))",
+              "expr": "histogram_quantile(0.50, sum(irate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\"}[5m])) by (le))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -791,10 +802,11 @@ data:
             },
             {
               "datasource": {
-                "uid": "$datasource"
+                "type": "prometheus",
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "histogram_quantile(0.95, sum(irate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$application\"}[5m])) by (le))",
+              "expr": "histogram_quantile(0.95, sum(irate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\"}[5m])) by (le))",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -805,10 +817,11 @@ data:
             },
             {
               "datasource": {
-                "uid": "$datasource"
+                "type": "prometheus",
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "histogram_quantile(0.99, sum(irate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$application\"}[5m])) by (le))",
+              "expr": "histogram_quantile(0.99, sum(irate(django_http_requests_latency_seconds_by_view_method_bucket{namespace=\"$namespace\"}[5m])) by (le))",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -824,7 +837,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "$datasource"
+            "uid": "${ds}"
           },
           "fieldConfig": {
             "defaults": {
@@ -838,6 +851,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
@@ -869,8 +883,7 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -901,18 +914,20 @@ data:
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "multi",
               "sort": "none"
             }
           },
-          "pluginVersion": "9.3.1",
+          "pluginVersion": "11.6.3",
           "targets": [
             {
               "datasource": {
-                "uid": "$datasource"
+                "type": "prometheus",
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "sum(irate(django_http_responses_total_by_status_total{namespace=\"$application\"}[5m])) by(status)",
+              "expr": "sum(irate(django_http_responses_total_by_status_total{namespace=\"$namespace\"}[5m])) by(status)",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -927,7 +942,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P3CBCA2291C540C18"
+            "uid": "${ds}"
           },
           "description": "",
           "fieldConfig": {
@@ -992,15 +1007,15 @@ data:
               "unit": "s"
             }
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.6.3",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P3CBCA2291C540C18"
+                "uid": "${ds}"
               },
               "editorMode": "code",
-              "expr": "sum(rate(django_http_requests_latency_including_middlewares_seconds_bucket{namespace=\"$application\"}[5m])) by (le)",
+              "expr": "sum(rate(django_http_requests_latency_including_middlewares_seconds_bucket{namespace=\"$namespace\"}[5m])) by (le)",
               "format": "heatmap",
               "interval": "",
               "legendFormat": "{{le}}",
@@ -1014,7 +1029,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "P3CBCA2291C540C18"
+            "uid": "${ds}"
           },
           "description": "",
           "fieldConfig": {
@@ -1079,16 +1094,16 @@ data:
               "unit": "bytes"
             }
           },
-          "pluginVersion": "10.4.1",
+          "pluginVersion": "11.6.3",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "P3CBCA2291C540C18"
+                "uid": "${ds}"
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum(rate(django_http_responses_body_total_bytes_bucket{namespace=\"$application\"}[5m])) by (le)",
+              "expr": "sum(rate(django_http_responses_body_total_bytes_bucket{namespace=\"$namespace\"}[5m])) by (le)",
               "format": "heatmap",
               "instant": false,
               "interval": "",
@@ -1101,8 +1116,9 @@ data:
           "type": "heatmap"
         }
       ],
+      "preload": false,
       "refresh": "5m",
-      "schemaVersion": 39,
+      "schemaVersion": 41,
       "tags": [
         "glitchtip",
         "django"
@@ -1111,52 +1127,78 @@ data:
         "list": [
           {
             "current": {
-              "selected": false,
+              "text": "glitchtip",
+              "value": "glitchtip"
+            },
+            "hide": 2,
+            "label": "Glitchtip Instance",
+            "name": "instance",
+            "options": [
+              {
+                "selected": true,
+                "text": "glitchtip",
+                "value": "glitchtip"
+              }
+            ],
+            "query": "glitchtip",
+            "type": "custom"
+          },
+          {
+            "current": {
+              "text": "app-sre-prod-04-prometheus",
+              "value": "app-sre-prod-04-prometheus"
+            },
+            "name": "env",
+            "options": [
+              {
+                "selected": true,
+                "text": "prod",
+                "value": "app-sre-prod-04-prometheus"
+              },
+              {
+                "selected": false,
+                "text": "stage",
+                "value": "app-sre-stage-01-prometheus"
+              }
+            ],
+            "query": "prod : app-sre-prod-04-prometheus, stage : app-sre-stage-01-prometheus",
+            "type": "custom"
+          },
+          {
+            "current": {
               "text": "app-sre-prod-04-prometheus",
               "value": "P3CBCA2291C540C18"
             },
-            "hide": 0,
+            "hide": 2,
             "includeAll": false,
-            "multi": false,
-            "name": "datasource",
+            "name": "ds",
             "options": [],
             "query": "prometheus",
-            "queryValue": "",
             "refresh": 1,
-            "regex": "app-sre-prod-04-prometheus",
-            "skipUrlSync": false,
+            "regex": "/$env/",
             "type": "datasource"
           },
           {
             "current": {
-              "selected": true,
               "text": "glitchtip-production",
               "value": "glitchtip-production"
             },
             "datasource": {
               "type": "prometheus",
-              "uid": "$datasource"
+              "uid": "${ds}"
             },
-            "definition": "label_values(django_http_requests_total_by_transport_total,namespace)",
-            "hide": 0,
-            "includeAll": false,
-            "label": "application",
-            "multi": false,
-            "name": "application",
+            "definition": "label_values(django_http_requests_total_by_method_total,namespace)",
+            "hide": 2,
+            "name": "namespace",
             "options": [],
             "query": {
               "qryType": 1,
-              "query": "label_values(django_http_requests_total_by_transport_total,namespace)",
+              "query": "label_values(django_http_requests_total_by_method_total,namespace)",
               "refId": "PrometheusVariableQueryEditor-VariableQuery"
             },
             "refresh": 1,
-            "regex": "",
-            "skipUrlSync": false,
-            "sort": 0,
-            "tagValuesQuery": "",
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
+            "regex": "/${instance}-${env:text}.*/",
+            "type": "query"
           }
         ]
       },
@@ -1164,34 +1206,9 @@ data:
         "from": "now-12h",
         "to": "now"
       },
-      "timepicker": {
-        "refresh_intervals": [
-          "5s",
-          "10s",
-          "30s",
-          "1m",
-          "5m",
-          "15m",
-          "30m",
-          "1h",
-          "2h",
-          "1d"
-        ],
-        "time_options": [
-          "5m",
-          "15m",
-          "1h",
-          "6h",
-          "12h",
-          "24h",
-          "2d",
-          "7d",
-          "30d"
-        ]
-      },
+      "timepicker": {},
       "timezone": "",
       "title": "Glitchtip-Django",
       "uid": "liukzqh5oaruew",
-      "version": 2,
-      "weekStart": ""
+      "version": 2
     }
