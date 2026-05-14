@@ -932,12 +932,6 @@ wheels = [
 ]
 
 [[package]]
-name = "parse"
-version = "1.18.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/b8/49/85f19d9ff908817b864deebf7f68211f9a6fc0b48746d372d970f60d01f5/parse-1.18.0.tar.gz", hash = "sha256:91666032d6723dc5905248417ef0dc9e4c51df9526aaeef271eacad6491f06a4", size = 30314, upload-time = "2020-09-10T23:35:33.943Z" }
-
-[[package]]
 name = "pathspec"
 version = "1.1.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1325,7 +1319,7 @@ wheels = [
 
 [[package]]
 name = "qontract-reconcile"
-version = "0.10.2.dev643"
+version = "0.10.2.dev646"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anymarkup" },
@@ -1349,7 +1343,6 @@ dependencies = [
     { name = "kubernetes" },
     { name = "ldap3" },
     { name = "networkx" },
-    { name = "parse" },
     { name = "prometheus-client" },
     { name = "psycopg2-binary" },
     { name = "pydantic" },
@@ -1373,15 +1366,13 @@ dependencies = [
     { name = "sshtunnel" },
     { name = "tabulate" },
     { name = "terrascript" },
-    { name = "toml" },
     { name = "unleashclient" },
     { name = "urllib3" },
-    { name = "websocket-client" },
     { name = "yamllint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/22/f6/6ea4072b8be310ae61ca5e476add4415349ee72a33ba74f8598720da77bb/qontract_reconcile-0.10.2.dev643.tar.gz", hash = "sha256:49724ca4f1cec6bbe5e8f760e2f224c045817adf0af16fb21ccbf99106f0e056", size = 915016, upload-time = "2026-05-12T12:55:08.214Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/2c/63/99748d25b3f6ba7f390f7dd67025b15f087c481d9280a4ab88b91edcb531/qontract_reconcile-0.10.2.dev646.tar.gz", hash = "sha256:8fd174ccc6f99eaa55dce58916b4c6e9150ff2956ede9a0317e96bcc9c20f89a", size = 915299, upload-time = "2026-05-13T12:28:12.185Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1b/52/06a47bdcf12002b2fa2e1733ee22527aa4e8b2c18c0eb8b01e0e6391ff71/qontract_reconcile-0.10.2.dev643-py3-none-any.whl", hash = "sha256:31e6fef4c29132708070c83309931c792bed41a5492fd53db14cbedb6d214308", size = 1328778, upload-time = "2026-05-12T12:55:11.259Z" },
+    { url = "https://files.pythonhosted.org/packages/54/0c/86996c33a6126174d7539c67624ac6eb36bfe051c8a81fba73730df3cceb/qontract_reconcile-0.10.2.dev646-py3-none-any.whl", hash = "sha256:44429abcf5a346a68d0d7aba790a2ad4a09ae558ba21a9b655d30a851ffc105a", size = 1329141, upload-time = "2026-05-13T12:28:15.04Z" },
 ]
 
 [[package]]
@@ -1573,15 +1564,15 @@ wheels = [
 
 [[package]]
 name = "sentry-sdk"
-version = "2.59.0"
+version = "2.60.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/65/e0/9bf5e5fc7442b10880f3ec0eff0ef4208b84a099606f343ec4f5445227fb/sentry_sdk-2.59.0.tar.gz", hash = "sha256:cd265808ef8bf3f3edf69b527c0a0b2b6b1322762679e55b8987db2e9584aec1", size = 447331, upload-time = "2026-05-04T12:19:06.538Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/54/a2/2e6c090db384cc515069f4f85542bd5baf6786852073020ea73d4a76d3ea/sentry_sdk-2.60.0.tar.gz", hash = "sha256:0bd25e54e78ca02d0be512529fa644bbbf9e8470d7b26371294012d4ca93c978", size = 452946, upload-time = "2026-05-13T13:34:52.516Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/bf/00/b8cc413748fb6383d1582e7cda51314f99743351c462a92dc690d5b5853b/sentry_sdk-2.59.0-py2.py3-none-any.whl", hash = "sha256:abcf65ee9a9d9cdebf9ad369782408ecca9c1c792686ef06ba34f5ab233527fe", size = 468432, upload-time = "2026-05-04T12:19:04.741Z" },
+    { url = "https://files.pythonhosted.org/packages/29/41/f2b800b7f12a05dd48c2a6280d4dd812d1425fc66ed3fe3fd99420c41d1a/sentry_sdk-2.60.0-py3-none-any.whl", hash = "sha256:28a536c03291c8bcb363cf35c611b32738ec118ff64d8d6383b096448ac4c803", size = 475616, upload-time = "2026-05-13T13:34:50.259Z" },
 ]
 
 [[package]]
