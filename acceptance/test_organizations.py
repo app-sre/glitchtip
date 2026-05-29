@@ -1,5 +1,9 @@
+from typing import TYPE_CHECKING
+
 import pytest
-from reconcile.utils.glitchtip import GlitchtipClient
+
+if TYPE_CHECKING:
+    from reconcile.utils.glitchtip import GlitchtipClient
 
 
 def test_organsiation_create(

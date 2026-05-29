@@ -1,10 +1,14 @@
+from typing import TYPE_CHECKING
+
 import pytest
-from reconcile.utils.glitchtip import GlitchtipClient
 from reconcile.utils.glitchtip.models import (
     ProjectAlert,
     ProjectAlertRecipient,
     RecipientType,
 )
+
+if TYPE_CHECKING:
+    from reconcile.utils.glitchtip import GlitchtipClient
 
 
 @pytest.fixture

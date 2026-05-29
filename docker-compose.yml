@@ -36,7 +36,11 @@ services:
     networks:
       - qontract-development
   glitchtip:
-    image: quay.io/redhat-services-prod/app-sre-tenant/glitchtip-main/glitchtip-main:latest
+    # image: quay.io/redhat-services-prod/app-sre-tenant/glitchtip-main/glitchtip-main:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
     command:
       - bin/run-migrate-and-runserver.sh
     depends_on: *default-depends_on
@@ -47,7 +51,11 @@ services:
       - qontract-development
     restart: on-failure
   worker:
-    image: quay.io/redhat-services-prod/app-sre-tenant/glitchtip-main/glitchtip-main:latest
+    # image: quay.io/redhat-services-prod/app-sre-tenant/glitchtip-main/glitchtip-main:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
     command:
       - bin/run-celery-with-beat.sh
     depends_on: *default-depends_on
@@ -56,7 +64,11 @@ services:
       - qontract-development
     restart: on-failure
   init-api-users:
-    image: quay.io/redhat-services-prod/app-sre-tenant/glitchtip-main/glitchtip-main:latest
+    # image: quay.io/redhat-services-prod/app-sre-tenant/glitchtip-main/glitchtip-main:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
     command:
       - python
       - appsre/create-api-users.py
