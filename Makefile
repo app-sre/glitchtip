@@ -6,3 +6,7 @@ test:
 	uv run ruff check --no-fix
 	uv run ruff format --check
 	uv run mypy
+
+build:
+	$(CONTAINER_ENGINE) build . -f Dockerfile -t glitchtip
+	$(CONTAINER_ENGINE) build . -f Dockerfile.acceptance -t glitchtip-acceptance

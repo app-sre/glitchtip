@@ -13,8 +13,12 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "glitchtip.settings")
 django.setup()
 
-from django.contrib.auth.models import AbstractBaseUser  # isort:skip
+
 from apps.api_tokens.models import APIToken  # isort:skip
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from django.contrib.auth.models import AbstractBaseUser
 
 
 @dataclass
