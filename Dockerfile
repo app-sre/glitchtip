@@ -3,7 +3,7 @@ ARG GLITCHTIP_IMAGE=registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP
 #
 # Base image
 #
-FROM registry.access.redhat.com/ubi9/python-314@sha256:1db6cc7b73899a00d1e08a3b5663a9692ce11f2b256f0c71a877a496cf9e730d AS base
+FROM registry.access.redhat.com/ubi9/python-314@sha256:e6f9b9b5c6f43f135327846cbfe1fc3197ed0f6f55971832622e1b320262ae77 AS base
 ARG GLITCHTIP_IMAGE
 COPY --from=${GLITCHTIP_IMAGE} /code/LICENSE /licenses/LICENSE
 
