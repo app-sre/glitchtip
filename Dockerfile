@@ -1,11 +1,16 @@
 ARG GLITCHTIP_VERSION=6.1.6
 ARG GLITCHTIP_IMAGE=registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP_VERSION}
+
+# Aliasing the ARG-driven image into a named stage avoids "ARG in COPY --from"
+# reference resolution, which Konflux's build-cli pre-pull step doesn't support
+# (fails with "invalid reference format" on the literal, unexpanded ARG).
+FROM ${GLITCHTIP_IMAGE} AS glitchtip-frontend
+
 #
 # Base image
 #
 FROM registry.access.redhat.com/ubi9/python-314@sha256:521dd0f7df6a80b230b5c24ed7b495dd8d4aba87b1bc34f126954cb680f22465 AS base
-ARG GLITCHTIP_IMAGE
-COPY --from=${GLITCHTIP_IMAGE} /code/LICENSE /licenses/LICENSE
+COPY --from=glitchtip-frontend /code/LICENSE /licenses/LICENSE
 
 ARG GLITCHTIP_VERSION
 ENV GLITCHTIP_VERSION=${GLITCHTIP_VERSION}
@@ -25,8 +30,7 @@ ENV \
     UV_NO_CACHE=true
 
 COPY --from=ghcr.io/astral-sh/uv:0.11.26@sha256:3d868e555f8f1dbc324afa005066cd11e1053fc4743b9808ca8025283e65efa5 /uv /bin/uv
-ARG GLITCHTIP_IMAGE
-COPY --from=${GLITCHTIP_IMAGE} --chown=1001:root /code ./
+COPY --from=glitchtip-frontend --chown=1001:root /code ./
 
 # Install the required packages
 RUN uv sync --frozen --no-group dev
