@@ -1,4 +1,22 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>app-sre/shared-pipelines//renovate/default.json"]
+  "extends": ["github>app-sre/shared-pipelines//renovate/default.json"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update GLITCHTIP_VERSION in Dockerfile",
+      "managerFilePatterns": ["/^Dockerfile$/"],
+      "matchStrings": ["ARG GLITCHTIP_VERSION=(?<currentValue>[\\w.]+)"],
+      "depNameTemplate": "registry.gitlab.com/glitchtip/glitchtip-frontend",
+      "datasourceTemplate": "docker"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Group glitchtip-frontend ARG and COPY --from= references into one PR",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["registry.gitlab.com/glitchtip/glitchtip-frontend"],
+      "groupName": "glitchtip-frontend"
+    }
+  ]
 }

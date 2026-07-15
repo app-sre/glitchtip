@@ -1,11 +1,16 @@
 ARG GLITCHTIP_VERSION=6.1.6
-ARG GLITCHTIP_IMAGE=registry.gitlab.com/glitchtip/glitchtip-frontend:${GLITCHTIP_VERSION}
+
 #
 # Base image
 #
 FROM registry.access.redhat.com/ubi9/python-314@sha256:521dd0f7df6a80b230b5c24ed7b495dd8d4aba87b1bc34f126954cb680f22465 AS base
-ARG GLITCHTIP_IMAGE
-COPY --from=${GLITCHTIP_IMAGE} /code/LICENSE /licenses/LICENSE
+# NOTE: keep this tag in sync with GLITCHTIP_VERSION above. It must stay a
+# literal COPY --from= reference (not an ARG or a FROM-aliased stage):
+# Konflux's build-cli pre-pull step can't expand ARGs used in COPY --from=,
+# and turning this into its own FROM stage makes it show up as a "base image"
+# in the SBOM, which trips the base_image_registries.base_image_permitted
+# Enterprise Contract policy since this registry isn't Red Hat-trusted.
+COPY --from=registry.gitlab.com/glitchtip/glitchtip-frontend:6.1.6 /code/LICENSE /licenses/LICENSE
 
 ARG GLITCHTIP_VERSION
 ENV GLITCHTIP_VERSION=${GLITCHTIP_VERSION}
@@ -25,8 +30,7 @@ ENV \
     UV_NO_CACHE=true
 
 COPY --from=ghcr.io/astral-sh/uv:0.11.26@sha256:3d868e555f8f1dbc324afa005066cd11e1053fc4743b9808ca8025283e65efa5 /uv /bin/uv
-ARG GLITCHTIP_IMAGE
-COPY --from=${GLITCHTIP_IMAGE} --chown=1001:root /code ./
+COPY --from=registry.gitlab.com/glitchtip/glitchtip-frontend:6.1.6 --chown=1001:root /code ./
 
 # Install the required packages
 RUN uv sync --frozen --no-group dev
