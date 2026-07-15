@@ -29,7 +29,7 @@ ENV \
     # disable uv cache. it doesn't make sense in a container
     UV_NO_CACHE=true
 
-COPY --from=ghcr.io/astral-sh/uv:0.11.26@sha256:3d868e555f8f1dbc324afa005066cd11e1053fc4743b9808ca8025283e65efa5 /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.11.28@sha256:0f36cb9361a3346885ca3677e3767016687b5a170c1a6b88465ec14aefec90aa /uv /bin/uv
 COPY --from=registry.gitlab.com/glitchtip/glitchtip-frontend:6.1.6 --chown=1001:root /code ./
 
 # Install the required packages
@@ -74,7 +74,7 @@ CMD ["./bin/start.sh"]
 # Test image
 #
 FROM prod AS test
-COPY --from=ghcr.io/astral-sh/uv:0.11.26@sha256:3d868e555f8f1dbc324afa005066cd11e1053fc4743b9808ca8025283e65efa5 /uv /bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.11.28@sha256:0f36cb9361a3346885ca3677e3767016687b5a170c1a6b88465ec14aefec90aa /uv /bin/uv
 ENV \
     # use venv from ubi image
     UV_PROJECT_ENVIRONMENT=$APP_ROOT \
