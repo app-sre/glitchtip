@@ -1,4 +1,4 @@
-ARG GLITCHTIP_VERSION=6.1.6
+ARG GLITCHTIP_VERSION=6.2.2
 
 #
 # Base image
@@ -10,7 +10,7 @@ FROM registry.access.redhat.com/ubi9/python-314@sha256:a8982aaa90e7fd5d8245b90a8
 # and turning this into its own FROM stage makes it show up as a "base image"
 # in the SBOM, which trips the base_image_registries.base_image_permitted
 # Enterprise Contract policy since this registry isn't Red Hat-trusted.
-COPY --from=registry.gitlab.com/glitchtip/glitchtip-frontend:6.1.6 /code/LICENSE /licenses/LICENSE
+COPY --from=registry.gitlab.com/glitchtip/glitchtip-frontend:6.2.2@sha256:3e468993d209e4d296c546c739b2fff20eda7a3ae889a7fa4e77eebccd18411c /code/LICENSE /licenses/LICENSE
 
 ARG GLITCHTIP_VERSION
 ENV GLITCHTIP_VERSION=${GLITCHTIP_VERSION}
@@ -30,7 +30,7 @@ ENV \
     UV_NO_CACHE=true
 
 COPY --from=ghcr.io/astral-sh/uv:0.11.32@sha256:df4cae8f3a96d175e2e5f992e597550000edbe78fdc2594d5cd8de1a217f504c /uv /bin/uv
-COPY --from=registry.gitlab.com/glitchtip/glitchtip-frontend:6.1.6 --chown=1001:root /code ./
+COPY --from=registry.gitlab.com/glitchtip/glitchtip-frontend:6.2.2@sha256:3e468993d209e4d296c546c739b2fff20eda7a3ae889a7fa4e77eebccd18411c --chown=1001:root /code ./
 
 # Install the required packages
 RUN uv sync --frozen --no-group dev
