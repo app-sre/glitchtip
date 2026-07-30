@@ -1,16 +1,19 @@
 diff --git a/glitchtip/ingest_asgi.py b/glitchtip/ingest_asgi.py
-index 71aa25d2..a03fce70 100644
+index e8bfcc0..d2609b3 100644
 --- a/glitchtip/ingest_asgi.py
 +++ b/glitchtip/ingest_asgi.py
-@@ -48,9 +48,11 @@ class IngestDispatcher:
+@@ -57,12 +57,14 @@ class IngestDispatcher:
                  @classmethod
                  def _get_middleware_setting(cls):
                      return [
 +                        "django_prometheus.middleware.PrometheusBeforeMiddleware",
+                         # async-backend needs explicit per-request cleanup to
+                         # return pool connections; without it the pool
+                         # saturates after max_size requests.
+                         "django_async_backend.middleware.close_async_connections",
                          "django.middleware.security.SecurityMiddleware",
                          "corsheaders.middleware.CorsMiddleware",
-                         "glitchtip.middleware.DecompressBodyMiddleware",
 +                        "django_prometheus.middleware.PrometheusAfterMiddleware",
                      ]
- 
+
                  def load_middleware(self, is_async=True):
