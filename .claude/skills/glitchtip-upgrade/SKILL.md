@@ -201,7 +201,18 @@ new PR with `gh pr create`.
 In the PR description (and to the user directly), restate the auth-callout from step 4 prominently —
 whoever promotes this to production needs to see it without digging, and the "Post-Upgrade
 Checklist" in `README.md` already has an "OIDC / SSO login works" line for exactly this reason. Mark
-the corresponding tasks done on the Jira ticket from step 2 and link the PR on it.
+the corresponding tasks done on the Jira ticket from step 2, link the PR on it (`jira issue link
+remote <TICKET> <PR_URL> "PR #<number> - <short description>"`), and once everything is pushed,
+transition it to **Review**:
+
+```bash
+TERM=dumb jira issue move <TICKET> "Review"
+```
+
+Do this automatically — don't wait to be asked, and don't stop at just updating the checklist. A
+ticket that still says "To Do" after the PR is up and pushed is misleading to anyone glancing at the
+board. If the transition fails (e.g. "Review" isn't a valid state from the ticket's current status),
+report the error and move on rather than blocking the rest of the workflow on it.
 
 ## Output format when reporting back to the user
 
