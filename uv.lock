@@ -548,7 +548,7 @@ dev = [
     { name = "django", specifier = ">=5.1.3" },
     { name = "django-stubs", specifier = ">=5.1.1" },
     { name = "mypy", specifier = "~=2.1" },
-    { name = "ruff", specifier = "~=0.7" },
+    { name = "ruff", specifier = "==0.16.1" },
 ]
 
 [[package]]
