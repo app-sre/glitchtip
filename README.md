@@ -105,6 +105,12 @@ All dashboards are in `grafana/`:
 
 ## Release / Upgrade Process
 
+**Recommended:** run the `glitchtip-upgrade` Claude Code skill (`.claude/skills/glitchtip-upgrade/`)
+to walk through the steps below — it checks out the Renovate/Mintmaker PR (or creates a branch),
+bumps the version and digest, summarizes the upstream changelog (flagging any authN/authZ changes
+that need manual staging verification), verifies/regenerates `patches/`, and keeps this section and
+the "Customizations" table current.
+
 1. Check available versions at [glitchtip-frontend images](https://gitlab.com/glitchtip/glitchtip-frontend/container_registry/812701?orderBy=NAME&sort=desc&search[]=v&search[]=)
 2. Read the upstream `CHANGELOG` for breaking changes between current and target version
 3. Update `GLITCHTIP_VERSION` in `Dockerfile`
