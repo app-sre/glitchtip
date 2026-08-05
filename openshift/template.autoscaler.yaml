@@ -19,7 +19,6 @@ objects:
     DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
     I_PAID_FOR_GLITCHTIP: "True"
     GLITCHTIP_RETENTION_DAYS: "${GLITCHTIP_MAX_EVENT_LIFE_DAYS}"
-    SECRET_KEY: "${SECRET_KEY}"
     SESSION_COOKIE_AGE: "${SESSION_TIMEOUT_SECONDS}"
     TASK_DEBOUNCE_DELAY: "${TASK_DEBOUNCE_DELAY_SECONDS}"
     MAINTENANCE_EVENT_FREEZE: "${MAINTENANCE_EVENT_FREEZE}"
@@ -40,6 +39,27 @@ objects:
     labels:
       app.kubernetes.io/name: glitchtip
     name: glitchtip-configmap
+
+# -------- SECRET ----------
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    annotations:
+      qontract.recycle: "true"
+    labels:
+      app.kubernetes.io/name: glitchtip
+    name: glitchtip-secret
+  type: Opaque
+  stringData:
+    SECRET_KEY: "${SECRET_KEY}"
+    APPSRE_API_USER_1_PASSWORD: "${API_USER_1_PASSWORD}"
+    APPSRE_API_USER_1_TOKEN: "${API_USER_1_TOKEN}"
+    APPSRE_API_USER_2_PASSWORD: "${API_USER_2_PASSWORD}"
+    APPSRE_API_USER_2_TOKEN: "${API_USER_2_TOKEN}"
+    APPSRE_API_USER_3_PASSWORD: "${API_USER_3_PASSWORD}"
+    APPSRE_API_USER_3_TOKEN: "${API_USER_3_TOKEN}"
+    APPSRE_API_USER_4_PASSWORD: "${API_USER_4_PASSWORD}"
+    APPSRE_API_USER_4_TOKEN: "${API_USER_4_TOKEN}"
 
 # ------- WEB DEPLOYMENT --------------------
 - apiVersion: v1
@@ -157,27 +177,51 @@ objects:
           - name: APPSRE_API_USER_1_EMAIL
             value: "${API_USER_1_EMAIL}"
           - name: APPSRE_API_USER_1_PASSWORD
-            value: "${API_USER_1_PASSWORD}"
+            valueFrom:
+              secretKeyRef:
+                name: glitchtip-secret
+                key: APPSRE_API_USER_1_PASSWORD
           - name: APPSRE_API_USER_1_TOKEN
-            value: "${API_USER_1_TOKEN}"
+            valueFrom:
+              secretKeyRef:
+                name: glitchtip-secret
+                key: APPSRE_API_USER_1_TOKEN
           - name: APPSRE_API_USER_2_EMAIL
             value: "${API_USER_2_EMAIL}"
           - name: APPSRE_API_USER_2_PASSWORD
-            value: "${API_USER_2_PASSWORD}"
+            valueFrom:
+              secretKeyRef:
+                name: glitchtip-secret
+                key: APPSRE_API_USER_2_PASSWORD
           - name: APPSRE_API_USER_2_TOKEN
-            value: "${API_USER_2_TOKEN}"
+            valueFrom:
+              secretKeyRef:
+                name: glitchtip-secret
+                key: APPSRE_API_USER_2_TOKEN
           - name: APPSRE_API_USER_3_EMAIL
             value: "${API_USER_3_EMAIL}"
           - name: APPSRE_API_USER_3_PASSWORD
-            value: "${API_USER_3_PASSWORD}"
+            valueFrom:
+              secretKeyRef:
+                name: glitchtip-secret
+                key: APPSRE_API_USER_3_PASSWORD
           - name: APPSRE_API_USER_3_TOKEN
-            value: "${API_USER_3_TOKEN}"
+            valueFrom:
+              secretKeyRef:
+                name: glitchtip-secret
+                key: APPSRE_API_USER_3_TOKEN
           - name: APPSRE_API_USER_4_EMAIL
             value: "${API_USER_4_EMAIL}"
           - name: APPSRE_API_USER_4_PASSWORD
-            value: "${API_USER_4_PASSWORD}"
+            valueFrom:
+              secretKeyRef:
+                name: glitchtip-secret
+                key: APPSRE_API_USER_4_PASSWORD
           - name: APPSRE_API_USER_4_TOKEN
-            value: "${API_USER_4_TOKEN}"
+            valueFrom:
+              secretKeyRef:
+                name: glitchtip-secret
+                key: APPSRE_API_USER_4_TOKEN
           resources:
             requests:
               cpu: ${{GT_WEB_CPU_REQUESTS}}
@@ -262,6 +306,11 @@ objects:
                 name: ${S3_SECRET_NAME}
                 key: endpoint
                 optional: true
+          - name: SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: glitchtip-secret
+                key: SECRET_KEY
           envFrom:
             - configMapRef:
                 name: glitchtip-configmap
@@ -449,6 +498,11 @@ objects:
                 name: ${S3_SECRET_NAME}
                 key: endpoint
                 optional: true
+          - name: SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: glitchtip-secret
+                key: SECRET_KEY
           envFrom:
             - configMapRef:
                 name: glitchtip-configmap
@@ -579,6 +633,11 @@ objects:
                   secretKeyRef:
                     name: ${RDS_SECRET_NAME}
                     key: db.user
+              - name: SECRET_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: glitchtip-secret
+                    key: SECRET_KEY
               envFrom:
                 - configMapRef:
                     name: glitchtip-configmap

@@ -12,6 +12,17 @@ objects:
       app.kubernetes.io/component: acceptance-test
       app.kubernetes.io/name: glitchtip
 
+- apiVersion: v1
+  kind: Secret
+  metadata:
+    name: glitchtip-acceptance-secret
+    labels:
+      app.kubernetes.io/component: acceptance-test
+      app.kubernetes.io/name: glitchtip
+  type: Opaque
+  stringData:
+    GLITCHTIP_API_USER_TOKEN: "${GLITCHTIP_API_USER_TOKEN}"
+
 - apiVersion: batch/v1
   kind: Job
   metadata:
@@ -34,7 +45,10 @@ objects:
               - name: GLITCHTIP_API_USER_EMAIL
                 value: ${GLITCHTIP_API_USER_EMAIL}
               - name: GLITCHTIP_API_USER_TOKEN
-                value: ${GLITCHTIP_API_USER_TOKEN}
+                valueFrom:
+                  secretKeyRef:
+                    name: glitchtip-acceptance-secret
+                    key: GLITCHTIP_API_USER_TOKEN
             resources:
               requests:
                 memory: ${MEMORY_REQUESTS}
