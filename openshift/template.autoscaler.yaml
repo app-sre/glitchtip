@@ -64,6 +64,7 @@ objects:
 # ------- WEB DEPLOYMENT --------------------
 - apiVersion: v1
   kind: ServiceAccount
+  automountServiceAccountToken: false
   metadata:
     name: glitchtip-web
     labels:
@@ -371,6 +372,7 @@ objects:
 # --------- WORKER DEPLOYMENT --------------
 - apiVersion: v1
   kind: ServiceAccount
+  automountServiceAccountToken: false
   metadata:
     name: glitchtip-worker
     labels:
@@ -571,6 +573,7 @@ objects:
 # ---- Notification Cleaner Cron ------
 - apiVersion: v1
   kind: ServiceAccount
+  automountServiceAccountToken: false
   metadata:
     name: glitchtip-notification-cleaner
     labels:

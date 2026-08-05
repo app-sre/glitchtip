@@ -6,6 +6,7 @@ metadata:
 objects:
 - apiVersion: v1
   kind: ServiceAccount
+  automountServiceAccountToken: false
   metadata:
     name: ${SERVICE_ACCOUNT}
     labels:
