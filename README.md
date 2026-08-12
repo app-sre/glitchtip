@@ -153,6 +153,11 @@ Located in `acceptance/`, run with `pytest`. Tests cover:
 
 Tests run in order (via `pytest-order`) and clean up after themselves.
 
+Only runs as a Job against a real GlitchTip instance
+(`openshift/acceptance.yaml`, wired via app-interface's
+`saas-glitchtip-test` to `glitchtip-stage` after every deploy) — nobody runs
+it locally.
+
 **Environment variables:**
 
 | Variable                   | Default                            | Purpose                    |
@@ -160,6 +165,23 @@ Tests run in order (via `pytest-order`) and clean up after themselves.
 | `GLITCHTIP_URL`            | `http://web:8080`                  | GlitchTip instance URL     |
 | `GLITCHTIP_API_USER_EMAIL` | `glitchtip@qontract-reconcile.org` | API user for test auth     |
 | `GLITCHTIP_API_USER_TOKEN` | `token`                            | Bearer token for API calls |
+
+## Webhook Payload Regression Test
+
+`django-tests/test_webhook_payload_contract.py` guards against upstream
+GlitchTip changing the shape of the JSON it POSTs to webhook alert
+recipients (this bit us once: `glitchtip-jira-bridge` silently rejected
+every alert for months after GlitchTip dropped a field and started omitting
+another). It's a plain `unittest` test against the real, pinned
+`apps/alerts/webhooks.py` — it builds an in-memory `Issue` and mocks only
+the outbound `aiohttp` transport, then asserts on the exact dict that would
+be sent as JSON. It's `COPY`'d into `apps/alerts/tests/` inside the
+Dockerfile's `test` stage and run by `make test`, which Konflux already
+builds on every PR (`.tekton/glitchtip-main-pull-request.yaml`,
+`target-stage: test`) — no live instance or network needed. It's a unit
+test rather than a live E2E acceptance test because there's no network path
+from the real `acceptance` Job (see above) back to a capture endpoint
+without new permanent public-facing infrastructure.
 
 ## Local Development
 

@@ -83,4 +83,12 @@ ENV \
 
 COPY Makefile pyproject.toml ./
 COPY acceptance/ ./acceptance/
+COPY django-tests/ ./django-tests/
+COPY django-tests/test_webhook_payload_contract.py apps/alerts/tests/test_webhook_payload_contract.py
+# Deliberately :latest, unlike the pinned COPY --from= above: this is the
+# real, currently-deployed consumer contract, not a build input -- we want
+# every future build to check against whatever glitchtip-jira-bridge
+# actually expects *right now*, so a contract change over there is caught
+# here too, not just once at the moment this line was written.
+COPY --from=quay.io/redhat-services-prod/app-sre-tenant/glitchtip-jira-bridge-main/glitchtip-jira-bridge-main:latest /opt/app-root/src/glitchtip_jira_bridge/models.py apps/alerts/tests/glitchtip_jira_bridge_models.py
 RUN make test
