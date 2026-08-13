@@ -83,4 +83,16 @@ ENV \
 
 COPY Makefile pyproject.toml ./
 COPY acceptance/ ./acceptance/
+COPY django-tests/ ./django-tests/
+# Directory copy (not per-file) so future django-tests/ additions don't each
+# need a new COPY line here. The line above is still needed separately so
+# ruff/mypy see the files at their own django-tests/ path too.
+COPY django-tests/ apps/alerts/tests/
+# Pinned like the other COPY --from= above so Renovate keeps it current:
+# this is the real, currently-deployed consumer contract, not a static build
+# input, so a Renovate PR bumping this digest is exactly the drift signal we
+# want -- the test re-runs against the new contract right there. (Also
+# avoids indefinite Docker layer-cache staleness that a floating :latest tag
+# would hit.)
+COPY --from=quay.io/redhat-services-prod/app-sre-tenant/glitchtip-jira-bridge-main/glitchtip-jira-bridge-main:latest@sha256:f6d02d77598be866edeaeae442ac59aa2e40cccdd6e63b50c8416b9295a2fc0c /opt/app-root/src/glitchtip_jira_bridge/models.py apps/alerts/tests/glitchtip_jira_bridge_models.py
 RUN make test

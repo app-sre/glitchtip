@@ -30,8 +30,12 @@ dev = [
 # Ruff configuration
 [tool.ruff]
 line-length = 88
-include = ["acceptance/*.py", "appsre/*.py", "**/pyproject.toml"]
-src = ["acceptance", "appsre"]
+# Without this, `uv run ruff check` inside the Docker `test` stage (see
+# Dockerfile) lints the whole vendored GlitchTip source tree copied into
+# $APP_ROOT, not just this repo's own files -- restrict to what we actually
+# own.
+include = ["acceptance/*.py", "appsre/*.py", "django-tests/*.py", "**/pyproject.toml"]
+src = ["acceptance", "appsre", "django-tests"]
 extend-exclude = [
     # exclude some common cache and tmp directories
     ".local",
@@ -92,7 +96,7 @@ known-first-party = ["acceptance", "appsre"]
 
 # Mypy configuration
 [tool.mypy]
-files = ["appsre", "acceptance"]
+files = ["appsre", "acceptance", "django-tests"]
 plugins = ["pydantic.mypy"]
 enable_error_code = ["truthy-bool", "redundant-expr"]
 no_implicit_optional = true
@@ -107,4 +111,19 @@ follow_imports = "silent"
 # Below are all of the packages that don't implement stub packages. Mypy will throw an error if we don't ignore the
 # missing imports. See: https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 module = ["reconcile.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# glitchtip-backend's own Django app code -- only present inside the built
+# image (see Dockerfile's `test` stage), not installed in this repo's venv.
+# Scoped to only what django-tests/ actually imports, rather than all of
+# apps.* -- a blanket apps.* ignore would mask real type errors elsewhere
+# under appsre/ (e.g. apps.api_tokens) that only surface when that code
+# actually resolves, inside the real Docker build.
+module = [
+    "apps.alerts.*",
+    "apps.issue_events.*",
+    "apps.organizations_ext.*",
+    "apps.projects.*",
+]
 ignore_missing_imports = true
