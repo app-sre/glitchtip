@@ -58,8 +58,8 @@ Applied during the Docker build (`Dockerfile`):
 | --------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `00-skip-user-invitation-process` | `apps/organizations_ext/api.py` | Skips invitation emails and auto-creates Django users when adding members to an organization                                   |
 | `04-aws-s3-endpoint-url`          | `glitchtip/settings.py`         | Prepends `https://` to `AWS_S3_ENDPOINT_URL`                                                                                   |
-| `07-events-counter`               | `apps/observability/metrics.py` | Adds `glitchtip_events` prometheus gauge with `project` and `organization` labels                                              |
 | `08-ingest-prometheus-middleware` | `glitchtip/ingest_asgi.py`      | Restores `PrometheusBeforeMiddleware` / `PrometheusAfterMiddleware` on ingest endpoints (stripped by upstream for performance) |
+| `09-prometheus-metrics`           | `apps/observability/metrics.py` | Adds `glitchtip_events` prometheus gauge with `project` and `organization` labels; restores `glitchtip_projects` gauge         |
 
 ### Custom Scripts
 
