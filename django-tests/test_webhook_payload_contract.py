@@ -135,14 +135,19 @@ class WebhookPayloadContractTests(unittest.IsolatedAsyncioTestCase):
         # real, currently-deployed pydantic model accept this payload at all?
         # Raises pydantic.ValidationError (failing the test) if not.
         alert = GlitchtipAlert(**payload)
-        assert alert.attachments[0].title
-        assert alert.attachments[0].title_link
+        assert alert.attachments[0].title, f"title must never be empty: {payload!r}"
+        assert alert.attachments[0].title_link, (
+            f"title_link must never be empty: {payload!r}"
+        )
 
         # GlitchtipAlert(**payload) alone can't distinguish "text omitted"
         # from "text explicitly null" -- both parse to attachments[0].text is
         # None. Pinning current, always-true (as of v6.2.3) behavior -- see
         # class docstring -- needs the raw dict.
-        assert "text" not in payload["attachments"][0]
+        assert "text" not in payload["attachments"][0], (
+            f"expected 'text' to be omitted from a real issue-based "
+            f"attachment (see class docstring), got: {payload['attachments'][0]!r}"
+        )
 
 
 if __name__ == "__main__":
