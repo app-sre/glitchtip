@@ -3,7 +3,7 @@ ARG GLITCHTIP_VERSION=6.2.6
 #
 # Base image
 #
-FROM registry.access.redhat.com/ubi9/python-314@sha256:3ecb3758a155bcc29d37bc9caf3e85b209ace016629472925bdfef4703269108 AS base
+FROM registry.access.redhat.com/ubi9/python-314@sha256:b04fad98089869809250e35f058570ac950ba98318b3056ecbd0e1b94c06d783 AS base
 # NOTE: keep this tag in sync with GLITCHTIP_VERSION above. It must stay a
 # literal COPY --from= reference (not an ARG or a FROM-aliased stage):
 # Konflux's build-cli pre-pull step can't expand ARGs used in COPY --from=,
