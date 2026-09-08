@@ -94,5 +94,5 @@ COPY django-tests/ apps/alerts/tests/
 # want -- the test re-runs against the new contract right there. (Also
 # avoids indefinite Docker layer-cache staleness that a floating :latest tag
 # would hit.)
-COPY --from=quay.io/redhat-services-prod/app-sre-tenant/glitchtip-jira-bridge-main/glitchtip-jira-bridge-main:latest@sha256:2e00b970ee680ca93a732ba7eef2f05ef239d3127eb9864ca5f29c4f5202ba7e /opt/app-root/src/glitchtip_jira_bridge/models.py apps/alerts/tests/glitchtip_jira_bridge_models.py
+COPY --from=quay.io/redhat-services-prod/app-sre-tenant/glitchtip-jira-bridge-main/glitchtip-jira-bridge-main:latest@sha256:570efc807c8aeb7487c8ca4fc1d5ada86c2f8ccd000259a81a20d002bd830ccf /opt/app-root/src/glitchtip_jira_bridge/models.py apps/alerts/tests/glitchtip_jira_bridge_models.py
 RUN make test
