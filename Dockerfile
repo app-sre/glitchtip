@@ -3,7 +3,7 @@ ARG GLITCHTIP_VERSION=6.2.6
 #
 # Base image
 #
-FROM registry.access.redhat.com/ubi9/python-314@sha256:b0f5f196d4cae327c5d82ea870052a6647bf33fda505e047b617665ffeaf8630 AS base
+FROM registry.access.redhat.com/ubi9/python-314@sha256:2ebacfe33b48ebb6defed8d313c8880b09fa4a4f9fb0becbdb11228df8f45cbf AS base
 # NOTE: keep this tag in sync with GLITCHTIP_VERSION above. It must stay a
 # literal COPY --from= reference (not an ARG or a FROM-aliased stage):
 # Konflux's build-cli pre-pull step can't expand ARGs used in COPY --from=,
@@ -94,5 +94,5 @@ COPY django-tests/ apps/alerts/tests/
 # want -- the test re-runs against the new contract right there. (Also
 # avoids indefinite Docker layer-cache staleness that a floating :latest tag
 # would hit.)
-COPY --from=quay.io/redhat-services-prod/app-sre-tenant/glitchtip-jira-bridge-main/glitchtip-jira-bridge-main:latest@sha256:d446955b485e19cb0a3a24454c28d06d43ddd2b5b85cf38f4d770f07fe8e7df2 /opt/app-root/src/glitchtip_jira_bridge/models.py apps/alerts/tests/glitchtip_jira_bridge_models.py
+COPY --from=quay.io/redhat-services-prod/app-sre-tenant/glitchtip-jira-bridge-main/glitchtip-jira-bridge-main:latest@sha256:247942d392feec3f0e31a48030aa2011a501d04b66a272d2b10ef62ccd3adb27 /opt/app-root/src/glitchtip_jira_bridge/models.py apps/alerts/tests/glitchtip_jira_bridge_models.py
 RUN make test
