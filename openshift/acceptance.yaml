@@ -31,7 +31,7 @@ objects:
       ignore-check.kube-linter.io/unset-cpu-requirements: "no cpu limits"
     name: glitchtip-acceptance-${IMAGE_TAG}
   spec:
-    backoffLimit: 5
+    backoffLimit: 0
     template:
       spec:
         restartPolicy: Never
