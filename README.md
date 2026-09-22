@@ -27,7 +27,7 @@ The deployment consists of the following components in OpenShift (defined in `op
 
 - 3 replicas (default), rolling update (maxUnavailable: 0)
 - Port 8000 (granian), metrics on port 9090
-- Init containers: DB migration (`bin/run-migrate.sh`), API user creation (`appsre/create-api-users.py`)
+- Init containers: DB migration (`bin/run-migrate.sh`), API user creation (`appsre/create-api-users.py`), OIDC social app creation (`appsre/create-social-app.py`)
 - TCP-based readiness, startup, and liveness probes
 
 ### Worker
@@ -45,6 +45,7 @@ The deployment consists of the following components in OpenShift (defined in `op
 | `redis-url`     | `redis.url`                                                                   |
 | `smtp`          | `server`, `password`, `username`, `port`, `require_tls`                       |
 | `glitchtip-s3`  | `aws_access_key_id`, `aws_secret_access_key`, `bucket`, `endpoint` (optional) |
+| `glitchtip-sso-client` | `client_id`, `client_secret`, `issuer` (optional; from app-interface managed-sso-client) |
 
 ## Customizations
 
@@ -67,6 +68,7 @@ Applied during the Docker build (`Dockerfile`):
 | --------------------------------- | ----------------- | --------------------------------------------------------------------------------- |
 | `bin/run-worker.sh`               | Worker deployment | Overrides upstream to add `--health-check-file /tmp/worker_health` for k8s probes |
 | `appsre/create-api-users.py`      | Init container    | Creates superusers and API tokens from `APPSRE_API_USER_*` env vars               |
+| `appsre/create-social-app.py`     | Init container    | Creates/updates the `openid_connect` allauth `SocialApp` (SSO login) from `SSO_*` env vars, sourced from the app-interface managed-sso-client secret |
 | `appsre/cleanup-notifications.py` | CronJob           | Deletes all notification records to prevent unbounded table growth                |
 
 ## Prometheus Metrics

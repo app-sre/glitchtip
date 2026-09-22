@@ -229,6 +229,56 @@ objects:
               memory: ${{GT_WEB_MEMORY_REQUESTS}}
             limits:
               memory: ${{GT_WEB_MEMORY_LIMITS}}
+        - name: init-social-app
+          image: "${IMAGE}:${IMAGE_TAG}"
+          command: ["python3", "appsre/create-social-app.py"]
+          env:
+          - name: DATABASE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.host
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.password
+          - name: DATABASE_NAME
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.name
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: ${RDS_SECRET_NAME}
+                key: db.user
+          - name: SSO_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: ${SSO_SECRET_NAME}
+                key: client_id
+                optional: true
+          - name: SSO_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: ${SSO_SECRET_NAME}
+                key: client_secret
+                optional: true
+          - name: SSO_ISSUER
+            valueFrom:
+              secretKeyRef:
+                name: ${SSO_SECRET_NAME}
+                key: issuer
+                optional: true
+          - name: SSO_PROVIDER_ID
+            value: "${SSO_PROVIDER_ID}"
+          resources:
+            requests:
+              cpu: ${{GT_WEB_CPU_REQUESTS}}
+              memory: ${{GT_WEB_MEMORY_REQUESTS}}
+            limits:
+              memory: ${{GT_WEB_MEMORY_LIMITS}}
         containers:
         - env:
           - name: SERVER_ROLE
@@ -772,6 +822,14 @@ parameters:
 - description: Notification cleaner schedule
   name: NOTIFICATION_CLEANER_SCHEDULE
   value: "32 4 * * *"
+
+- description: Name of the managed-sso-client k8s secret (client_id, client_secret, issuer)
+  name: SSO_SECRET_NAME
+  value: glitchtip-sso-client
+
+- description: OIDC provider ID; becomes part of the login/callback URL (/accounts/oidc/<id>/login/callback/)
+  name: SSO_PROVIDER_ID
+  value: redhat-sso
 
 # Populated users
 - name: API_USER_1_EMAIL
